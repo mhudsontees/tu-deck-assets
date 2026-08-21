@@ -1,0 +1,55 @@
+/* ============================================================
+   U1 TEST STYLESHEET  — host this on GitHub Pages
+   Purpose: prove a GitHub Pages CSS file loads over the TU network.
+   If this file loads, the page below turns dark with a gold-boxed
+   "CSS LOADED" line. If it fails, the page stays plain/unstyled.
+   ============================================================ */
+
+:root {
+  --tu-gold:    #867537;
+  --tu-gold-lt: #b8a04a;
+}
+
+body {
+  margin: 0;
+  font-family: 'DM Sans', system-ui, -apple-system, Arial, sans-serif;
+  background: linear-gradient(135deg, #111 0%, #1d1d1d 100%);
+  color: #f4f4f4;
+  padding: 40px 24px;
+  line-height: 1.5;
+}
+
+.harness { max-width: 640px; margin: 0 auto; }
+
+h1 {
+  color: var(--tu-gold-lt);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  font-size: clamp(22px, 4vw, 30px);
+}
+
+.css-check {
+  border: 2px solid var(--tu-gold);
+  background: rgba(134, 117, 55, 0.15);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin: 20px 0;
+  font-weight: 700;
+}
+.css-check::before {
+  content: '✅ CSS LOADED — ';
+  color: var(--tu-gold-lt);
+}
+
+.status-ok  { color: #6ee7a0; font-weight: 700; }
+.status-bad { color: #ff7676; font-weight: 700; }
+
+.note { opacity: 0.72; font-size: 14px; }
+code { background: rgba(255,255,255,0.1); padding: 1px 6px; border-radius: 4px; }
+
+/* --- WHERE THE REAL FONT GOES (U2/A1) ---
+   When the FS Lola base64 is ready, its @font-face block drops in here.
+   Re-running this same test then also validates the base64-font-over-
+   network path in one pass. Left out of U1 deliberately — U1 tests
+   reachability only.
+--------------------------------------------- */

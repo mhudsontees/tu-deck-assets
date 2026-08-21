@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>U1 — GitHub Pages reachability test (TU network)</title>
+
+  <!-- ⬇⬇ EDIT: replace USERNAME and REPO with your GitHub Pages path ⬇⬇ -->
+  <link rel="stylesheet" href="https://USERNAME.github.io/REPO/test.css">
+  <!-- ⬆⬆ EDIT ⬆⬆ -->
+</head>
+<body>
+  <div class="harness">
+    <h1>U1 · GitHub Pages Reachability Test</h1>
+
+    <p class="note">
+      Open this file <strong>in a browser on the Teesside network</strong>.
+      It links <strong>cross-origin</strong> to a CSS and JS file hosted on
+      GitHub Pages — exactly how a colleague deck will. If both load, GitHub
+      Pages is reachable at render time and <code>linked</code> mode is safe.
+    </p>
+
+    <div class="css-check">
+      this line should be gold-boxed with a green tick. If it is plain,
+      left-aligned and unstyled, the CSS did <strong>NOT</strong> load.
+    </div>
+
+    <p id="js-status" class="status-bad">
+      ❌ JS did NOT execute — if this line stays red, the external script did not load.
+    </p>
+    <p id="js-time" class="note"></p>
+
+    <hr style="border-color:#333; margin:24px 0;">
+
+    <p class="note">
+      <strong>Authoritative check:</strong> open DevTools →
+      <strong>Network</strong> tab → reload. Confirm both
+      <code>test.css</code> and <code>test.js</code> return status
+      <strong>200</strong> — not <code>403</code>, <code>(blocked)</code>,
+      or <code>(failed)</code>. A red/blocked row here is TU interfering,
+      and means <code>linked</code> mode needs the TU-hosting fallback.
+    </p>
+  </div>
+
+  <!-- ⬇⬇ EDIT: same USERNAME and REPO ⬇⬇ -->
+  <script src="https://USERNAME.github.io/REPO/test.js"></script>
+  <!-- ⬆⬆ EDIT ⬆⬆ -->
+</body>
+</html>
