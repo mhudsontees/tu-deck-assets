@@ -1,0 +1,607 @@
+/* ============================================================
+   tu-styles.css — Teesside University deck design system
+   Tokens verified against the TU SRM visual identity.
+   D1–D5 applied. NEVER hardcode a colour, font or weight —
+   always reference a token below.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* --- neutrals (D2: harmonised to official TU SRM palette) --- */
+  --bg:        #000000;   /* TU brand black */
+  --surface:   #111111;
+  --surface2:  #1a1a1a;
+  --border:    #2a2a2a;
+  --text:      #ffffff;
+  --muted:     #8f8f8f;   /* secondary text — lifted for AA on black (~6.5:1) */
+  --muted2:    #767676;   /* tertiary text — TU brand mid-grey (~4.6:1) */
+  --grey-light:#CCCCCC;   /* TU brand light grey */
+
+  /* --- accent: single source of truth (D3) ---
+     Change these two lines only. Every accent in the system derives from them. */
+  --gold-rgb:    134 117 55;   /* TU brand Gold #867537 — CONFIRMED against SRM identity */
+  --gold-lt-rgb: 184 160 74;   /* D1: #b8a04a — screen-legibility extension, NOT a TU brand colour */
+  --gold:    rgb(var(--gold-rgb));
+  --gold-lt: rgb(var(--gold-lt-rgb));
+
+  /* --- semantic accents (kept minimal, brand-adjacent) --- */
+  --pos: #6f9c6f;   /* opportunity / positive */
+  --neg: #a8776b;   /* blocker / caution */
+
+  /* --- type (D4) --- */
+  --font-title: 'FS Lola', Arial, sans-serif;  /* TU primary — titles / headings */
+  --font-body:  'FS Lola', Arial, sans-serif;  /* Elza substitute — flip ONLY this line when Elza is sourced */
+  --weight-heading: 800;                       /* D5: FS Lola has no 900 — never call 900 */
+
+  /* --- layout --- */
+  --pad-x: 88px;
+}
+
+html, body {
+  width: 100%; height: 100%;
+  background: var(--bg); color: var(--text);
+  font-family: var(--font-body);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+#deck { position: relative; width: 100%; height: 100%; }
+
+/* ============================================================
+   SLIDE CONTAINER
+   ============================================================ */
+.slide {
+  position: absolute; inset: 0;
+  padding: 128px var(--pad-x) 68px;
+  opacity: 0; transform: translateX(60px);
+  transition: opacity .42s cubic-bezier(.4,0,.2,1), transform .42s cubic-bezier(.4,0,.2,1);
+  pointer-events: none;   /* critical for iOS touch handling on inactive slides */
+  z-index: 1;
+}
+.slide.enter-reverse { transform: translateX(-60px); }
+.slide.active   { opacity: 1; transform: translateX(0); pointer-events: auto; z-index: 2; }
+.slide.exit-left  { opacity: 0; transform: translateX(-60px); z-index: 1; }
+.slide.exit-right { opacity: 0; transform: translateX(60px);  z-index: 1; }
+
+.client-logo {
+  position: absolute; top: 24px; left: var(--pad-x);
+  height: 56px; max-width: 260px;
+  object-fit: contain; object-position: left center;
+}
+
+.slide-content { min-height: 100%; display: flex; flex-direction: column; justify-content: center; }
+
+/* ============================================================
+   STYLE-GUIDE ONLY — block reference badge.
+   Present in this style guide so blocks can be cited by number.
+   NOT part of the production template.
+   ============================================================ */
+.block-ref {
+  position: absolute; top: 30px; right: var(--pad-x);
+  font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted2);
+  border: 1px dashed rgb(var(--gold-rgb) / .45);
+  border-radius: 3px; padding: 4px 9px;
+  pointer-events: none;
+}
+.block-ref b { color: var(--gold-lt); font-weight: 800; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.digiful-footer {
+  position: absolute; bottom: 0; left: var(--pad-x); right: var(--pad-x);
+  display: grid; grid-template-columns: auto 1fr auto auto auto;
+  align-items: center; gap: 12px;
+  padding: 12px 0 16px;
+  border-top: 1px solid rgba(255,255,255,.06);
+  background: var(--bg);
+}
+.footer-logo { height: 14px; width: auto; opacity: .3; display: block; }
+.footer-version, .slide-counter { font-size: 11px; color: var(--muted2); letter-spacing: .05em; }
+.pdf-link {
+  font-size: 11px; color: var(--muted2); cursor: pointer;
+  text-decoration: none; letter-spacing: .03em; transition: color .2s;
+}
+.pdf-link:hover { color: var(--gold-lt); }
+
+/* ============================================================
+   SHARED TYPOGRAPHY
+   ============================================================ */
+.slide-label {
+  display: inline-block; align-self: flex-start;
+  font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--gold-lt);
+  background: rgb(var(--gold-rgb) / .12);
+  border: 1px solid rgb(var(--gold-rgb) / .30);
+  border-radius: 3px; padding: 4px 10px; margin-bottom: 22px;
+}
+.slide-h1 {
+  font-family: var(--font-title); font-size: clamp(40px,5.5vw,72px);
+  font-weight: var(--weight-heading); line-height: 1.05; letter-spacing: -.02em;
+  margin-bottom: 24px; white-space: nowrap;
+}
+.slide-h2 {
+  font-family: var(--font-title); font-size: clamp(30px,3.6vw,52px);
+  font-weight: var(--weight-heading); line-height: 1.1; letter-spacing: -.015em;
+  margin-bottom: 20px; white-space: nowrap;
+}
+.slide-h3 { font-size: clamp(20px,2.2vw,28px); font-weight: 700; line-height: 1.2; margin-bottom: 14px; }
+.slide-sub { font-size: clamp(15px,1.6vw,19px); font-weight: 400; line-height: 1.65; color: var(--muted); max-width: 70%; }
+.gold-rule { width: 48px; height: 3px; background: var(--gold); border-radius: 2px; margin-bottom: 24px; }
+.src-note { font-size: 10px; color: var(--muted2); margin-top: 14px; font-style: italic; }
+
+/* ============================================================
+   ICONS — inline SVG sprite (Font Awesome Free subset)
+   ============================================================ */
+.icon { width: 1em; height: 1em; fill: currentColor; vertical-align: -.125em; flex-shrink: 0; }
+.icon-gold { color: var(--gold-lt); }
+
+/* ============================================================
+   BLOCK 01 — TITLE
+   ============================================================ */
+.title-slide .slide-content { justify-content: flex-end; padding-bottom: 24px; }
+.title-slide .slide-h1 { margin-bottom: 14px; }
+.title-eyebrow {
+  font-size: clamp(11px,1.1vw,14px); font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--gold-lt); margin-bottom: 16px;
+}
+.title-meta { font-size: clamp(13px,1.3vw,16px); color: var(--muted); margin-top: 8px; }
+.title-slide::before {
+  content: ''; position: absolute; top: 0; right: 0; width: 38%; height: 100%;
+  background: linear-gradient(135deg, transparent 40%, rgb(var(--gold-rgb) / .07) 100%);
+  pointer-events: none;
+}
+
+/* ============================================================
+   BLOCK 02 — AGENDA
+   ============================================================ */
+.agenda-list { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
+.agenda-item { display: flex; align-items: baseline; gap: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.agenda-item:last-child { border-bottom: none; }
+.agenda-num {
+  font-family: var(--font-title); font-size: clamp(16px,1.7vw,20px); font-weight: var(--weight-heading);
+  color: var(--gold-lt); min-width: 34px;
+}
+.agenda-text { font-size: clamp(17px,1.9vw,22px); color: rgba(255,255,255,.9); }
+.agenda-meta { margin-left: auto; font-size: 12px; color: var(--muted2); }
+
+/* ============================================================
+   BLOCK 03 — SECTION COVER
+   ============================================================ */
+.section-cover .slide-content { justify-content: center; }
+.section-cover .slide-h1 { font-size: clamp(42px,6vw,80px); margin-bottom: 12px; white-space: normal; }
+.section-num {
+  font-family: var(--font-title); font-size: clamp(80px,12vw,160px); font-weight: var(--weight-heading);
+  line-height: 1; color: rgb(var(--gold-rgb) / .15); letter-spacing: -.04em;
+  position: absolute; right: var(--pad-x); top: 50%; transform: translateY(-50%);
+  pointer-events: none; user-select: none;
+}
+
+/* ============================================================
+   BLOCK 04 — DONUT CHART (SVG)
+   ============================================================ */
+.donut-wrap { display: flex; align-items: center; gap: 48px; flex-wrap: wrap; }
+.donut { width: clamp(180px,20vw,240px); height: auto; flex-shrink: 0; }
+.donut-track { fill: none; stroke: var(--surface2); stroke-width: 26; }
+.donut-value { fill: none; stroke: var(--gold); stroke-width: 26; stroke-linecap: butt; transform: rotate(-90deg); transform-origin: 50% 50%; }
+.donut-centre { font-family: var(--font-title); font-size: 52px; font-weight: 800; fill: #fff; }
+.donut-centre-sub { font-size: 13px; fill: var(--muted); }
+.donut-legend { display: flex; flex-direction: column; gap: 14px; }
+.legend-item { display: flex; align-items: center; gap: 12px; font-size: clamp(14px,1.5vw,17px); color: rgba(255,255,255,.88); }
+.legend-swatch { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; }
+.legend-swatch.on  { background: var(--gold); }
+.legend-swatch.off { background: var(--surface2); border: 1px solid var(--border); }
+
+/* ============================================================
+   BLOCK 05 / 06 — STAT CARDS
+   ============================================================ */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 16px; margin-top: 8px; }
+.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px 20px; position: relative; overflow: hidden; }
+.stat-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--gold); }
+.stat-number {
+  font-family: var(--font-title); font-size: clamp(28px,3.5vw,48px); font-weight: var(--weight-heading);
+  letter-spacing: -.02em; color: #fff; line-height: 1; margin-bottom: 8px;
+}
+.stat-label { font-size: clamp(14px,1.5vw,17px); color: var(--muted); line-height: 1.45; }
+.stat-source { font-size: 10px; color: var(--muted2); margin-top: 8px; font-style: italic; }
+.split-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.split-2 .slide-sub { max-width: 100%; }
+.split-2 .stat-grid { grid-template-columns: 1fr; margin-top: 0; }
+
+/* ============================================================
+   BLOCK 07 — TIMELINE
+   ============================================================ */
+.timeline { display: flex; flex-direction: column; position: relative; }
+.timeline::before {
+  content: ''; position: absolute; left: 18px; top: 8px; bottom: 8px; width: 2px;
+  background: linear-gradient(to bottom, var(--gold), rgb(var(--gold-rgb) / .10));
+}
+.timeline-item { display: flex; gap: 24px; align-items: flex-start; padding-bottom: 30px; }
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-dot {
+  flex-shrink: 0; width: 38px; height: 38px; border-radius: 50%;
+  background: var(--surface2); border: 2px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700; color: var(--gold-lt); position: relative; z-index: 1;
+}
+.timeline-content { padding-top: 6px; }
+.timeline-year { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: 4px; }
+.timeline-title { font-size: clamp(17px,1.9vw,22px); font-weight: 700; color: #fff; margin-bottom: 4px; }
+.timeline-desc { font-size: clamp(14px,1.5vw,17px); color: var(--muted); line-height: 1.5; }
+
+/* ============================================================
+   BLOCK 08 / 13 — LESSON (+ MISTAKE BLOCK)
+   ============================================================ */
+.lesson-num {
+  font-family: var(--font-title); font-size: clamp(48px,7vw,96px); font-weight: var(--weight-heading);
+  line-height: 1; color: rgb(var(--gold-rgb) / .22); letter-spacing: -.03em; margin-bottom: 8px;
+}
+.lesson-body { font-size: clamp(16px,1.7vw,20px); line-height: 1.6; color: rgba(255,255,255,.88); max-width: 78%; }
+.mistake-block {
+  margin-top: 26px; background: var(--surface); border: 1px solid var(--border);
+  border-left: 3px solid var(--gold); border-radius: 6px; padding: 18px 22px; max-width: 78%;
+}
+.mistake-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--gold-lt); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;
+}
+.mistake-text { font-size: clamp(14px,1.5vw,17px); line-height: 1.55; color: var(--grey-light); }
+.takeaway {
+  margin-top: 26px; background: rgb(var(--gold-rgb) / .08);
+  border: 1px solid rgb(var(--gold-rgb) / .30); border-radius: 6px;
+  padding: 18px 22px; max-width: 78%;
+}
+.takeaway-label { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: 8px; }
+.takeaway-text { font-size: clamp(15px,1.6vw,19px); line-height: 1.5; color: #fff; font-weight: 500; }
+
+/* ============================================================
+   BLOCK 09 — COMPETITOR / NEWS CARDS
+   BLOCK 10 — JOB ROLE CARDS
+   BLOCK 12 — PROJECT CARDS
+   ============================================================ */
+.card-grid { display: grid; gap: 16px; margin-top: 4px; }
+.card-grid.cols-2 { grid-template-columns: repeat(2,1fr); }
+.card-grid.cols-3 { grid-template-columns: repeat(3,1fr); }
+.card-grid.cols-4 { grid-template-columns: repeat(4,1fr); }
+.info-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  padding: 20px; display: flex; flex-direction: column; gap: 8px;
+}
+.card-src { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-lt); }
+.card-title { font-size: clamp(15px,1.6vw,19px); font-weight: 700; color: #fff; line-height: 1.3; }
+.card-body { font-size: clamp(13px,1.4vw,16px); color: var(--muted); line-height: 1.5; }
+.card-meta { font-size: 11px; color: var(--muted2); margin-top: auto; padding-top: 8px; }
+.project-badge {
+  display: inline-block; align-self: flex-start;
+  font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--gold-lt); background: rgb(var(--gold-rgb) / .12);
+  border: 1px solid rgb(var(--gold-rgb) / .30); border-radius: 3px; padding: 3px 8px;
+}
+
+/* ============================================================
+   BLOCK 11 — STANDARD BULLETS
+   BLOCK 16 — TWO-COLUMN BULLETS
+   ============================================================ */
+.slide-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+.slide-list li {
+  display: flex; align-items: flex-start; gap: 14px;
+  font-size: clamp(17px,1.9vw,22px); line-height: 1.55; color: rgba(255,255,255,.88);
+}
+.slide-list li::before { content: ''; flex-shrink: 0; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); margin-top: 10px; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.col-head { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: 16px; }
+.two-col .slide-list li { font-size: clamp(15px,1.6vw,19px); gap: 12px; }
+
+/* ============================================================
+   BLOCK 14 — DISCUSSION CARDS (2×2)
+   ============================================================ */
+.discuss-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  padding: 22px; display: flex; flex-direction: column; gap: 10px; min-height: 130px;
+}
+.discuss-q { font-size: clamp(15px,1.6vw,19px); font-weight: 500; color: #fff; line-height: 1.4; }
+.discuss-hint { font-size: clamp(12px,1.3vw,14px); color: var(--muted); line-height: 1.5; }
+.discuss-num { font-family: var(--font-title); font-size: 13px; font-weight: 800; color: var(--gold-lt); }
+
+/* ============================================================
+   BLOCK 15 — OPPORTUNITIES & BLOCKERS
+   ============================================================ */
+.opp-blocker { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.opp-col, .blocker-col { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px; }
+.opp-col     { border-top: 3px solid var(--pos); }
+.blocker-col { border-top: 3px solid var(--neg); }
+.ob-label { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.opp-col .ob-label     { color: var(--pos); }
+.blocker-col .ob-label { color: var(--neg); }
+.ob-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.ob-list li { display: flex; gap: 12px; font-size: clamp(14px,1.5vw,17px); line-height: 1.5; color: rgba(255,255,255,.88); }
+.ob-list li::before { content: ''; flex-shrink: 0; width: 5px; height: 5px; border-radius: 50%; margin-top: 9px; background: currentColor; opacity: .5; }
+
+/* ============================================================
+   BLOCK 17 — FLOWCHART
+   ============================================================ */
+.flow-chart { display: flex; flex-direction: column; align-items: flex-start; }
+.flow-step { display: flex; align-items: center; gap: 16px; width: 100%; }
+.flow-box {
+  flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+  padding: 12px 16px; font-size: clamp(14px,1.5vw,17px); color: rgba(255,255,255,.88);
+  font-weight: 500; line-height: 1.35;
+}
+.flow-box.highlight { border-color: var(--gold); background: rgb(var(--gold-rgb) / .08); }
+.flow-arrow { display: flex; justify-content: flex-start; padding-left: 20px; margin: 3px 0; color: var(--gold); font-size: 16px; }
+.flow-note { font-size: 11px; color: var(--muted2); padding-left: 4px; align-self: center; min-width: 140px; }
+
+/* ============================================================
+   BLOCK 18 — FEATURE / UPSKILLING CARD
+   ============================================================ */
+.feature-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-left: 3px solid var(--gold); border-radius: 8px; padding: 30px 34px;
+  display: flex; gap: 28px; align-items: flex-start;
+}
+.feature-icon { font-size: 40px; color: var(--gold-lt); line-height: 1; }
+.feature-title { font-size: clamp(20px,2.2vw,28px); font-weight: 700; color: #fff; margin-bottom: 10px; }
+.feature-body { font-size: clamp(14px,1.5vw,17px); color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+
+/* ============================================================
+   BLOCK 19 — END / CLOSING
+   ============================================================ */
+.end-slide .slide-content { justify-content: center; align-items: flex-start; }
+.end-slide .slide-h1 { white-space: normal; }
+.end-contact { margin-top: 20px; display: flex; flex-direction: column; gap: 6px; }
+.end-contact span { font-size: clamp(14px,1.5vw,18px); color: var(--muted); }
+.end-contact strong { color: var(--gold-lt); font-weight: 700; }
+
+/* ============================================================
+   BLOCK 20 — ACTION POINTS
+   ============================================================ */
+.action-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.action-item {
+  display: flex; align-items: flex-start; gap: 18px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 16px 20px;
+}
+.action-num {
+  flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+  background: rgb(var(--gold-rgb) / .14); border: 1px solid rgb(var(--gold-rgb) / .35);
+  color: var(--gold-lt); font-size: 13px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+}
+.action-text { font-size: clamp(15px,1.6vw,19px); color: rgba(255,255,255,.9); line-height: 1.45; }
+.action-owner { margin-left: auto; font-size: 11px; color: var(--muted2); white-space: nowrap; padding-top: 5px; }
+
+/* ============================================================
+   BLOCK 21 — ATTRIBUTION (overlay modifier)
+   Inherits all tokens — never redeclares :root.
+   ============================================================ */
+.attr-block { position: absolute; bottom: 60px; right: var(--pad-x); text-align: right; max-width: 60%; pointer-events: none; }
+.attr-title { font-family: var(--font-body); font-size: clamp(13px,1.4vw,15px); font-weight: 700; color: #fff; line-height: 1.35; }
+.attr-meta  { font-family: var(--font-body); font-size: clamp(13px,1.4vw,15px); font-weight: 400; color: var(--gold-lt); margin-top: 3px; }
+.attr-divider { display: none; }
+
+/* ============================================================
+   BLOCK 22 — PULL QUOTE / TESTIMONIAL
+   ============================================================ */
+.quote-slide .slide-content { justify-content: center; }
+.quote-mark { font-family: var(--font-title); font-size: 90px; font-weight: var(--weight-heading); color: rgb(var(--gold-rgb) / .35); line-height: .8; margin-bottom: 8px; }
+.quote-text {
+  font-family: var(--font-title); font-size: clamp(26px,3.4vw,46px); font-weight: 500;
+  line-height: 1.25; letter-spacing: -.01em; color: #fff; max-width: 84%;
+}
+.quote-attr { margin-top: 26px; display: flex; flex-direction: column; gap: 3px; }
+.quote-name { font-size: clamp(14px,1.5vw,18px); font-weight: 700; color: var(--gold-lt); }
+.quote-role { font-size: clamp(13px,1.4vw,16px); color: var(--muted); }
+
+/* ============================================================
+   BLOCK 23 — COMPARISON TABLE
+   ============================================================ */
+.cmp-table { width: 100%; border-collapse: collapse; font-size: clamp(13px,1.4vw,16px); }
+.cmp-table thead th {
+  text-align: left; padding: 12px 16px;
+  font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--gold-lt); background: rgb(var(--gold-rgb) / .10);
+  border-bottom: 2px solid rgb(var(--gold-rgb) / .40);
+}
+.cmp-table tbody td { padding: 13px 16px; border-bottom: 1px solid var(--border); color: rgba(255,255,255,.88); line-height: 1.45; vertical-align: top; }
+.cmp-table tbody tr:nth-child(even) { background: rgba(255,255,255,.02); }
+.cmp-table tbody th {
+  text-align: left; padding: 13px 16px; border-bottom: 1px solid var(--border);
+  font-weight: 700; color: #fff; white-space: nowrap;
+}
+.cmp-yes { color: var(--pos); font-weight: 700; }
+.cmp-no  { color: var(--neg); font-weight: 700; }
+
+/* ============================================================
+   BLOCK 24 — CHART (hand-built SVG bar chart)
+   ============================================================ */
+.chart-wrap { width: 100%; max-width: 900px; }
+.chart-svg { width: 100%; height: auto; overflow: visible; }
+.chart-grid    { stroke: var(--border); stroke-width: 1; }
+.chart-bar     { fill: var(--gold); }
+.chart-bar.alt { fill: rgb(var(--gold-rgb) / .40); }
+.chart-axis-label { fill: var(--muted); font-size: 13px; font-family: var(--font-body); }
+.chart-value      { fill: #fff; font-size: 14px; font-weight: 700; font-family: var(--font-title); }
+.chart-legend { display: flex; gap: 24px; margin-top: 18px; }
+
+/* ============================================================
+   BLOCK 25 — ROADMAP (Now / Next / Later)
+   ============================================================ */
+.roadmap { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; position: relative; }
+.roadmap-col { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 22px; }
+.roadmap-col.now { border-top: 3px solid var(--gold); }
+.roadmap-col.next { border-top: 3px solid rgb(var(--gold-rgb) / .55); }
+.roadmap-col.later { border-top: 3px solid rgb(var(--gold-rgb) / .28); }
+.roadmap-phase { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: 4px; }
+.roadmap-when { font-size: 11px; color: var(--muted2); margin-bottom: 16px; }
+.roadmap-list { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.roadmap-list li { display: flex; gap: 10px; font-size: clamp(13px,1.4vw,16px); line-height: 1.45; color: rgba(255,255,255,.88); }
+.roadmap-list li::before { content: ''; flex-shrink: 0; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); margin-top: 8px; }
+
+/* ============================================================
+   BLOCK 26 — 2×2 MATRIX / QUADRANT
+   ============================================================ */
+.matrix-wrap { display: flex; gap: 16px; align-items: stretch; max-width: 900px; }
+.matrix-y {
+  display: flex; align-items: center; justify-content: center;
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-lt);
+}
+.matrix { flex: 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 12px; }
+.matrix-cell { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 18px; min-height: 110px; }
+.matrix-cell.priority { border-color: rgb(var(--gold-rgb) / .55); background: rgb(var(--gold-rgb) / .07); }
+.matrix-cell-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: 8px; }
+.matrix-cell-items { font-size: clamp(12px,1.3vw,15px); color: var(--muted); line-height: 1.5; }
+.matrix-x { text-align: center; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-lt); margin-top: 12px; }
+
+/* ============================================================
+   BLOCK 27 — IMAGE / MEDIA (CDN-hosted)
+   NOTE: requires network. Offline snapshots will show a gap.
+   ============================================================ */
+.media-figure { margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.media-img {
+  width: 100%; max-height: 52vh; object-fit: cover;
+  border-radius: 8px; border: 1px solid var(--border); display: block; background: var(--surface2);
+}
+.media-caption { font-size: clamp(12px,1.3vw,15px); color: var(--muted); line-height: 1.5; }
+.media-credit { font-size: 10px; color: var(--muted2); font-style: italic; }
+
+/* ============================================================
+   BLOCK 28 — BIG STATEMENT
+   ============================================================ */
+.statement-slide .slide-content { justify-content: center; }
+.statement {
+  font-family: var(--font-title); font-size: clamp(34px,5vw,68px); font-weight: var(--weight-heading);
+  line-height: 1.1; letter-spacing: -.02em; color: #fff; max-width: 86%;
+}
+.statement em { font-style: normal; color: var(--gold-lt); }
+.statement-sub { margin-top: 20px; font-size: clamp(14px,1.5vw,18px); color: var(--muted); max-width: 60%; }
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.nav-btn {
+  position: fixed; top: 50%; transform: translateY(-50%);
+  width: 44px; height: 44px; background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.09); border-radius: 50%; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s, border-color .2s, opacity .2s; z-index: 100;
+}
+#nav-prev { left: 20px; }
+#nav-next { right: 20px; }
+.nav-active { background: rgb(var(--gold-rgb) / .12); border-color: rgb(var(--gold-lt-rgb) / .40); }
+.nav-active svg { stroke: var(--gold-lt); }
+.nav-disabled { opacity: .1; pointer-events: none; }
+.nav-disabled svg { stroke: var(--muted2); }
+#mobile-counter {
+  display: none; position: fixed; top: 14px; right: 14px;
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 20px; backdrop-filter: blur(4px);
+  font-size: 11px; padding: 4px 10px; pointer-events: none; z-index: 200;
+  font-family: var(--font-body); color: var(--text);
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+@media (max-width: 768px) {
+  :root { --pad-x: 18px; }
+  .slide { padding: 0; }
+  .slide-scroll {
+    position: absolute; top: 84px; bottom: 96px; left: var(--pad-x); right: var(--pad-x);
+    overflow-y: auto; -webkit-overflow-scrolling: touch;   /* sole scroll container */
+  }
+  .client-logo { top: 14px; left: var(--pad-x); height: 40px; }
+  /* block-ref: drop below the header band, right-aligned; signposting only, can't collide with the logo */
+  .block-ref { top: 58px; right: var(--pad-x); font-size: 9px; padding: 3px 7px; max-width: 62%; text-align: right; }
+  .slide-scroll { top: 92px; }        /* clear the dropped block-ref */
+  .slide-content { justify-content: flex-start; min-height: auto; padding: 4px 0 12px; }
+  .slide-h1, .slide-h2, .quote-text, .statement { white-space: normal; }
+  .slide-sub, .lesson-body, .mistake-block, .takeaway, .quote-text, .statement, .statement-sub { max-width: 100%; }
+  .pdf-link { display: none; }
+  .section-num { font-size: clamp(60px,22vw,120px); top: auto; bottom: 120px; right: var(--pad-x); transform: none; }
+  .digiful-footer { left: var(--pad-x); right: var(--pad-x); grid-template-columns: auto 1fr auto; padding-bottom: env(safe-area-inset-bottom,10px); }
+
+  /* stacking */
+  .card-grid.cols-2, .card-grid.cols-3, .card-grid.cols-4,
+  .split-2, .two-col, .opp-blocker, .roadmap { grid-template-columns: 1fr; gap: 14px; }
+  .donut-wrap { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .feature-card { flex-direction: column; gap: 16px; padding: 22px; }
+  .flow-step { flex-direction: column; align-items: stretch; gap: 6px; }
+  .flow-note { min-width: 0; padding-left: 0; }
+  .matrix-wrap { flex-direction: column; }
+  .matrix-y { writing-mode: horizontal-tb; transform: none; justify-content: flex-start; }
+  .matrix { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .action-item { flex-wrap: wrap; }
+  .action-owner { margin-left: 46px; padding-top: 0; }
+  .media-img { max-height: 34vh; }
+  .quote-mark { font-size: 56px; }
+
+  /* comparison table → scrollable */
+  .cmp-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .cmp-table { min-width: 560px; }
+
+  /* attribution */
+  .attr-block { position: absolute; bottom: 56px; left: var(--pad-x); right: var(--pad-x); max-width: none; text-align: left; padding-bottom: 8px; }
+  .attr-title, .attr-meta { font-size: 11px; }
+  .attr-meta { margin-top: 1px; }
+  .attr-divider { display: block; border: none; border-top: 1px solid rgba(255,255,255,.12); margin-top: 8px; }
+}
+
+/* ============================================================
+   PRINT / PDF
+   ============================================================ */
+@media print {
+  @page { size: A4 landscape; margin: 0; }
+  html, body {
+    overflow: visible; height: auto; width: auto;
+    background: var(--bg) !important;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+
+  #deck { position: static; height: auto; background: var(--bg); }
+
+  .slide {
+    position: relative; inset: auto;
+    opacity: 1 !important; transform: none !important;
+    break-after: page; break-inside: avoid;
+    box-sizing: border-box;
+    width: 297mm; height: 209mm;   /* exact A4 landscape (1mm under 210 to defeat rounding overflow) */
+    padding: 13mm 16mm 10mm;
+    background: var(--bg);
+    overflow: hidden;              /* clip, never spill onto a phantom page */
+    pointer-events: auto;
+  }
+  .slide:last-child { break-after: auto; }
+
+  /* slide becomes a top→bottom column: logo up top, content centred, footer pinned to the page foot */
+  .slide { display: flex; flex-direction: column; }
+  .slide-scroll { position: static; overflow: visible; flex: 1 1 auto; display: flex; flex-direction: column; }
+  .slide-content { display: flex; flex-direction: column; flex: 1 1 auto; justify-content: center; min-height: 0; }
+
+  /* header logo: pinned at the top of the flow */
+  .client-logo {
+    position: static; display: block;
+    height: 46px; margin: 0 0 18px; flex: 0 0 auto;
+  }
+
+  /* footer: pinned to the foot of the full-height page */
+  .digiful-footer {
+    position: static; left: auto; right: auto; flex: 0 0 auto;
+    margin-top: 18px; padding: 10px 0 0;
+  }
+
+  /* block-ref is style-guide-only signposting — never print it */
+  .block-ref { display: none !important; }
+
+  /* section covers: don't force a viewport-height centre in print */
+  .section-cover .section-num { position: static; transform: none; display: block; margin-top: 12px; }
+  .title-slide .slide-content, .section-cover .slide-content,
+  .quote-slide .slide-content, .statement-slide .slide-content,
+  .end-slide .slide-content { justify-content: flex-start; }
+  .title-slide::before { display: none; }
+
+  .nav-btn, #mobile-counter { display: none !important; }
+  .cmp-scroll { overflow: visible; }
+  .attr-block { position: static; text-align: left; max-width: none; margin-top: 16px; }
+}
