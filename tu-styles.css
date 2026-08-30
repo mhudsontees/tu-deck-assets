@@ -92,14 +92,18 @@ html, body {
    ============================================================ */
 .digiful-footer {
   position: absolute; bottom: 0; left: var(--pad-x); right: var(--pad-x);
-  display: grid; grid-template-columns: auto 1fr auto auto auto;
-  align-items: center; gap: 12px;
+  display: flex; align-items: center; gap: 16px;   /* flex, not grid — recloses cleanly if a field is removed */
   padding: 12px 0 16px;
   border-top: 1px solid rgba(255,255,255,.06);
   background: var(--bg);
 }
-.footer-logo { height: 14px; width: auto; opacity: .3; display: block; }
-.footer-version, .slide-counter { font-size: 11px; color: var(--muted2); letter-spacing: .05em; }
+.footer-logo { height: 14px; width: auto; opacity: .3; display: block; flex: 0 0 auto; }
+.slide-counter { flex: 0 0 auto; }        /* always present */
+.footer-author { flex: 1 1 auto; }        /* takes the middle space; pushes pdf-link + version right */
+.pdf-link { flex: 0 0 auto; }
+.footer-version { flex: 0 0 auto; margin-left: auto; }  /* margin-left:auto keeps version right-aligned even if author is removed */
+.footer-version, .footer-author, .slide-counter { font-size: 11px; color: var(--muted2); letter-spacing: .05em; }
+.footer-author { color: var(--muted); }   /* author slightly brighter than version/counter */
 .pdf-link {
   font-size: 11px; color: var(--muted2); cursor: pointer;
   text-decoration: none; letter-spacing: .03em; transition: color .2s;
@@ -520,7 +524,8 @@ html, body {
   .slide-sub, .lesson-body, .mistake-block, .takeaway, .quote-text, .statement, .statement-sub { max-width: 100%; }
   .pdf-link { display: none; }
   .section-num { font-size: clamp(60px,22vw,120px); top: auto; bottom: 120px; right: var(--pad-x); transform: none; }
-  .digiful-footer { left: var(--pad-x); right: var(--pad-x); grid-template-columns: auto 1fr auto; padding-bottom: env(safe-area-inset-bottom,10px); }
+  .digiful-footer { left: var(--pad-x); right: var(--pad-x); gap: 12px; padding-bottom: env(safe-area-inset-bottom,10px); }
+  .footer-version { display: none; }   /* keep the mobile footer uncrowded — version drops on narrow screens */
 
   /* stacking */
   .card-grid.cols-2, .card-grid.cols-3, .card-grid.cols-4,
