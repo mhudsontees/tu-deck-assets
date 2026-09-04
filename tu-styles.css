@@ -571,8 +571,8 @@ html, body {
     opacity: 1 !important; transform: none !important;
     break-after: page; break-inside: avoid;
     box-sizing: border-box;
-    width: 297mm; height: 209mm;   /* exact A4 landscape (1mm under 210 to defeat rounding overflow) */
-    padding: 13mm 16mm 10mm;
+    width: 297mm; height: 200mm;   /* under A4 landscape printable height — prevents overflow onto a phantom page (confirmed via black-test) */
+    padding: 12mm 16mm 12mm;
     background: var(--bg);
     overflow: hidden;              /* clip, never spill onto a phantom page */
     pointer-events: auto;
