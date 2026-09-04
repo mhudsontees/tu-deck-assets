@@ -38,7 +38,7 @@ DECK_VERSION:    [optional — footer version/date, e.g. v1 · Sept 2026. Leave 
 - Use the exact `<head>` given in HTML SHELL below **verbatim** — it links the hosted design system and font. **Do not** add a `<style>` block, inline styles, or any external resource (no CDNs, no Google Fonts, no icon libraries).
 - Build one `<section class="slide">` per slide the author specifies, in order, using the BLOCK PATTERNS.
 - The **first** slide gets `class="slide title-slide active"`; every other slide gets `class="slide"` plus any modifier shown in its pattern.
-- Give each slide a **semantic id** based on its content (e.g. `id="landscape-stats"`), never positional.
+- Give each slide a **semantic id** based on its content, in kebab-case, unique within the deck (e.g. `id="landscape-stats"`), never positional (never `id="slide-4"`). **This id is what deep-links to the slide** — `deck.html#landscape-stats` jumps straight to it.
 - Set every slide's footer counter to `N / TOTAL`.
 - British English throughout. Use `&mdash;`, `&amp;`, `&middot;` entities.
 - Icons: use only the `<use href="#i-...">` ids listed in ICON VOCABULARY. The icon sprite is included in the shell — do not add icons from anywhere else.
@@ -120,302 +120,378 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ## 📑 BLOCK PATTERNS
 
-> Replace every `[...]` with real content. Omit optional lines you don't need. Choose the block that fits each slide; **Block 11 (Standard bullets) is the default** for a heading + body points.
+> Each block below shows the **exact class** to put on its `<section>` and a **filled example** you can copy and edit. `default` means just `class="slide"` with no modifier. Block 11 is the default choice for a normal heading + points slide.
 
-### Block 01 — Title  ·  modifier: `title-slide`
+### Block 01 — Title  ·  class: **title-slide**
+`<section class="slide title-slide" id="[semantic-id]">`
 ```html
-<span class="title-eyebrow">[DECK_EYEBROW]</span>
-<h1 class="slide-h1">[DECK_TITLE]</h1>
-<p class="title-meta">[DECK_SUBTITLE]</p>
+<span class="title-eyebrow">SRM AI Working Group</span>
+<h1 class="slide-h1">Block Style Guide</h1>
+<p class="title-meta">Teesside University &mdash; Student Recruitment &amp; Marketing &middot; 2026</p>
 ```
 
-### Block 02 — Agenda
+### Block 02 — Agenda  ·  class: **default**
+`<section class="slide" id="[semantic-id]">` — no modifier.
 ```html
-<span class="slide-label">[Agenda]</span>
-<h2 class="slide-h2">[Heading]</h2>
+<span class="slide-label">Agenda</span>
+<h2 class="slide-h2">What we&rsquo;ll cover</h2>
 <div class="gold-rule"></div>
 <ul class="agenda-list">
-  <li class="agenda-item"><span class="agenda-num">01</span><span class="agenda-text">[Item]</span><span class="agenda-meta">[e.g. 10 min]</span></li>
-  <!-- repeat li per agenda item -->
+  <li class="agenda-item"><span class="agenda-num">01</span><span class="agenda-text">Where we stand</span><span class="agenda-meta">10 min</span></li>
+  <li class="agenda-item"><span class="agenda-num">02</span><span class="agenda-text">Sector context and capability</span><span class="agenda-meta">10 min</span></li>
+  <li class="agenda-item"><span class="agenda-num">03</span><span class="agenda-text">Opportunities and blockers</span><span class="agenda-meta">15 min</span></li>
+  <li class="agenda-item"><span class="agenda-num">04</span><span class="agenda-text">Proposed projects</span><span class="agenda-meta">15 min</span></li>
+  <li class="agenda-item"><span class="agenda-num">05</span><span class="agenda-text">Discussion and actions</span><span class="agenda-meta">10 min</span></li>
 </ul>
 ```
 
-### Block 03 — Section cover  ·  modifier: `section-cover`
+### Block 03 — Section cover  ·  class: **section-cover**
+`<section class="slide section-cover" id="[semantic-id]">`
 ```html
-<span class="slide-label">[Section 01]</span>
-<h1 class="slide-h1">[Section title]</h1>
-<p class="slide-sub">[One-line intro]</p>
-<div class="section-num">[01]</div>
+<span class="slide-label">Section 01</span>
+<h1 class="slide-h1">The Landscape</h1>
+<p class="slide-sub">Where the sector has moved, and what that means for us.</p>
+<div class="section-num">01</div>
 ```
 
-### Block 04 — Donut chart (single %)
+### Block 04 — Donut chart  ·  class: **default**
+`<section class="slide" id="[semantic-id]">` — no modifier.
 ```html
-<span class="slide-label">[Section label]</span>
-<h2 class="slide-h2">[Heading]</h2>
+<span class="slide-label">Section 01 &mdash; The Landscape</span>
+<h2 class="slide-h2">Staff AI usage</h2>
 <div class="gold-rule"></div>
 <div class="donut-wrap">
-  <svg class="donut" viewBox="0 0 220 220" role="img" aria-label="[NN percent ...]">
+  <svg class="donut" viewBox="0 0 220 220" role="img" aria-label="68 percent of staff use AI tools weekly">
     <circle class="donut-track" cx="110" cy="110" r="80"></circle>
-    <!-- stroke-dasharray: value = 5.0265 × percentage ; second number = 502.65 − first -->
-    <circle class="donut-value" cx="110" cy="110" r="80" stroke-dasharray="[VALUE] [REMAINDER]"></circle>
-    <text class="donut-centre" x="110" y="112" text-anchor="middle" dominant-baseline="middle">[NN%]</text>
-    <text class="donut-centre-sub" x="110" y="140" text-anchor="middle">[label]</text>
+    <circle class="donut-value" cx="110" cy="110" r="80" stroke-dasharray="341.8 160.9"></circle>
+    <text class="donut-centre" x="110" y="112" text-anchor="middle" dominant-baseline="middle">68%</text>
+    <text class="donut-centre-sub" x="110" y="140" text-anchor="middle">weekly users</text>
   </svg>
   <div class="donut-legend">
-    <div class="legend-item"><span class="legend-swatch on"></span>[On label]</div>
-    <div class="legend-item"><span class="legend-swatch off"></span>[Off label]</div>
-    <p class="src-note">[Source]</p>
+    <div class="legend-item"><span class="legend-swatch on"></span>Use an AI tool at least weekly</div>
+    <div class="legend-item"><span class="legend-swatch off"></span>Occasional or non-users</div>
+    <p class="src-note">Illustrative figures &mdash; replace with your own source.</p>
   </div>
 </div>
 ```
 
-### Block 05 — Stat cards (up to 4)
+### Block 05 — Stat cards (up to 4)  ·  class: **default**
+`<section class="slide" id="[semantic-id]">` — no modifier.
 ```html
-<span class="slide-label">[Section label]</span>
-<h2 class="slide-h2">[Heading]</h2>
+<span class="slide-label">Section 01 &mdash; The Landscape</span>
+<h2 class="slide-h2">Where we stand</h2>
 <div class="gold-rule"></div>
 <div class="stat-grid">
-  <div class="stat-card"><div class="stat-number">[92%]</div><div class="stat-label">[what it means]</div><div class="stat-source">[source]</div></div>
-  <!-- repeat stat-card, 2 to 4 total -->
+  <div class="stat-card"><div class="stat-number">92%</div><div class="stat-label">of UK undergraduates use generative AI</div><div class="stat-source">HEPI, 2025</div></div>
+  <div class="stat-card"><div class="stat-number">3</div><div class="stat-label">competitor universities with institution-wide AI tools</div><div class="stat-source">Oxford, Liverpool, South Wales</div></div>
+  <div class="stat-card"><div class="stat-number">1</div><div class="stat-label">approved tool for University data</div><div class="stat-source">Copilot, basic licence</div></div>
+  <div class="stat-card"><div class="stat-number">2,000+</div><div class="stat-label">staff covered by any policy decision</div></div>
 </div>
 ```
 
-### Block 06 — Body text + stat cards (2-up)
+### Block 06 — Body text + stat cards (2-up)  ·  class: **default**
+`<section class="slide" id="[semantic-id]">` — no modifier.
 ```html
-<span class="slide-label">[Section label]</span>
-<h2 class="slide-h2">[Heading]</h2>
+<span class="slide-label">Section 01 &mdash; The Landscape</span>
+<h2 class="slide-h2">The gap in context</h2>
 <div class="gold-rule"></div>
 <div class="split-2">
   <div>
-    <p class="slide-sub">[Paragraph]</p>
-    <p class="slide-sub" style="margin-top:16px;">[Optional second paragraph]</p>
+    <p class="slide-sub">Adoption among students has outpaced institutional policy by a wide margin. That gap is not unique to us &mdash; it is a sector-wide pattern that policy has not yet resolved.</p>
+    <p class="slide-sub" style="margin-top:16px;">The practical question is not whether staff use these tools, but whether they do so with support and guardrails.</p>
   </div>
   <div class="stat-grid">
-    <div class="stat-card"><div class="stat-number">[4&times;]</div><div class="stat-label">[label]</div></div>
-    <div class="stat-card"><div class="stat-number">[18mo]</div><div class="stat-label">[label]</div></div>
+    <div class="stat-card"><div class="stat-number">4&times;</div><div class="stat-label">growth in staff AI queries year on year</div></div>
+    <div class="stat-card"><div class="stat-number">18mo</div><div class="stat-label">typical lag between tool release and approval</div></div>
   </div>
 </div>
 ```
 
-### Block 07 — Timeline
+### Block 07 — Timeline  ·  class: **default**
+`<section class="slide" id="[semantic-id]">` — no modifier.
 ```html
-<span class="slide-label">[Section label]</span>
-<h2 class="slide-h2">[Heading]</h2>
+<span class="slide-label">Section 02 &mdash; Capability</span>
+<h2 class="slide-h2">How fast this is moving</h2>
 <div class="gold-rule"></div>
 <div class="timeline">
-  <div class="timeline-item"><div class="timeline-dot">1</div><div class="timeline-content"><div class="timeline-year">[2023]</div><div class="timeline-title">[Title]</div><div class="timeline-desc">[Description]</div></div></div>
-  <!-- repeat timeline-item -->
+  <div class="timeline-item"><div class="timeline-dot">1</div><div class="timeline-content"><div class="timeline-year">2023</div><div class="timeline-title">Generative AI goes mainstream</div><div class="timeline-desc">Public tools reach classrooms and workplaces faster than policy can respond.</div></div></div>
+  <div class="timeline-item"><div class="timeline-dot">2</div><div class="timeline-content"><div class="timeline-year">2024</div><div class="timeline-title">Agents and automation mature</div><div class="timeline-desc">Workflow tools move from novelty to genuine time savings.</div></div></div>
+  <div class="timeline-item"><div class="timeline-dot">3</div><div class="timeline-content"><div class="timeline-year">2025</div><div class="timeline-title">Institution-wide adoption</div><div class="timeline-desc">Competitor universities deploy AI tools and qualifications at scale.</div></div></div>
+  <div class="timeline-item"><div class="timeline-dot">4</div><div class="timeline-content"><div class="timeline-year">2026</div><div class="timeline-title">North East AI Growth Zone</div><div class="timeline-desc">Regional designation raises the stakes for local institutions.</div></div></div>
 </div>
 ```
 
-### Block 08 — Lesson + mistake callout
+### Block 08 — Lesson + mistake callout  ·  class: **default**
+`<section class="slide" id="[semantic-id]">` — no modifier.
 ```html
-<span class="slide-label">[Section label]</span>
-<div class="lesson-num">[01]</div>
-<h2 class="slide-h2">[Lesson heading]</h2>
+<span class="slide-label">Section 02 &mdash; Capability</span>
+<div class="lesson-num">01</div>
+<h2 class="slide-h2">Start with the workflow</h2>
 <div class="gold-rule"></div>
-<p class="lesson-body">[Lesson text]</p>
+<p class="lesson-body">The tools that stick are the ones that remove a step someone already resents. Begin with a task the team already does every week, not with the technology.</p>
 <div class="mistake-block">
   <div class="mistake-label"><svg class="icon" aria-hidden="true"><use href="#i-warning"/></svg> Common mistake</div>
-  <div class="mistake-text">[The pitfall]</div>
+  <div class="mistake-text">Choosing a tool first and then hunting for a problem it might solve. This produces impressive demos and very little adoption.</div>
 </div>
 ```
 
-### Block 09 — News / competitor cards
+### Block 09 — News / competitor cards  ·  class: **default**
+`<section class="slide" id="[semantic-id]">` — no modifier.
 ```html
-<span class="slide-label">[Section label]</span>
-<h2 class="slide-h2">[Heading]</h2>
+<span class="slide-label">Section 02 &mdash; Capability</span>
+<h2 class="slide-h2">What others are doing</h2>
 <div class="gold-rule"></div>
 <div class="card-grid cols-3">
-  <div class="info-card"><span class="card-src">[Source]</span><div class="card-title">[Title]</div><div class="card-body">[Body]</div><div class="card-meta">[Meta]</div></div>
-  <!-- repeat info-card (cols-2 / cols-3 / cols-4 on the grid) -->
+  <div class="info-card"><span class="card-src">Oxford</span><div class="card-title">Institution-wide assistant rollout</div><div class="card-body">Deployed to all staff and students with a supporting training programme.</div><div class="card-meta">Reported 2025</div></div>
+  <div class="info-card"><span class="card-src">Liverpool</span><div class="card-title">Credit-bearing AI qualification</div><div class="card-body">Embedded AI literacy into the curriculum rather than treating it as an add-on.</div><div class="card-meta">Reported 2025</div></div>
+  <div class="info-card"><span class="card-src">South Wales</span><div class="card-title">Staff AI skills framework</div><div class="card-body">Defined competency levels so training can be targeted by role.</div><div class="card-meta">Reported 2025</div></div>
 </div>
-<p class="src-note">[Optional source note]</p>
+<p class="src-note">Illustrative summaries &mdash; verify before external use.</p>
 ```
 
-### Block 10 — Role cards
+### Block 10 — Role cards  ·  class: **default**
+`<section class="slide" id="[semantic-id]">` — no modifier.
 ```html
-<span class="slide-label">[Section label]</span>
-<h2 class="slide-h2">[Heading]</h2>
+<span class="slide-label">Section 03 &mdash; People</span>
+<h2 class="slide-h2">Who does what</h2>
 <div class="gold-rule"></div>
 <div class="card-grid cols-3">
-  <div class="info-card"><span class="card-src">[Role]</span><div class="card-title">[Title]</div><div class="card-body">[Remit]</div><div class="card-meta">[Area]</div></div>
-  <!-- repeat -->
+  <div class="info-card"><span class="card-src">Chair</span><div class="card-title">University AI Working Group</div><div class="card-body">Sets direction across the institution and owns escalation to director level.</div><div class="card-meta">Cross-department</div></div>
+  <div class="info-card"><span class="card-src">Facilitators</span><div class="card-title">SRM representation</div><div class="card-body">Run departmental sessions, gather use cases and feed them upward.</div><div class="card-meta">Marketing / SRM</div></div>
+  <div class="info-card"><span class="card-src">Contributors</span><div class="card-title">Professional services staff</div><div class="card-body">Bring real workflows and test proposals against day-to-day practice.</div><div class="card-meta">All grades</div></div>
 </div>
 ```
 
-### Block 11 — Standard bullets  ·  DEFAULT
+### Block 11 — Standard bullets  ·  class: **default**  ·  **DEFAULT — use this unless another block fits**
+`<section class="slide" id="[semantic-id]">` — no modifier.
 ```html
-<span class="slide-label">[Section label]</span>
-<h2 class="slide-h2">[Heading]</h2>
+<span class="slide-label">Section 03 &mdash; People</span>
+<h2 class="slide-h2">Principles we agreed</h2>
 <div class="gold-rule"></div>
 <ul class="slide-list">
-  <li>[Point]</li>
-  <!-- up to ~5 -->
+  <li>Approved tools first &mdash; University data stays within policy.</li>
+  <li>Start with workflows that already cause friction.</li>
+  <li>Document use cases properly so investment requests have evidence.</li>
+  <li>Share what works across departments rather than rebuilding it.</li>
+  <li>Keep a human check on anything that reaches a student or applicant.</li>
 </ul>
 ```
 
-### Block 12 — Project cards (up to 4)
+### Block 12 — Project cards (up to 4)  ·  class: **default**
+`<section class="slide" id="[semantic-id]">` — no modifier.
 ```html
-<span class="slide-label">[Section label]</span>
-<h2 class="slide-h2">[Heading]</h2>
+<span class="slide-label">Section 04 &mdash; Projects</span>
+<h2 class="slide-h2">Live and proposed work</h2>
 <div class="gold-rule"></div>
 <div class="card-grid cols-4">
-  <div class="info-card"><span class="project-badge">[Stage]</span><div class="card-title">[Project]</div><div class="card-body">[Description]</div></div>
-  <!-- repeat -->
+  <div class="info-card"><span class="project-badge">Alpha</span><div class="card-title">Course search chatbot</div><div class="card-body">Sandboxed prototype answering course queries.</div></div>
+  <div class="info-card"><span class="project-badge">Beta</span><div class="card-title">Improved course search</div><div class="card-body">Rebuilt search with better matching and fallbacks.</div></div>
+  <div class="info-card"><span class="project-badge">Beta</span><div class="card-title">Events filter</div><div class="card-body">Restructured data and rebuilt filtering.</div></div>
+  <div class="info-card"><span class="project-badge">Proposed</span><div class="card-title">Web copy proofing</div><div class="card-body">Automated first-pass check before human review.</div></div>
 </div>
 ```
 
-### Block 13 — Lesson + takeaway
+### Block 13 — Lesson + takeaway  ·  class: **default**
+`<section class="slide" id="[semantic-id]">` — no modifier.
 ```html
-<span class="slide-label">[Section label]</span>
-<div class="lesson-num">[02]</div>
-<h2 class="slide-h2">[Heading]</h2>
+<span class="slide-label">Section 04 &mdash; Projects</span>
+<div class="lesson-num">02</div>
+<h2 class="slide-h2">Prove it small</h2>
 <div class="gold-rule"></div>
-<p class="lesson-body">[Lesson text]</p>
+<p class="lesson-body">Every project above began as a contained test with a defined success measure. None required new budget to reach a demonstrable stage &mdash; which is precisely what makes the case for the next stage credible.</p>
 <div class="takeaway">
   <div class="takeaway-label">Key takeaway</div>
-  <div class="takeaway-text">[The takeaway]</div>
+  <div class="takeaway-text">A working prototype is a stronger business case than a proposal document.</div>
 </div>
 ```
 
-### Block 14 — Discussion cards (2×2)
+### Block 14 — Discussion cards (2x2)  ·  class: **default**
+`<section class="slide" id="[semantic-id]">` — no modifier.
 ```html
-<span class="slide-label">[Section label]</span>
-<h2 class="slide-h2">[Heading]</h2>
+<span class="slide-label">Section 05 &mdash; Discussion</span>
+<h2 class="slide-h2">Questions for the group</h2>
 <div class="gold-rule"></div>
 <div class="card-grid cols-2">
-  <div class="discuss-card"><span class="discuss-num">Q1</span><div class="discuss-q">[Question]</div><div class="discuss-hint">[Hint]</div></div>
-  <!-- repeat, usually 4 -->
+  <div class="discuss-card"><span class="discuss-num">Q1</span><div class="discuss-q">Which weekly task would you most like to hand over?</div><div class="discuss-hint">Think about repetition, not complexity.</div></div>
+  <div class="discuss-card"><span class="discuss-num">Q2</span><div class="discuss-q">Where does the current toolset genuinely block you?</div><div class="discuss-hint">Specific examples help build the case.</div></div>
+  <div class="discuss-card"><span class="discuss-num">Q3</span><div class="discuss-q">What would make you confident using an AI tool at work?</div><div class="discuss-hint">Training, guardrails, or clearer policy?</div></div>
+  <div class="discuss-card"><span class="discuss-num">Q4</span><div class="discuss-q">What should we bring to the next session?</div><div class="discuss-hint">One concrete item each.</div></div>
 </div>
 ```
 
-### Block 15 — Opportunities & blockers
+### Block 15 — Opportunities & blockers  ·  class: **default**
+`<section class="slide" id="[semantic-id]">` — no modifier.
 ```html
-<span class="slide-label">[Section label]</span>
-<h2 class="slide-h2">[Heading]</h2>
+<span class="slide-label">Section 05 &mdash; Position</span>
+<h2 class="slide-h2">Opportunities and blockers</h2>
 <div class="gold-rule"></div>
 <div class="opp-blocker">
   <div class="opp-col">
     <div class="ob-label"><svg class="icon" aria-hidden="true"><use href="#i-bolt"/></svg> Opportunities</div>
-    <ul class="ob-list"><li>[Point]</li></ul>
+    <ul class="ob-list">
+      <li>Upgrade Copilot licences for defined roles</li>
+      <li>Build documented use cases for investment requests</li>
+      <li>Adopt low-risk complementary tools</li>
+      <li>Automate departmental workflows with Power Automate</li>
+    </ul>
   </div>
   <div class="blocker-col">
     <div class="ob-label"><svg class="icon" aria-hidden="true"><use href="#i-warning"/></svg> Blockers</div>
-    <ul class="ob-list"><li>[Point]</li></ul>
+    <ul class="ob-list">
+      <li>ICT cannot assess alternative tools at present</li>
+      <li>Director-level sign-off needed for new tooling</li>
+      <li>Personal data processing requires extra scrutiny</li>
+      <li>Budget cycles slow adoption regardless of merit</li>
+    </ul>
   </div>
 </div>
 ```
 
-### Block 16 — Two-column bullets
+### Block 16 — Two-column bullets  ·  class: **default**
+`<section class="slide" id="[semantic-id]">` — no modifier.
 ```html
-<span class="slide-label">[Section label]</span>
-<h2 class="slide-h2">[Heading]</h2>
+<span class="slide-label">Section 05 &mdash; Position</span>
+<h2 class="slide-h2">Now versus next year</h2>
 <div class="gold-rule"></div>
 <div class="two-col">
-  <div><div class="col-head">[Left heading]</div><ul class="slide-list"><li>[Point]</li></ul></div>
-  <div><div class="col-head">[Right heading]</div><ul class="slide-list"><li>[Point]</li></ul></div>
+  <div>
+    <div class="col-head">Where we are</div>
+    <ul class="slide-list">
+      <li>Basic Copilot licences only</li>
+      <li>No version control across the team</li>
+      <li>Use cases held informally</li>
+      <li>Training arranged case by case</li>
+    </ul>
+  </div>
+  <div>
+    <div class="col-head">Where we want to be</div>
+    <ul class="slide-list">
+      <li>Licences matched to actual need</li>
+      <li>GitHub in place with team conventions</li>
+      <li>A documented, reusable use-case library</li>
+      <li>A defined route to funded training</li>
+    </ul>
+  </div>
 </div>
 ```
 
-### Block 17 — Flowchart
+### Block 17 — Flowchart  ·  class: **default**
+`<section class="slide" id="[semantic-id]">` — no modifier.
 ```html
-<span class="slide-label">[Section label]</span>
-<h2 class="slide-h2">[Heading]</h2>
+<span class="slide-label">Section 04 &mdash; Projects</span>
+<h2 class="slide-h2">Web copy proposed automation</h2>
 <div class="gold-rule"></div>
 <div class="flow-chart">
-  <div class="flow-step"><div class="flow-box">[Step]</div></div>
+  <div class="flow-step"><div class="flow-box">EMS submission received with accessible linked document</div></div>
   <div class="flow-arrow">&#8595;</div>
-  <div class="flow-step"><div class="flow-box">[Step]</div><div class="flow-note">[Side note]</div></div>
+  <div class="flow-step"><div class="flow-box">Document passed to Power Automate</div><div class="flow-note">Trigger on submission</div></div>
   <div class="flow-arrow">&#8595;</div>
-  <div class="flow-step"><div class="flow-box highlight">[Highlighted step]</div><div class="flow-note">[Side note]</div></div>
-  <!-- add class "highlight" to the flow-box you want emphasised -->
+  <div class="flow-step"><div class="flow-box highlight">Trained AI agent runs spelling, grammar and style check</div><div class="flow-note">Copilot agent &mdash; within policy</div></div>
+  <div class="flow-arrow">&#8595;</div>
+  <div class="flow-step"><div class="flow-box">Corrected version returned with tracked changes listed</div><div class="flow-note">Human reviews output</div></div>
 </div>
 ```
 
-### Block 18 — Feature card
+### Block 18 — Feature card  ·  class: **default**
+`<section class="slide" id="[semantic-id]">` — no modifier.
 ```html
-<span class="slide-label">[Section label]</span>
-<h2 class="slide-h2">[Heading]</h2>
+<span class="slide-label">Section 06 &mdash; Development</span>
+<h2 class="slide-h2">Upskilling route</h2>
 <div class="gold-rule"></div>
 <div class="feature-card">
   <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-lightbulb"/></svg></div>
   <div>
-    <div class="feature-title">[Title]</div>
-    <div class="feature-body">[Body]</div>
-    <ul class="slide-list"><li style="font-size:clamp(14px,1.5vw,17px)">[Optional point]</li></ul>
+    <div class="feature-title">Funded AI training</div>
+    <div class="feature-body">A monthly external programme, University funded, feeding material directly back into this group. The first example of sanctioned, budgeted AI training &mdash; and a useful precedent for future proposals.</div>
+    <ul class="slide-list">
+      <li style="font-size:clamp(14px,1.5vw,17px)">Material brought back to each working group session</li>
+      <li style="font-size:clamp(14px,1.5vw,17px)">Directly transferable to departmental projects</li>
+    </ul>
   </div>
 </div>
 ```
 
-### Block 19 — End / closing  ·  modifier: `end-slide`
+### Block 19 — End / closing  ·  class: **end-slide**
+`<section class="slide end-slide" id="[semantic-id]">`
 ```html
-<span class="slide-label">[Thank you]</span>
-<h1 class="slide-h1">[Questions?]</h1>
+<span class="slide-label">Thank you</span>
+<h1 class="slide-h1">Questions?</h1>
 <div class="gold-rule"></div>
-<p class="slide-sub">[Closing line]</p>
+<p class="slide-sub">Next session dates and materials will follow in the Teams channel.</p>
 <div class="end-contact">
-  <span><strong>[Name / group]</strong></span>
-  <span>[Line 2]</span>
-  <span>[Line 3]</span>
+  <span><strong>SRM AI Working Group</strong></span>
+  <span>Student Recruitment &amp; Marketing</span>
+  <span>Teesside University</span>
 </div>
 ```
 
-### Block 20 — Action points
+### Block 20 — Action points  ·  class: **default**
+`<section class="slide" id="[semantic-id]">` — no modifier.
 ```html
-<span class="slide-label">[Section label]</span>
-<h2 class="slide-h2">[Heading]</h2>
+<span class="slide-label">Section 05 &mdash; Discussion</span>
+<h2 class="slide-h2">Agreed actions</h2>
 <div class="gold-rule"></div>
 <ul class="action-list">
-  <li class="action-item"><span class="action-num">1</span><span class="action-text">[Action]</span><span class="action-owner">[Owner · when]</span></li>
-  <!-- repeat -->
+  <li class="action-item"><span class="action-num">1</span><span class="action-text">Collect one candidate workflow from each attendee</span><span class="action-owner">All &middot; 2 weeks</span></li>
+  <li class="action-item"><span class="action-num">2</span><span class="action-text">Draft the licence upgrade use case for director review</span><span class="action-owner">Facilitators</span></li>
+  <li class="action-item"><span class="action-num">3</span><span class="action-text">Demo the web copy automation prototype</span><span class="action-owner">Next session</span></li>
+  <li class="action-item"><span class="action-num">4</span><span class="action-text">Share the working group notes in the Teams channel</span><span class="action-owner">This week</span></li>
 </ul>
 ```
 
-### Block 21 — Attribution overlay  ·  MODIFIER (add inside any slide, before the footer)
+### Block 21 — Attribution overlay  ·  class: **overlay**
+> Not a slide on its own — add this `<div>` **inside any content slide**, just before the `<div class="digiful-footer">`.
 ```html
 <div class="attr-block">
-  <div class="attr-title">[Project / topic]</div>
-  <div class="attr-meta">[Name] | [Group] &middot; [Year]</div>
+  <div class="attr-title">Web Copy Workflow Automation</div>
+  <div class="attr-meta">Matt Hudson | SRM AI Working Group &middot; 2026</div>
   <hr class="attr-divider">
 </div>
 ```
 
-### Block 22 — Pull quote  ·  modifier: `quote-slide`
+### Block 22 — Pull quote  ·  class: **quote-slide**
+`<section class="slide quote-slide" id="[semantic-id]">`
 ```html
-<span class="slide-label">[Section label]</span>
+<span class="slide-label">Section 06 &mdash; Voices</span>
 <div class="quote-mark">&ldquo;</div>
-<blockquote class="quote-text">[The quotation]</blockquote>
+<blockquote class="quote-text">The tools were never the hard part. Agreeing what good looks like was.</blockquote>
 <div class="quote-attr">
-  <span class="quote-name">[Name]</span>
-  <span class="quote-role">[Role · organisation]</span>
+  <span class="quote-name">Working group participant</span>
+  <span class="quote-role">Professional services &middot; Teesside University</span>
 </div>
 ```
 
-### Block 23 — Comparison table
+### Block 23 — Comparison table  ·  class: **default**
+`<section class="slide" id="[semantic-id]">` — no modifier.
 ```html
-<span class="slide-label">[Section label]</span>
-<h2 class="slide-h2">[Heading]</h2>
+<span class="slide-label">Section 03 &mdash; Tooling</span>
+<h2 class="slide-h2">Tooling comparison</h2>
 <div class="gold-rule"></div>
 <div class="cmp-scroll">
   <table class="cmp-table">
-    <thead><tr><th>[Criterion]</th><th>[Option A]</th><th>[Option B]</th><th>[Option C]</th></tr></thead>
+    <thead>
+      <tr><th>Criterion</th><th>Copilot (basic)</th><th>Copilot (upgraded)</th><th>Unapproved tools</th></tr>
+    </thead>
     <tbody>
-      <tr><th>[Row label]</th><td class="cmp-yes">[Yes]</td><td>[value]</td><td class="cmp-no">[No]</td></tr>
-      <!-- repeat rows; use class cmp-yes / cmp-no for positive/negative cells -->
+      <tr><th>University data</th><td class="cmp-yes">Approved</td><td class="cmp-yes">Approved</td><td class="cmp-no">Not permitted</td></tr>
+      <tr><th>Cost</th><td>Included</td><td>Per-seat uplift</td><td>Varies</td></tr>
+      <tr><th>Agent building</th><td class="cmp-no">Limited</td><td class="cmp-yes">Available</td><td>Varies</td></tr>
+      <tr><th>Support route</th><td>ICT</td><td>ICT</td><td class="cmp-no">None</td></tr>
+      <tr><th>Sign-off needed</th><td>None</td><td>Director level</td><td class="cmp-no">Not available</td></tr>
     </tbody>
   </table>
 </div>
-<p class="src-note">[Optional note]</p>
+<p class="src-note">Illustrative &mdash; confirm current licensing before circulating.</p>
 ```
 
-### Block 24 — Bar chart (SVG, up to ~5 bars)
+### Block 24 — Bar chart  ·  class: **default**
+`<section class="slide" id="[semantic-id]">` — no modifier.
 ```html
-<span class="slide-label">[Section label]</span>
-<h2 class="slide-h2">[Heading]</h2>
+<span class="slide-label">Section 01 &mdash; The Landscape</span>
+<h2 class="slide-h2">Weekly AI use by team</h2>
 <div class="gold-rule"></div>
 <div class="chart-wrap">
-  <svg class="chart-svg" viewBox="0 0 820 300" role="img" aria-label="[describe the chart]">
+  <svg class="chart-svg" viewBox="0 0 820 300" role="img" aria-label="Bar chart of weekly AI use by team, ranging from 34 to 81 percent">
     <line class="chart-grid" x1="60" y1="240" x2="800" y2="240"></line>
     <line class="chart-grid" x1="60" y1="180" x2="800" y2="180"></line>
     <line class="chart-grid" x1="60" y1="120" x2="800" y2="120"></line>
@@ -424,63 +500,107 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
     <text class="chart-axis-label" x="46" y="185" text-anchor="end">25</text>
     <text class="chart-axis-label" x="46" y="125" text-anchor="end">50</text>
     <text class="chart-axis-label" x="46" y="65"  text-anchor="end">75</text>
-    <!-- per bar: y = 240 − (value × 2.4) ; height = value × 2.4 . Add class "alt" to lower bars. -->
-    <rect class="chart-bar" x="90" y="[Y]" width="86" height="[H]"></rect>
-    <text class="chart-value" x="133" y="[Y−9]" text-anchor="middle">[NN%]</text>
-    <text class="chart-axis-label" x="133" y="264" text-anchor="middle">[Label]</text>
-    <!-- repeat bars at x = 90, 230, 370, 510, 650 -->
+
+    <rect class="chart-bar" x="90"  y="45"  width="86" height="195"></rect>
+    <text class="chart-value" x="133" y="36" text-anchor="middle">81%</text>
+    <text class="chart-axis-label" x="133" y="264" text-anchor="middle">Digital</text>
+
+    <rect class="chart-bar" x="230" y="86"  width="86" height="154"></rect>
+    <text class="chart-value" x="273" y="77" text-anchor="middle">64%</text>
+    <text class="chart-axis-label" x="273" y="264" text-anchor="middle">Content</text>
+
+    <rect class="chart-bar" x="370" y="110" width="86" height="130"></rect>
+    <text class="chart-value" x="413" y="101" text-anchor="middle">54%</text>
+    <text class="chart-axis-label" x="413" y="264" text-anchor="middle">Recruitment</text>
+
+    <rect class="chart-bar alt" x="510" y="153" width="86" height="87"></rect>
+    <text class="chart-value" x="553" y="144" text-anchor="middle">36%</text>
+    <text class="chart-axis-label" x="553" y="264" text-anchor="middle">Events</text>
+
+    <rect class="chart-bar alt" x="650" y="158" width="86" height="82"></rect>
+    <text class="chart-value" x="693" y="149" text-anchor="middle">34%</text>
+    <text class="chart-axis-label" x="693" y="264" text-anchor="middle">Admissions</text>
   </svg>
 </div>
+<p class="src-note">Hand-built SVG &mdash; no chart library, prints as vector.</p>
 ```
 
-### Block 25 — Roadmap (Now / Next / Later)
+### Block 25 — Roadmap  ·  class: **default**
+`<section class="slide" id="[semantic-id]">` — no modifier.
 ```html
-<span class="slide-label">[Section label]</span>
-<h2 class="slide-h2">[Heading]</h2>
+<span class="slide-label">Section 06 &mdash; Direction</span>
+<h2 class="slide-h2">Roadmap</h2>
 <div class="gold-rule"></div>
 <div class="roadmap">
-  <div class="roadmap-col now"><div class="roadmap-phase">Now</div><div class="roadmap-when">[When]</div><ul class="roadmap-list"><li>[Item]</li></ul></div>
-  <div class="roadmap-col next"><div class="roadmap-phase">Next</div><div class="roadmap-when">[When]</div><ul class="roadmap-list"><li>[Item]</li></ul></div>
-  <div class="roadmap-col later"><div class="roadmap-phase">Later</div><div class="roadmap-when">[When]</div><ul class="roadmap-list"><li>[Item]</li></ul></div>
-</div>
-```
-
-### Block 26 — 2×2 matrix
-```html
-<span class="slide-label">[Section label]</span>
-<h2 class="slide-h2">[Heading]</h2>
-<div class="gold-rule"></div>
-<div class="matrix-wrap">
-  <div class="matrix-y">[Y axis label] &rarr;</div>
-  <div>
-    <div class="matrix">
-      <div class="matrix-cell priority"><div class="matrix-cell-label">[Top-left]</div><div class="matrix-cell-items">[Items]</div></div>
-      <div class="matrix-cell"><div class="matrix-cell-label">[Top-right]</div><div class="matrix-cell-items">[Items]</div></div>
-      <div class="matrix-cell"><div class="matrix-cell-label">[Bottom-left]</div><div class="matrix-cell-items">[Items]</div></div>
-      <div class="matrix-cell"><div class="matrix-cell-label">[Bottom-right]</div><div class="matrix-cell-items">[Items]</div></div>
-    </div>
-    <div class="matrix-x">[X axis label] &rarr;</div>
+  <div class="roadmap-col now">
+    <div class="roadmap-phase">Now</div>
+    <div class="roadmap-when">This term</div>
+    <ul class="roadmap-list">
+      <li>Collect departmental use cases</li>
+      <li>Run the web copy prototype</li>
+      <li>Establish the working group rhythm</li>
+    </ul>
+  </div>
+  <div class="roadmap-col next">
+    <div class="roadmap-phase">Next</div>
+    <div class="roadmap-when">Next two terms</div>
+    <ul class="roadmap-list">
+      <li>Submit the licence upgrade case</li>
+      <li>Adopt GitHub with team conventions</li>
+      <li>Publish a shared use-case library</li>
+    </ul>
+  </div>
+  <div class="roadmap-col later">
+    <div class="roadmap-phase">Later</div>
+    <div class="roadmap-when">Beyond 2026</div>
+    <ul class="roadmap-list">
+      <li>Departmental workflow automation at scale</li>
+      <li>Role-based AI skills framework</li>
+      <li>Cross-department shared tooling</li>
+    </ul>
   </div>
 </div>
 ```
 
-### Block 27 — Image / media  ·  requires network; keep images small; alt text mandatory
+### Block 26 — 2x2 matrix  ·  class: **default**
+`<section class="slide" id="[semantic-id]">` — no modifier.
 ```html
-<span class="slide-label">[Section label]</span>
-<h2 class="slide-h2">[Heading]</h2>
+<span class="slide-label">Section 06 &mdash; Direction</span>
+<h2 class="slide-h2">Effort versus impact</h2>
+<div class="gold-rule"></div>
+<div class="matrix-wrap">
+  <div class="matrix-y">Impact &rarr;</div>
+  <div>
+    <div class="matrix">
+      <div class="matrix-cell priority"><div class="matrix-cell-label">High impact &middot; Low effort</div><div class="matrix-cell-items">Web copy proofing &middot; Shared prompt library &middot; Events filter</div></div>
+      <div class="matrix-cell"><div class="matrix-cell-label">High impact &middot; High effort</div><div class="matrix-cell-items">Institution-wide assistant &middot; Skills framework</div></div>
+      <div class="matrix-cell"><div class="matrix-cell-label">Low impact &middot; Low effort</div><div class="matrix-cell-items">Meeting summaries &middot; Template tidying</div></div>
+      <div class="matrix-cell"><div class="matrix-cell-label">Low impact &middot; High effort</div><div class="matrix-cell-items">Bespoke internal tooling with narrow use</div></div>
+    </div>
+    <div class="matrix-x">Effort &rarr;</div>
+  </div>
+</div>
+```
+
+### Block 27 — Image / media  ·  class: **default**
+`<section class="slide" id="[semantic-id]">` — no modifier.
+```html
+<span class="slide-label">Section 06 &mdash; Campus</span>
+<h2 class="slide-h2">Digital Life Building</h2>
 <div class="gold-rule"></div>
 <figure class="media-figure">
-  <img class="media-img" src="[HOSTED IMAGE URL]" alt="[describe the image — required]" loading="lazy">
-  <figcaption class="media-caption">[Caption]</figcaption>
-  <span class="media-credit">[Credit / note]</span>
+  <img class="media-img" src="https://www.tees.ac.uk/images/commonimages/campus/digital_life_night.jpg" alt="The Digital Life Building on the Teesside University campus, illuminated at night" loading="lazy">
+  <figcaption class="media-caption">The Digital Life Building &mdash; home to digital and computing teaching on campus.</figcaption>
+  <span class="media-credit">Image hosted on the University CDN. Requires a network connection; offline decks will show a gap.</span>
 </figure>
 ```
 
-### Block 28 — Big statement  ·  modifier: `statement-slide`
+### Block 28 — Big statement  ·  class: **statement-slide**
+`<section class="slide statement-slide" id="[semantic-id]">`
 ```html
-<span class="slide-label">[Section label]</span>
-<div class="statement">[The <em>statement</em>, with emphasis on key words.]</div>
-<p class="statement-sub">[Supporting line]</p>
+<span class="slide-label">Section 06 &mdash; Direction</span>
+<div class="statement">The gap is not <em>capability</em>. It is <em>permission</em>.</div>
+<p class="statement-sub">Staff are already doing the work. Our job is to make the supported route the easy one.</p>
 ```
 
 ---
