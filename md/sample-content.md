@@ -115,16 +115,16 @@ SLIDES (one per block, in this order):
   3 · Demo the web copy automation prototype · Next session
   4 · Share the working group notes in the Teams channel · This week
 
-21 — ATTRIBUTION OVERLAY (add to the flowchart slide, Block 17)
+MODIFIER — ATTRIBUTION OVERLAY (add the .attr-block div to the flowchart slide, Block 17)
   Title: Web Copy Workflow Automation
   Meta: Matt Hudson | SRM AI Working Group · 2026
 
-22 — PULL QUOTE · Section 06 — Voices
+21 — PULL QUOTE · Section 06 — Voices
   Quote: The tools were never the hard part. Agreeing what good looks like was.
   Name: Working group participant
   Role: Professional services · Teesside University
 
-23 — COMPARISON TABLE · "Tooling comparison" · Section 03 — Tooling
+22 — COMPARISON TABLE · "Tooling comparison" · Section 03 — Tooling
   Columns: Criterion | Copilot (basic) | Copilot (upgraded) | Unapproved tools
   University data | Approved (yes) | Approved (yes) | Not permitted (no)
   Cost | Included | Per-seat uplift | Varies
@@ -133,28 +133,28 @@ SLIDES (one per block, in this order):
   Sign-off needed | None | Director level | Not available (no)
   Note: Illustrative — confirm current licensing before circulating.
 
-24 — BAR CHART · "Weekly AI use by team" · Section 01 — The Landscape
+23 — BAR CHART · "Weekly AI use by team" · Section 01 — The Landscape
   Digital 81% · Content 64% · Recruitment 54% · Events 36% (alt) · Admissions 34% (alt)
   Note: Hand-built SVG — no chart library, prints as vector.
 
-25 — ROADMAP · "Roadmap" · Section 06 — Direction
+24 — ROADMAP · "Roadmap" · Section 06 — Direction
   Now (This term): Collect departmental use cases; Run the web copy prototype; Establish the working group rhythm.
   Next (Next two terms): Submit the licence upgrade case; Adopt GitHub with team conventions; Publish a shared use-case library.
   Later (Beyond 2026): Departmental workflow automation at scale; Role-based AI skills framework; Cross-department shared tooling.
 
-26 — 2×2 MATRIX · "Effort versus impact" · Section 06 — Direction
+25 — 2×2 MATRIX · "Effort versus impact" · Section 06 — Direction
   Y axis: Impact. X axis: Effort.
   Top-left (priority) "High impact · Low effort": Web copy proofing · Shared prompt library · Events filter
   Top-right "High impact · High effort": Institution-wide assistant · Skills framework
   Bottom-left "Low impact · Low effort": Meeting summaries · Template tidying
   Bottom-right "Low impact · High effort": Bespoke internal tooling with narrow use
 
-27 — IMAGE · "Digital Life Building" · Section 06 — Campus
+26 — IMAGE · "Digital Life Building" · Section 06 — Campus
   Image: https://www.tees.ac.uk/images/commonimages/campus/digital_life_night.jpg
   Alt: The Digital Life Building on the Teesside University campus, illuminated at night
   Caption: The Digital Life Building — home to digital and computing teaching on campus.
   Credit: Image hosted on the University CDN. Requires a network connection; offline decks will show a gap.
 
-28 — BIG STATEMENT · Section 06 — Direction
+27 — BIG STATEMENT · Section 06 — Direction
   Statement: The gap is not *capability*. It is *permission*.
   Sub: Staff are already doing the work. Our job is to make the supported route the easy one.

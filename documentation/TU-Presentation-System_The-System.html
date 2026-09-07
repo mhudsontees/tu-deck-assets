@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>The Presentation System | Teesside University SRM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,900;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+
+  /* ============================================================
+     RESET
+  ============================================================ */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ============================================================
+     TOKENS — Teesside University brand palette on Digiful layout
+  ============================================================ */
+  :root{
+    --ink:#111111; --ink-2:#000000; --ink-soft:#1a1a1a; --muted:#57606a; --muted2:#8b949e;
+    --line:#e1e4e8; --line-soft:#f0f2f5; --panel:#f7f6f2;
+    --accent:#867537; --accent-lt:#b8a04a; --accent-wash:#faf9f5; --accent-wash2:#f4f1e8;
+    --glow: rgba(134,117,55,0.14);
+    --green-bg:#dafbe1; --green-ink:#116329;
+    --amber-bg:#fff8c5; --amber-ink:#7d4e00;
+    --red-bg:#ffebe9; --red-ink:#a40e26;
+    --font:'DM Sans', Arial, Helvetica, sans-serif;
+  }
+  html{ scroll-behavior:smooth; }
+  body { font-family: var(--font); font-size: 13.5px; color: var(--ink-soft); background:#eceff2; line-height:1.6; -webkit-font-smoothing:antialiased; }
+
+  .page { max-width: 880px; margin: 0 auto; background: white; box-shadow:0 4px 32px rgba(0,0,0,0.10); }
+
+  /* ---------- DOWNLOAD BUTTON ---------- */
+  .dl-btn { display:inline-flex; align-items:center; margin:2px 0 6px; background:var(--accent); color:#fff; border:none; border-radius:8px; padding:11px 18px; font-size:12.5px; font-weight:700; cursor:pointer; font-family:inherit; position:relative; z-index:2; }
+  .dl-btn:hover { background:#6e5f2c; }
+
+  /* ---------- HEADER ---------- */
+  .header { background: var(--ink-2); padding: 40px 44px 28px; position: relative; overflow: hidden; }
+  .header::before { content:''; position:absolute; top:-70px; right:-70px; width:260px; height:260px; background: radial-gradient(circle, var(--glow) 0%, transparent 70%); }
+  .header::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background: linear-gradient(90deg,var(--accent-lt),var(--accent),var(--accent-lt)); }
+  .header-top { display:flex; justify-content:space-between; align-items:flex-start; gap:24px; }
+  .header-titles { flex:1; }
+  .brand { font-size:12px; letter-spacing:3px; text-transform:uppercase; color:var(--accent-lt); font-weight:700; margin-bottom:18px; }
+  .header h1 { font-size: 25px; color:#ffffff; font-weight:900; line-height:1.2; letter-spacing:-0.01em; margin-bottom:8px; max-width:640px; }
+  .header .subtitle { color:var(--accent-lt); font-size:13.5px; font-weight:500; margin-bottom:22px; }
+  .header-logo { flex-shrink:0; padding-top:2px; }
+  .header-logo img { height:42px; width:auto; object-fit:contain; object-position:right center; }
+  .header-meta { display:flex; flex-wrap:wrap; border-top:1px solid rgba(255,255,255,0.10); padding-top:16px; }
+  .meta-item { font-size:11px; color:rgba(255,255,255,0.42); text-transform:uppercase; letter-spacing:0.05em; font-weight:600; padding-right:22px; margin-right:22px; margin-top:8px; border-right:1px solid rgba(255,255,255,0.12); }
+  .meta-item:last-child { border-right:none; }
+  .meta-item span { color:#ffffff; display:block; font-weight:700; margin-top:3px; font-size:12px; text-transform:none; letter-spacing:0; }
+
+  /* ---------- LAYOUT ---------- */
+  .content { padding: 34px 44px 12px; }
+
+  /* ---------- TOC ---------- */
+  .toc { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:20px 24px; margin-bottom:32px; }
+  .toc h2 { font-size:11px; text-transform:uppercase; letter-spacing:1.2px; color:var(--muted); margin-bottom:14px; }
+  .toc ol { list-style:none; counter-reset:toc; column-count:2; column-gap:32px; }
+  .toc li { counter-increment:toc; margin-bottom:9px; break-inside:avoid; }
+  .toc a { color:var(--ink-soft); text-decoration:none; font-size:12.5px; display:flex; gap:10px; align-items:baseline; }
+  .toc a:hover { color:var(--accent); }
+  .toc a::before { content:counter(toc,decimal-leading-zero); font-family:"Courier New",monospace; font-size:10.5px; color:var(--accent); font-weight:700; flex-shrink:0; }
+
+  /* ---------- SUMMARY ---------- */
+  .summary { margin-bottom:36px; }
+  .eyebrow { font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:1.4px; color:var(--accent); margin-bottom:8px; }
+  .summary h2 { font-size:21px; color:var(--ink); margin-bottom:16px; font-weight:900; letter-spacing:-0.01em; }
+  .summary p { margin-bottom:14px; font-size:14px; }
+  .lead { font-size:16px !important; color:var(--ink); font-weight:600; line-height:1.55; }
+  .summary strong { color:var(--ink); }
+
+  .outcome-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:26px 0; }
+  .outcome { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:8px; padding:16px 16px 14px; }
+  .outcome .val { font-size:15px; font-weight:700; color:var(--ink); margin-bottom:5px; line-height:1.3; }
+  .outcome .lbl { font-size:11.5px; color:var(--muted); line-height:1.5; }
+
+  /* ---------- CALLOUTS ---------- */
+  .callout { border-radius:8px; padding:16px 20px; margin:22px 0; font-size:13.5px; }
+  .callout .ttl { font-weight:700; margin-bottom:5px; display:flex; align-items:center; gap:8px; }
+  .callout.gold { background:var(--accent-wash); border-left:4px solid var(--accent); }
+  .callout.gold .ttl { color:var(--accent); }
+  .callout.green { background:var(--green-bg); border-left:4px solid var(--green-ink); }
+  .callout.green .ttl { color:var(--green-ink); }
+  .callout.amber { background:var(--amber-bg); border-left:4px solid var(--amber-ink); }
+  .callout.amber .ttl { color:var(--amber-ink); }
+
+  .rec-list { list-style:none; margin:8px 0 0; }
+  .rec-list li { padding:8px 0 8px 30px; position:relative; border-bottom:1px solid var(--line-soft); font-size:13.5px; }
+  .rec-list li:last-child { border-bottom:none; }
+  .rec-list li::before { content:'→'; position:absolute; left:6px; color:var(--accent); font-weight:700; }
+
+  /* ---------- SECTIONS ---------- */
+  .section { margin-top:22px; margin-bottom:26px; border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .section-header { background:var(--panel); padding:14px 22px; display:flex; align-items:center; gap:14px; border-bottom:1px solid var(--line); }
+  .section-num { background:var(--ink-2); color:var(--accent-lt); width:28px; height:28px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; font-family:"Courier New",monospace; flex-shrink:0; }
+  .section-title { font-size:15px; font-weight:700; color:var(--ink); }
+  .section-body { padding:22px 24px; }
+  .section-body p { margin-bottom:13px; }
+  .section-body p:last-child { margin-bottom:0; }
+  .section-body strong { color:var(--ink); }
+  .subhead { font-size:13px; font-weight:700; color:var(--ink); margin:20px 0 8px; }
+
+  /* ---------- PIPELINE ---------- */
+  .pipeline { display:flex; align-items:stretch; gap:0; margin:20px 0; flex-wrap:wrap; }
+  .pnode { flex:1; min-width:120px; background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:12px; text-align:center; }
+  .pnode .pn-t { font-size:12px; font-weight:700; color:var(--ink); margin-bottom:3px; }
+  .pnode .pn-d { font-size:10.5px; color:var(--muted); line-height:1.4; }
+  .parrow { display:flex; align-items:center; justify-content:center; padding:0 6px; color:var(--accent); font-weight:700; font-size:18px; flex-shrink:0; }
+  .pnode.l1 { border-top:3px solid var(--accent); }
+  .pnode.l2 { border-top:3px solid var(--accent-lt); }
+  .pnode.src { border-top:3px solid var(--ink-2); }
+  .pnode.out { border-top:3px solid var(--green-ink); }
+  .pn-badge { display:inline-block; font-size:8.5px; font-weight:700; letter-spacing:0.8px; padding:2px 7px; border-radius:10px; margin-bottom:6px; text-transform:uppercase; }
+  .pn-badge.l1 { background:var(--accent-wash2); color:var(--accent); border:1px solid #e4dcc1; }
+  .pn-badge.l2 { background:var(--accent-wash); color:var(--accent-lt); border:1px solid #e8e0c4; }
+
+  /* ---------- TABLES ---------- */
+  table.tbl { width:100%; border-collapse:collapse; font-size:12.5px; margin:12px 0; }
+  table.tbl th { background:var(--ink-2); color:#ffffff; text-align:left; padding:9px 13px; font-size:10.5px; text-transform:uppercase; letter-spacing:0.5px; }
+  table.tbl td { padding:9px 13px; border-bottom:1px solid var(--line-soft); vertical-align:top; }
+  table.tbl tr:last-child td { border-bottom:none; }
+  table.tbl tr:nth-child(even) td { background:var(--accent-wash); }
+  .tick { color:var(--green-ink); font-weight:700; }
+  .cross { color:var(--red-ink); font-weight:700; }
+  .rec-cell { background:var(--accent-wash2) !important; }
+
+  /* ---------- CODE BLOCK (code-only visual) ---------- */
+  .codeblock { background:#0f0f0f; color:#e9e6db; font-family:"Courier New",monospace; font-size:11.5px; line-height:1.65; padding:16px 18px; border-radius:8px; overflow-x:auto; margin:14px 0; border:1px solid #242424; white-space:pre; }
+  .codeblock .k { color:var(--accent-lt); }
+  .codeblock .s { color:#c9b98a; }
+  .codeblock .c { color:#6b6b6b; font-style:italic; }
+  .code-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin:16px 0 -4px; }
+
+  /* ---------- ROADMAP ---------- */
+  .road { margin:16px 0 4px; }
+  .road-tier { display:flex; gap:16px; padding:14px 0; border-bottom:1px solid var(--line-soft); }
+  .road-tier:last-child { border-bottom:none; }
+  .road-when { flex-shrink:0; width:150px; }
+  .road-when .rw-t { font-size:12px; font-weight:700; color:var(--ink); }
+  .road-when .rw-s { font-size:10.5px; color:var(--muted); margin-top:2px; }
+  .road-what { flex:1; }
+  .road-what ul { list-style:none; }
+  .road-what li { font-size:12.5px; padding:3px 0 3px 16px; position:relative; }
+  .road-what li::before { content:'·'; position:absolute; left:4px; color:var(--accent); font-weight:700; font-size:16px; line-height:1; }
+  .pill { display:inline-flex; align-items:center; gap:5px; font-size:10px; font-weight:700; padding:3px 10px; border-radius:20px; vertical-align:middle; }
+  .pill.now { background:var(--accent-wash2); color:var(--accent); }
+  .pill.now::before { content:'●'; }
+
+  /* ---------- DATE EMPHASIS ---------- */
+  .datepill { display:inline-block; font-family:"Courier New",monospace; font-size:10.5px; font-weight:700;
+    letter-spacing:0.4px; background:var(--ink-2); color:var(--accent-lt); padding:3px 9px; border-radius:20px;
+    white-space:nowrap; vertical-align:baseline; }
+  .dt { font-style:italic; font-weight:700; color:var(--accent); white-space:nowrap; }
+
+  /* ---------- BODY LINKS ---------- */
+  .section-body a, .summary a { color:var(--accent); text-decoration:underline; text-underline-offset:2px; }
+  .section-body a:hover, .summary a:hover { color:#6e5f2c; }
+
+  /* ---------- SOURCES / APPENDIX ---------- */
+  .srcs { list-style:none; margin:4px 0 0; }
+  .srcs li { padding:13px 0; border-bottom:1px solid var(--line-soft); }
+  .srcs li:last-child { border-bottom:none; }
+  .srcs .s-t { display:block; font-size:13px; font-weight:700; color:var(--ink); margin-bottom:3px; }
+  .srcs .s-w { display:block; font-size:12px; color:var(--muted); margin-bottom:6px; }
+  .srcs .s-u { font-size:11.5px; word-break:break-all; }
+  .revlog { font-size:12px; }
+  .revlog li { padding:5px 0 5px 16px; position:relative; list-style:none; }
+  .revlog li::before { content:'·'; position:absolute; left:4px; color:var(--accent); font-weight:700; font-size:16px; line-height:1; }
+
+  /* ---------- FAQ ---------- */
+  .faq-item { border-bottom:1px solid var(--line-soft); padding:14px 0; }
+  .faq-item:last-child { border-bottom:none; }
+  .faq-q { font-size:13.5px; font-weight:700; color:var(--ink); margin-bottom:6px; }
+  .faq-a { font-size:13px; color:var(--ink-soft); }
+
+  /* ---------- GLOSSARY ---------- */
+  .gloss { display:grid; grid-template-columns:200px 1fr; gap:10px 18px; font-size:12.5px; }
+  .gloss dt { font-weight:700; color:var(--ink); }
+  .gloss dd { color:var(--ink-soft); }
+  .note { font-size:11.5px; color:var(--muted); font-style:italic; margin-top:10px; }
+
+  /* ---------- FOOTER ---------- */
+  .footer { background:var(--ink-2); border-top:1px solid #222; padding:18px 44px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+  .footer div { font-size:11px; color:rgba(255,255,255,0.55); }
+  .footer a { color:var(--accent-lt); text-decoration:none; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:640px){
+    .content, .header, .footer { padding-left:20px; padding-right:20px; }
+
+    /* --- TABLES: stack to cards, no horizontal scroll --- */
+    table.tbl, table.tbl tbody, table.tbl tr, table.tbl td { display:block; width:100%; }
+    table.tbl tr:first-child { display:none; }              /* header row → replaced by per-cell labels */
+    table.tbl tr { border:1px solid var(--line); border-radius:8px; margin:0 0 10px; overflow:hidden; }
+    table.tbl tr:last-child { margin-bottom:0; }
+    table.tbl td { padding:9px 13px; border-bottom:1px solid var(--line-soft); }
+    table.tbl tr td:last-child { border-bottom:none; }
+    table.tbl tr:nth-child(even) td { background:transparent; }
+    table.tbl td::before { content:attr(data-label); display:block; font-size:9px; font-weight:700;
+      text-transform:uppercase; letter-spacing:0.7px; color:var(--muted2); margin-bottom:3px; }
+    table.tbl td[data-label=""]::before, table.tbl td:not([data-label])::before { display:none; }
+    table.tbl td.rowhead { background:var(--ink-2) !important; color:#fff; font-weight:700; font-size:12.5px; }
+    table.tbl td.rowhead::before { display:none; }
+    table.tbl td.rowhead code, table.tbl td.rowhead strong { color:#fff; }
+    table.tbl tr.rec-cell { border-color:var(--accent); background:transparent; }
+    table.tbl tr.rec-cell td:not(.rowhead) { background:var(--accent-wash2) !important; }
+    table.tbl td code { word-break:break-word; }
+
+    .dl-btn { font-size:12px; }
+    .header-top { flex-direction:row; gap:14px; }
+    .header h1 { font-size:20px; }
+    .header-logo img { height:32px; }
+    .toc ol { column-count:1; }
+    .outcome-grid { grid-template-columns:1fr; }
+    .pipeline { flex-direction:column; }
+    .parrow { transform:rotate(90deg); padding:4px 0; }
+    .road-tier { flex-direction:column; gap:6px; }
+    .road-when { width:auto; }
+    .gloss { grid-template-columns:1fr; gap:2px 0; }
+    .gloss dd { margin-bottom:10px; }
+  }
+
+  /* ---------- PRINT / PDF ---------- */
+  @media print {
+    body { background:white; font-size:11.5px; }
+    .page { max-width:100%; box-shadow:none; }
+    .dl-btn { display:none !important; }
+    html { scroll-behavior:auto; }
+    .section, .summary, .toc, .outcome, .callout, .road-tier, .faq-item, table.tbl, .pipeline, .codeblock, .srcs li { page-break-inside:avoid; }
+    a { color:var(--ink-soft); text-decoration:none; }
+    .header::before, .header::after { display:none; }
+  }
+
+
+  /* ---------- DIAGRAMS (report-local, built on base tokens) ---------- */
+  .dg { margin:22px 0; padding:20px; background:var(--accent-wash); border:1px solid var(--line); border-radius:10px; }
+  .dg-row { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .dg-node { background:#fff; border:1px solid var(--line); border-radius:8px; padding:12px 14px; flex:0 1 200px; min-width:150px; }
+  .dg-node .n-t { font-size:12px; font-weight:700; color:var(--ink); margin-bottom:3px; }
+  .dg-node .n-d { font-size:10.5px; color:var(--muted); line-height:1.4; }
+  .dg-node.src  { border-top:3px solid var(--ink-2); }
+  .dg-node.tpl  { border-top:3px solid var(--accent); }
+  .dg-node.inp  { border-top:3px solid var(--green-ink); }
+  .dg-node.out  { border-top:3px solid var(--accent-lt); }
+  .dg-node.font { border-top:3px solid var(--amber-ink); }
+  .dg-node.eng  { background:var(--ink-2); border-top:3px solid var(--accent); flex:0 1 240px; }
+  .dg-node.eng .n-t { color:#fff; font-size:13px; letter-spacing:0.5px; }
+  .dg-node.eng .n-d { color:var(--accent-lt); }
+  .dg-node.dg-link { border:1px dashed var(--accent); border-top:3px solid var(--accent-lt); }
+  .dg-arrow { text-align:center; color:var(--accent); font-weight:700; font-size:20px; line-height:1; margin:10px 0; }
+  .dg-note { text-align:center; font-size:10.5px; color:var(--muted); font-style:italic; margin-top:12px; }
+  @media (max-width:640px){ .dg { padding:14px; } .dg-node { flex:1 1 100%; } }
+  @media print { .dg { page-break-inside:avoid; } }
+
+</style>
+</head>
+<body>
+
+<div class="page" id="printable">
+
+  <div class="header">
+    <div class="header-top">
+      <div class="header-titles">
+        <div class="brand">Teesside University &middot; SRM</div>
+        <h1>The Presentation System</h1>
+        <div class="subtitle">Branded slide decks built in the browser &mdash; how it works and what it does</div>
+      </div>
+      <div class="header-logo">
+        <img src="https://www.tees.ac.uk/depts/srm/templates/Teesside%20University%20White.png" alt="Teesside University">
+      </div>
+    </div>
+    <button class="dl-btn" onclick="window.print()">&#8595; Download PDF</button>
+    <div class="header-meta">
+      <div class="meta-item">Prepared by<span>Matt Hudson</span></div>
+      <div class="meta-item">Function<span>Web &amp; Digital Development</span></div>
+      <div class="meta-item">Audience<span>SRM colleagues</span></div>
+      <div class="meta-item">Date<span>August 2026</span></div>
+      <div class="meta-item">Version<span>v1.0</span></div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ===================== TOC ===================== -->
+    <nav class="toc">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#summary">Overview</a></li>
+        <li><a href="#s1">What the system does</a></li>
+        <li><a href="#s2">What you never have to do again</a></li>
+        <li><a href="#s3">How a deck gets made</a></li>
+        <li><a href="#s4">Where the styling lives</a></li>
+        <li><a href="#s5">The block library</a></li>
+        <li><a href="#s6">How the system is maintained</a></li>
+        <li><a href="#s7">Limitations and things to know</a></li>
+        <li><a href="#s8">Questions you may have</a></li>
+        <li><a href="#s9">Glossary</a></li>
+      </ol>
+    </nav>
+
+    <!-- ===================== OVERVIEW ===================== -->
+    <section class="summary" id="summary">
+      <div class="eyebrow">Overview</div>
+      <h2>Branded slide decks, built in the browser</h2>
+
+      <p class="lead">This is a system for producing Teesside-branded presentations as web pages rather than PowerPoint files. You write your content in a plain text template, paste it into Claude, and get back a finished deck that opens in any browser, works on a phone, and exports to PDF &mdash; already correct on brand, because the styling is applied centrally rather than by hand.</p>
+
+      <p>The important idea is a <strong>separation between content and styling</strong>. You supply the words. The system supplies the fonts, colours, spacing and layout. Neither of us has to think about the other's half. That separation is what makes the brand hold together across everyone who uses it.</p>
+
+      <div class="outcome-grid">
+        <div class="outcome"><div class="val">No PowerPoint</div><div class="lbl">Decks are self-contained web pages. Nothing to install, nothing to keep in sync with a master file.</div></div>
+        <div class="outcome"><div class="val">Brand by default</div><div class="lbl">FS Lola, University gold and the approved greys are applied automatically. There is no way to get them subtly wrong.</div></div>
+        <div class="outcome"><div class="val">27 ready blocks</div><div class="lbl">Timelines, stat cards, charts, tables, quotes and more &mdash; each already designed, responsive and print-tested. Plus an attribution modifier.</div></div>
+      </div>
+
+      <div class="callout gold">
+        <div class="ttl">The core principle</div>
+        You write content. The system applies the design. Because the styling lives in one central file rather than inside each deck, improving it once improves every deck that links to it &mdash; without anyone reopening a file.
+      </div>
+    </section>
+
+    <!-- ===================== 1 ===================== -->
+    <section class="section" id="s1">
+      <div class="section-header"><div class="section-num">01</div><div class="section-title">What the system does</div></div>
+      <div class="section-body">
+        <p>Each deck is a single HTML file &mdash; a web page that behaves like a presentation. It fills the screen, moves one slide at a time with the arrow keys or a swipe, and carries the University logo, footer and slide numbering without you positioning anything.</p>
+
+        <p class="subhead">Built in from the start</p>
+        <table class="tbl">
+          <tr><th>Capability</th><th>What it means in practice</th></tr>
+          <tr><td data-label="Capability" class="rowhead">Full-screen presenting</td><td data-label="In practice">Open the file, press F11 or use full screen, and present. Arrow keys or spacebar to advance; swipe on a tablet or phone.</td></tr>
+          <tr><td data-label="Capability" class="rowhead">PDF export</td><td data-label="In practice">A <strong>Save as PDF</strong> link in the footer prints every slide as a page, in order, at full quality. Charts stay sharp because they are drawn, not photographed.</td></tr>
+          <tr><td data-label="Capability" class="rowhead">Works on mobile</td><td data-label="In practice">Slides reflow for a narrow screen &mdash; columns stack, tables scroll, text resizes. Useful for reviewing on the way to a meeting.</td></tr>
+          <tr><td data-label="Capability" class="rowhead">Shareable as a link or file</td><td data-label="In practice">Email the file, put it on SharePoint, or host it and send a URL. No viewer software required at the other end.</td></tr>
+          <tr><td data-label="Capability" class="rowhead">Accessible by construction</td><td data-label="In practice">Real text rather than images of text, sensible contrast, and required alternative text on photographs.</td></tr>
+        </table>
+
+        <p class="subhead">Charts and diagrams are drawn, not pasted</p>
+        <p>Where a normal deck would contain a screenshot of a chart, these decks contain the chart itself, drawn in code. It stays crisp at any size, prints properly, and picks up brand colours automatically. The practical effect is that you never have to rebuild a chart in Canva, export it, and paste it back in.</p>
+      </div>
+    </section>
+
+    <!-- ===================== 2 ===================== -->
+    <section class="section" id="s2">
+      <div class="section-header"><div class="section-num">02</div><div class="section-title">What you never have to do again</div></div>
+      <div class="section-body">
+        <ul class="rec-list">
+          <li><strong>Open a PowerPoint file.</strong> No master slides, no theme drift, no "which version is the current one".</li>
+          <li><strong>Pick a font or a colour.</strong> Both are decided centrally and applied for you. Off-brand values are not available to choose.</li>
+          <li><strong>Align anything by dragging.</strong> Spacing and alignment come from the layout, not from the mouse.</li>
+          <li><strong>Rebuild a chart as an image.</strong> Charts are code, so they scale and print cleanly.</li>
+          <li><strong>Reformat for mobile or for print.</strong> Both behaviours are already built into every block.</li>
+          <li><strong>Chase a style update.</strong> Central improvements reach your deck on their own.</li>
+        </ul>
+
+        <div class="callout green">
+          <div class="ttl">Why brand integrity holds</div>
+          In a PowerPoint file, brand rules are a convention people follow &mdash; or quietly don't. Here the colours, fonts and weights are defined once, in one place, and every block refers back to them. A deck cannot drift off brand by accident, because the brand values are not stored in the deck at all.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 3 ===================== -->
+    <section class="section" id="s3">
+      <div class="section-header"><div class="section-num">03</div><div class="section-title">How a deck gets made</div></div>
+      <div class="section-body">
+        <p>There are only two inputs: the <strong>template</strong> (which carries the block patterns and the link to the house style) and <strong>your content</strong> (your title, sections and slides). You paste both into Claude, and it assembles the finished page.</p>
+
+        <div class="dg">
+          <div class="dg-row">
+            <div class="dg-node tpl"><div class="n-t">Template (.md)</div><div class="n-d">Block patterns and the link to the house style</div></div>
+            <div class="dg-node inp"><div class="n-t">Your content</div><div class="n-d">Title, sections, slides</div></div>
+          </div>
+          <div class="dg-arrow">&#8595;</div>
+          <div class="dg-row">
+            <div class="dg-node eng"><div class="n-t">Claude</div><div class="n-d">Assembles the deck from the two inputs</div></div>
+          </div>
+          <div class="dg-arrow">&#8595;</div>
+          <div class="dg-row">
+            <div class="dg-node out"><div class="n-t">Your finished deck</div><div class="n-d">A single HTML file, linked to the house style</div></div>
+          </div>
+          <div class="dg-note">Claude builds from the template in front of it &mdash; it does not fetch anything from the University website while generating.</div>
+        </div>
+
+        <p class="subhead">What this means for you</p>
+        <p>Because the deck is assembled from a template rather than designed from scratch each time, two people writing about different subjects still produce decks that look like they came from the same organisation. You are choosing <em>which block</em> to use and <em>what it says</em> &mdash; not what it looks like.</p>
+
+        <div class="callout amber">
+          <div class="ttl">Keep your content file</div>
+          Save the filled-in template you pasted in &mdash; your "generation file". If you want to change a deck later, or rebuild it against an improved template, you re-run that saved content rather than editing the finished HTML by hand.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 4 ===================== -->
+    <section class="section" id="s4">
+      <div class="section-header"><div class="section-num">04</div><div class="section-title">Where the styling lives</div></div>
+      <div class="section-body">
+        <p>The house style &mdash; every colour, font, spacing rule and block layout &mdash; lives in a small set of files hosted on the University website. Your deck does not contain them. It <em>refers</em> to them, the same way a web page refers to its stylesheet.</p>
+
+        <div class="dg">
+          <div class="dg-row">
+            <div class="dg-node src"><div class="n-t">tu-styles.css</div><div class="n-d">Layout, blocks, print rules</div></div>
+            <div class="dg-node src"><div class="n-t">tu-scripts.js</div><div class="n-d">Navigation, PDF export</div></div>
+            <div class="dg-node font"><div class="n-t">tu-fonts.css</div><div class="n-d">FS Lola, the University typeface</div></div>
+          </div>
+          <div class="dg-arrow">&#8593;</div>
+          <div class="dg-row">
+            <div class="dg-node out dg-link"><div class="n-t">Your deck (linked)</div><div class="n-d">Refers to the three files above each time it opens</div></div>
+          </div>
+          <div class="dg-note">Dashed border = a live link, not a copy. This is the mode you will use.</div>
+        </div>
+
+        <p class="subhead">The consequence, and it is the useful bit</p>
+        <p>Because your deck holds a link rather than a copy, any central improvement &mdash; a clearer chart style, a better mobile layout, a corrected colour &mdash; appears in your deck the next time you open it. You do not re-download anything and you do not rebuild your deck.</p>
+        <p>The one condition is that a linked deck needs to reach the University website when it opens. On campus, on Eduroam or on VPN this is automatic. Genuinely offline, it falls back to a plain font &mdash; see section 07.</p>
+
+        <table class="tbl">
+          <tr><th>Mode</th><th>Who uses it</th><th>Updates automatically?</th><th>Needs a connection?</th></tr>
+          <tr><td data-label="Mode" class="rowhead">Linked</td><td data-label="Who">Everyone, by default</td><td data-label="Updates"><span class="tick">Yes</span></td><td data-label="Connection">Yes, when opening</td></tr>
+          <tr><td data-label="Mode" class="rowhead">Offline copy</td><td data-label="Who">By request &mdash; produced by Matt</td><td data-label="Updates"><span class="cross">No &mdash; frozen</span></td><td data-label="Connection">No</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================== 5 ===================== -->
+    <section class="section" id="s5">
+      <div class="section-header"><div class="section-num">05</div><div class="section-title">The block library</div></div>
+      <div class="section-body">
+        <p>A <strong>block</strong> is a pre-designed slide type. Rather than building a layout, you pick the block that matches what you are trying to say. There are 28, and a separate style guide deck shows every one of them rendered, numbered so you can refer to them ("use block 07 for that").</p>
+
+        <p class="subhead">The default</p>
+        <p><strong>Block 11 &mdash; standard bullets</strong> is the everyday slide: a heading and body text as bullet points. Use it unless another block fits better. Everything else is a specialised alternative.</p>
+
+        <table class="tbl">
+          <tr><th>Ref</th><th>Block</th><th>Use it for</th></tr>
+          <tr><td data-label="Ref" class="rowhead">01</td><td data-label="Block">Title</td><td data-label="Use for">Opening slide with title and date</td></tr>
+          <tr><td data-label="Ref" class="rowhead">02</td><td data-label="Block">Agenda</td><td data-label="Use for">Running order with timings</td></tr>
+          <tr><td data-label="Ref" class="rowhead">03</td><td data-label="Block">Section cover</td><td data-label="Use for">Dividing the deck into parts</td></tr>
+          <tr><td data-label="Ref" class="rowhead">04</td><td data-label="Block">Donut chart</td><td data-label="Use for">A single headline percentage</td></tr>
+          <tr><td data-label="Ref" class="rowhead">05</td><td data-label="Block">Stat cards</td><td data-label="Use for">Four key figures with sources</td></tr>
+          <tr><td data-label="Ref" class="rowhead">06</td><td data-label="Block">Body + stats</td><td data-label="Use for">Narrative with two supporting figures</td></tr>
+          <tr><td data-label="Ref" class="rowhead">07</td><td data-label="Block">Timeline</td><td data-label="Use for">Dated sequence of events</td></tr>
+          <tr><td data-label="Ref" class="rowhead">08</td><td data-label="Block">Lesson + mistake</td><td data-label="Use for">A teaching point with a pitfall to avoid</td></tr>
+          <tr><td data-label="Ref" class="rowhead">09</td><td data-label="Block">News / competitor cards</td><td data-label="Use for">Three sourced external examples</td></tr>
+          <tr><td data-label="Ref" class="rowhead">10</td><td data-label="Block">Role cards</td><td data-label="Use for">Who does what</td></tr>
+          <tr class="rec-cell"><td data-label="Ref" class="rowhead">11</td><td data-label="Block"><strong>Standard bullets &mdash; default</strong></td><td data-label="Use for">Heading and body text; your everyday slide</td></tr>
+          <tr><td data-label="Ref" class="rowhead">12</td><td data-label="Block">Project cards</td><td data-label="Use for">Project status with stage badges</td></tr>
+          <tr><td data-label="Ref" class="rowhead">13</td><td data-label="Block">Lesson + takeaway</td><td data-label="Use for">A teaching point with a highlighted conclusion</td></tr>
+          <tr><td data-label="Ref" class="rowhead">14</td><td data-label="Block">Discussion cards</td><td data-label="Use for">Four prompts for group discussion</td></tr>
+          <tr><td data-label="Ref" class="rowhead">15</td><td data-label="Block">Opportunities &amp; blockers</td><td data-label="Use for">Two-sided position summary</td></tr>
+          <tr><td data-label="Ref" class="rowhead">16</td><td data-label="Block">Two-column bullets</td><td data-label="Use for">Now versus next, side by side</td></tr>
+          <tr><td data-label="Ref" class="rowhead">17</td><td data-label="Block">Flowchart</td><td data-label="Use for">A process, step by step</td></tr>
+          <tr><td data-label="Ref" class="rowhead">18</td><td data-label="Block">Feature card</td><td data-label="Use for">One item given prominence</td></tr>
+          <tr><td data-label="Ref" class="rowhead">19</td><td data-label="Block">End / closing</td><td data-label="Use for">Thank you, questions, contact</td></tr>
+          <tr><td data-label="Ref" class="rowhead">20</td><td data-label="Block">Action points</td><td data-label="Use for">Agreed actions with owners</td></tr>
+          <tr><td data-label="Ref" class="rowhead">21</td><td data-label="Block">Pull quote</td><td data-label="Use for">A single quotation, given room</td></tr>
+          <tr><td data-label="Ref" class="rowhead">22</td><td data-label="Block">Comparison table</td><td data-label="Use for">Several options against the same criteria</td></tr>
+          <tr><td data-label="Ref" class="rowhead">23</td><td data-label="Block">Bar chart</td><td data-label="Use for">Comparing values across categories</td></tr>
+          <tr><td data-label="Ref" class="rowhead">24</td><td data-label="Block">Roadmap</td><td data-label="Use for">Now / next / later, without fixed dates</td></tr>
+          <tr><td data-label="Ref" class="rowhead">25</td><td data-label="Block">2&times;2 matrix</td><td data-label="Use for">Positioning, e.g. effort against impact</td></tr>
+          <tr><td data-label="Ref" class="rowhead">26</td><td data-label="Block">Image</td><td data-label="Use for">A photograph with a caption &mdash; see limitations</td></tr>
+          <tr><td data-label="Ref" class="rowhead">27</td><td data-label="Block">Big statement</td><td data-label="Use for">One line, maximum impact</td></tr>
+        </table>
+        <p class="note">Attribution is a <strong>modifier</strong>, not a numbered block &mdash; it can be added to any content slide to credit a speaker or source.</p>
+      </div>
+    </section>
+
+    <!-- ===================== 6 ===================== -->
+    <section class="section" id="s6">
+      <div class="section-header"><div class="section-num">06</div><div class="section-title">How the system is maintained</div></div>
+      <div class="section-body">
+        <p>Two things move independently, and knowing which is which explains almost every question people have about the system.</p>
+
+        <table class="tbl">
+          <tr><th>What changes</th><th>Where it lives</th><th>What you do</th></tr>
+          <tr><td data-label="Changes" class="rowhead">Appearance &mdash; colours, spacing, how a block looks</td><td data-label="Lives">The hosted style file</td><td data-label="You do"><strong>Nothing.</strong> It reaches your deck automatically.</td></tr>
+          <tr><td data-label="Changes" class="rowhead">New or changed block types</td><td data-label="Lives">The template</td><td data-label="You do">Download the latest template before your next deck.</td></tr>
+        </table>
+
+        <p class="subhead">The shared slide library</p>
+        <p>Alongside the template there is a curated library of reusable slides &mdash; material that has proven useful more than once, such as sector statistics, standing definitions or recurring process diagrams. It is maintained centrally and dipped into occasionally rather than used for every deck.</p>
+        <p>The library grows from your work. If you build a slide you think colleagues would reuse, flag it. Matt reviews suggestions and, where a slide is genuinely reusable, adds it to the shared set with a stable reference so it can be found again. Deciding what earns a place in the library is a single-owner job on purpose &mdash; it is what stops a shared set turning into an unsorted pile.</p>
+
+        <div class="callout gold">
+          <div class="ttl">Why one person holds the pen</div>
+          Anyone can author a deck and anyone can suggest a slide for reuse. Only one person edits the shared style and the shared library. That is the whole governance model, and it is what keeps a system used by several people looking like it was made by one.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 7 ===================== -->
+    <section class="section" id="s7">
+      <div class="section-header"><div class="section-num">07</div><div class="section-title">Limitations and things to know</div></div>
+      <div class="section-body">
+
+        <p class="subhead">Images need a connection, and are discouraged</p>
+        <p>Photographs are not stored inside the deck. They are uploaded through the University upload form, which returns a web address, and the deck points at that address. Two consequences: an image slide needs a connection to display, and an offline copy will show a gap where the picture should be.</p>
+        <p>Beyond that, images are deliberately not encouraged. Most of what people reach for a picture to do &mdash; charts, diagrams, process flows &mdash; is better done by a block, which stays sharp, prints properly and matches the brand. When you do use one, keep it modest in size (around 960&times;540 is ample for a slide) and always write proper alternative text describing what it shows.</p>
+
+        <p class="subhead">Offline copies are frozen</p>
+        <p>If you genuinely need a deck that works with no connection &mdash; a venue with no wifi, a memory stick &mdash; ask and one can be produced. It bundles the styling inside the file, so it works anywhere, but it is a snapshot: it will not receive later improvements. Refreshing it means producing it again.</p>
+
+        <p class="subhead">Which AI tool you use matters</p>
+        <p>The template is designed to be filled in by Claude. Because the deck is mostly structure and labels rather than design code, other assistants will often produce something workable &mdash; but there are failure modes that look fine on screen and are not: an assistant may quietly add its own styling, or pull in an external resource, either of which breaks the brand link or the offline behaviour. If you use a different tool, the three checks in the quickstart guide are worth running. Note also that for University data, Copilot is the only approved tool.</p>
+
+        <p class="subhead">Other boundaries worth knowing</p>
+        <ul class="rec-list">
+          <li><strong>Video is not supported.</strong> Link out to it instead.</li>
+          <li><strong>Slide transitions and animation are minimal by design</strong> &mdash; one clean movement between slides, nothing that misbehaves in PDF.</li>
+          <li><strong>Very long decks get unwieldy</strong>; break beyond about 40 slides into two.</li>
+          <li><strong>Editing the finished HTML by hand is not the way to change a deck.</strong> Change your content file and regenerate &mdash; the built file is a disposable output.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================== 8 ===================== -->
+    <section class="section" id="s8">
+      <div class="section-header"><div class="section-num">08</div><div class="section-title">Questions you may have</div></div>
+      <div class="section-body">
+        <div class="faq-item"><div class="faq-q">Do I need to install anything?</div><div class="faq-a">No. Decks open in the browser you already have. There is nothing to install, licence or keep updated.</div></div>
+        <div class="faq-item"><div class="faq-q">Can I still send someone a PowerPoint?</div><div class="faq-a">Not directly &mdash; but you can send the PDF export, which is usually what people actually want. If a genuine .pptx is required for an external process, that is a conversion job, so raise it early.</div></div>
+        <div class="faq-item"><div class="faq-q">What if I want a layout that is not in the 27 blocks?</div><div class="faq-a">Ask. If it is a one-off, there is usually a block that gets close. If it is something several people would use, it becomes a candidate for a new block type.</div></div>
+        <div class="faq-item"><div class="faq-q">My deck looks unstyled &mdash; plain text on white. What happened?</div><div class="faq-a">It cannot reach the hosted style file. Check you are on the University network or VPN, then reload. If that does not fix it, the link line may have been altered during generation &mdash; regenerate from your content file.</div></div>
+        <div class="faq-item"><div class="faq-q">The font looks wrong but everything else is fine.</div><div class="faq-a">The layout has loaded but FS Lola has not. Almost always a connection issue; reconnect and reload.</div></div>
+        <div class="faq-item"><div class="faq-q">Can two of us work on the same deck?</div><div class="faq-a">Not simultaneously. Decks are authored individually. Share the content file if you need to hand one over.</div></div>
+        <div class="faq-item"><div class="faq-q">Will my old decks break when the style is updated?</div><div class="faq-a">No. Improvements are additive, and anything that would break existing decks is published under a new file name so older decks keep pointing at the version they were built against.</div></div>
+      </div>
+    </section>
+
+    <!-- ===================== 9 ===================== -->
+    <section class="section" id="s9">
+      <div class="section-header"><div class="section-num">09</div><div class="section-title">Glossary</div></div>
+      <div class="section-body">
+        <dl class="gloss">
+          <dt>Block</dt><dd>A pre-designed slide type. You choose the block; it supplies the layout.</dd>
+          <dt>Template</dt><dd>The plain text file you paste into Claude. Contains the block patterns and the link to the house style.</dd>
+          <dt>Generation file</dt><dd>Your filled-in template &mdash; the content you pasted in. Worth keeping so a deck can be rebuilt later.</dd>
+          <dt>Linked deck</dt><dd>A deck that refers to the hosted style files rather than containing them. The default, and the mode that stays up to date.</dd>
+          <dt>Offline copy</dt><dd>A deck with the styling bundled inside it. Works with no connection, but frozen at the moment it was made.</dd>
+          <dt>CSS</dt><dd>The stylesheet language that holds the house style &mdash; colours, fonts, spacing, layout.</dd>
+          <dt>CDN</dt><dd>Content delivery network. In this context, the University web hosting that images are uploaded to and served from.</dd>
+          <dt>FS Lola</dt><dd>The University's primary typeface, used for headings and titles.</dd>
+          <dt>Slide library</dt><dd>The curated set of reusable slides maintained centrally, separate from your own decks.</dd>
+        </dl>
+        <p class="note">Style guide reference: the block style guide deck shows all 27 blocks (plus the attribution modifier) rendered and numbered.</p>
+      </div>
+    </section>
+
+
+  </div><!-- end content -->
+
+  <div class="footer">
+    <div>Teesside University &middot; SRM &middot; The Presentation System</div>
+    <div><a href="https://www.tees.ac.uk" target="_blank" rel="noopener">tees.ac.uk</a> &middot; August 2026 &middot; v1.0</div>
+  </div>
+
+</div><!-- end page -->
+
+</body>
+</html>

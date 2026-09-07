@@ -376,7 +376,7 @@ html, body {
 .action-owner { margin-left: auto; font-size: 11px; color: var(--muted2); white-space: nowrap; padding-top: 5px; }
 
 /* ============================================================
-   BLOCK 21 — ATTRIBUTION (overlay modifier)
+   MODIFIER — ATTRIBUTION (overlay modifier)
    Inherits all tokens — never redeclares :root.
    ============================================================ */
 .attr-block { position: absolute; bottom: 60px; right: var(--pad-x); text-align: right; max-width: 60%; pointer-events: none; }
@@ -385,7 +385,7 @@ html, body {
 .attr-divider { display: none; }
 
 /* ============================================================
-   BLOCK 22 — PULL QUOTE / TESTIMONIAL
+   MODIFIER — PULL QUOTE / TESTIMONIAL
    ============================================================ */
 .quote-slide .slide-content { justify-content: center; }
 .quote-mark { font-family: var(--font-title); font-size: 90px; font-weight: var(--weight-heading); color: rgb(var(--gold-rgb) / .35); line-height: .8; margin-bottom: 8px; }
@@ -398,7 +398,7 @@ html, body {
 .quote-role { font-size: clamp(13px,1.4vw,16px); color: var(--muted); }
 
 /* ============================================================
-   BLOCK 23 — COMPARISON TABLE
+   MODIFIER — COMPARISON TABLE
    ============================================================ */
 .cmp-table { width: 100%; border-collapse: collapse; font-size: clamp(13px,1.4vw,16px); }
 .cmp-table thead th {
@@ -417,7 +417,7 @@ html, body {
 .cmp-no  { color: var(--neg); font-weight: 700; }
 
 /* ============================================================
-   BLOCK 24 — CHART (hand-built SVG bar chart)
+   MODIFIER — CHART (hand-built SVG bar chart)
    ============================================================ */
 .chart-wrap { width: 100%; max-width: 900px; }
 .chart-svg { width: 100%; height: auto; overflow: visible; }
@@ -429,7 +429,7 @@ html, body {
 .chart-legend { display: flex; gap: 24px; margin-top: 18px; }
 
 /* ============================================================
-   BLOCK 25 — ROADMAP (Now / Next / Later)
+   MODIFIER — ROADMAP (Now / Next / Later)
    ============================================================ */
 .roadmap { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; position: relative; }
 .roadmap-col { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 22px; }
@@ -443,7 +443,7 @@ html, body {
 .roadmap-list li::before { content: ''; flex-shrink: 0; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); margin-top: 8px; }
 
 /* ============================================================
-   BLOCK 26 — 2×2 MATRIX / QUADRANT
+   MODIFIER — 2×2 MATRIX / QUADRANT
    ============================================================ */
 .matrix-wrap { display: flex; gap: 16px; align-items: stretch; max-width: 900px; }
 .matrix-y {
@@ -459,7 +459,7 @@ html, body {
 .matrix-x { text-align: center; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-lt); margin-top: 12px; }
 
 /* ============================================================
-   BLOCK 27 — IMAGE / MEDIA (CDN-hosted)
+   MODIFIER — IMAGE / MEDIA (CDN-hosted)
    NOTE: requires network. Offline snapshots will show a gap.
    ============================================================ */
 .media-figure { margin: 0; display: flex; flex-direction: column; gap: 12px; }
@@ -471,7 +471,7 @@ html, body {
 .media-credit { font-size: 10px; color: var(--muted2); font-style: italic; }
 
 /* ============================================================
-   BLOCK 28 — BIG STATEMENT
+   MODIFIER — BIG STATEMENT
    ============================================================ */
 .statement-slide .slide-content { justify-content: center; }
 .statement {
@@ -571,8 +571,8 @@ html, body {
     opacity: 1 !important; transform: none !important;
     break-after: page; break-inside: avoid;
     box-sizing: border-box;
-    width: 297mm; height: 209mm;   /* exact A4 landscape (1mm under 210 to defeat rounding overflow) */
-    padding: 13mm 16mm 10mm;
+    width: 297mm; height: 200mm;   /* under A4 landscape printable height — prevents overflow onto a phantom page (confirmed via black-test) */
+    padding: 12mm 16mm 12mm;
     background: var(--bg);
     overflow: hidden;              /* clip, never spill onto a phantom page */
     pointer-events: auto;
