@@ -1,5 +1,5 @@
 # Teesside University — HTML Deck Authoring Template
-**Version:** 1.0  ·  **Updated:** August 2026  ·  **Mode:** Linked (hosted CSS/JS/font)
+**Version:** 1.1  ·  **Updated:** September 2026  ·  **Mode:** Linked (hosted CSS/JS/font)
 
 > **Always download a fresh copy of this template for each new deck** — don't reuse an old one, or you'll miss new blocks and fixes.
 > Keep this file's name (`tu-deck-template.md`). When you fill it in, **Save As** under your presentation's name (e.g. `open-day-review.md`).
@@ -43,6 +43,7 @@ DECK_VERSION:    [optional — footer version/date, e.g. v1 · Sept 2026. Leave 
 - British English throughout. Use `&mdash;`, `&amp;`, `&middot;` entities.
 - Icons: use only the `<use href="#i-...">` ids listed in ICON VOCABULARY. The icon sprite is included in the shell — do not add icons from anywhere else.
 - Do not invent data. Where the author leaves a placeholder, keep it as written.
+- **Colleague content arrives as `[BRACKET: value]` fields**, one slide at a time, each headed `[SLIDE: N]` / `[TYPE: ...]`. Each block above lists its exact **Content fields** table — use that table to map every bracket to its HTML target. A repeatable field (marked "one line per item") appears once per line; create one card/bullet/row per line given. A `[MODIFIER: ...]` entry is not its own slide — insert it into the numbered `[SLIDE: N]` it names, following that modifier's Content fields table.
 
 ---
 
@@ -124,6 +125,15 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 01 — Title
 **Section tag:** `<section class="slide title-slide" id="[semantic-id]">`
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | title-eyebrow text | No — once |
+| `[TITLE]` | slide-h1 text | No — once |
+| `[PARAGRAPH]` | title-meta text | No — once |
+
 ```html
 <span class="title-eyebrow">SRM AI Working Group</span>
 <h1 class="slide-h1">Block Style Guide</h1>
@@ -132,6 +142,15 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 02 — Agenda
 **Section tag:** `<section class="slide type-agenda" id="[semantic-id]">`
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[TITLE]` | slide-h2 text | No — once |
+| `[ITEM NUMBER / ITEM TITLE / ITEM TIME]` | one agenda-item per line — agenda-num / agenda-text / agenda-meta | Yes — one line per item |
+
 ```html
 <span class="slide-label">Agenda</span>
 <h2 class="slide-h2">What we&rsquo;ll cover</h2>
@@ -147,6 +166,16 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 03 — Section cover
 **Section tag:** `<section class="slide section-cover" id="[semantic-id]">`
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[TITLE]` | slide-h1 text | No — once |
+| `[PARAGRAPH]` | slide-sub text | No — once |
+| `[SECTION NUMBER]` | section-num text, e.g. 01 | No — once |
+
 ```html
 <span class="slide-label">Section 01</span>
 <h1 class="slide-h1">The Landscape</h1>
@@ -156,6 +185,19 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 04 — Donut chart
 **Section tag:** `<section class="slide type-donut-chart" id="[semantic-id]">`
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[TITLE]` | slide-h2 text | No — once |
+| `[PERCENT]` | donut-centre number, e.g. 68 | No — once |
+| `[PERCENT LABEL]` | donut-centre-sub text | No — once |
+| `[LEGEND ON]` | legend-item (on) text | No — once |
+| `[LEGEND OFF]` | legend-item (off) text | No — once |
+| `[SOURCE]` | src-note text (optional) | No — once |
+
 ```html
 <span class="slide-label">Section 01 &mdash; The Landscape</span>
 <h2 class="slide-h2">Staff AI usage</h2>
@@ -177,7 +219,15 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 05 — Stat cards
 **Section tag:** `<section class="slide type-stat-cards" id="[semantic-id]">`
-*Field guide: stat-number = the figure · stat-label = what it means · stat-source = source (optional)*
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[TITLE]` | slide-h2 text | No — once |
+| `[STAT NUMBER / STAT LABEL / STAT SOURCE]` | one stat-card per line — up to 4 (SOURCE optional) | Yes — one line per item |
+
 ```html
 <span class="slide-label">Section 01 &mdash; The Landscape</span>
 <h2 class="slide-h2">Where we stand</h2>
@@ -188,7 +238,16 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 06 — Body text + stat cards
 **Section tag:** `<section class="slide type-body-stats" id="[semantic-id]">`
-*Field guide: left column = narrative paragraphs · right column = up to two stat cards*
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[TITLE]` | slide-h2 text | No — once |
+| `[PARAGRAPH]` | one slide-sub paragraph per line (1-2 lines) | Yes — one line per item |
+| `[STAT NUMBER / STAT LABEL]` | one stat-card per line — up to 2 | Yes — one line per item |
+
 ```html
 <span class="slide-label">Section 01 &mdash; The Landscape</span>
 <h2 class="slide-h2">The gap in context</h2>
@@ -204,6 +263,15 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 07 — Timeline
 **Section tag:** `<section class="slide type-timeline" id="[semantic-id]">`
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[TITLE]` | slide-h2 text | No — once |
+| `[YEAR / STEP TITLE / STEP BODY]` | one timeline-item per line | Yes — one line per item |
+
 ```html
 <span class="slide-label">Section 02 &mdash; Capability</span>
 <h2 class="slide-h2">How fast this is moving</h2>
@@ -214,6 +282,17 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 08 — Lesson + mistake callout
 **Section tag:** `<section class="slide type-lesson-mistake" id="[semantic-id]">`
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[LESSON NUMBER]` | lesson-num text, e.g. 01 | No — once |
+| `[TITLE]` | slide-h2 text | No — once |
+| `[PARAGRAPH]` | lesson-body text | No — once |
+| `[MISTAKE]` | mistake-text (inside the Common Mistake callout) | No — once |
+
 ```html
 <span class="slide-label">Section 02 &mdash; Capability</span>
 <div class="lesson-num">01</div>
@@ -228,7 +307,15 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 09 — News / competitor cards
 **Section tag:** `<section class="slide type-news-cards" id="[semantic-id]">`
-*Field guide: card-src = publication / source · card-title = headline · card-body = summary · card-meta = date*
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[TITLE]` | slide-h2 text | No — once |
+| `[CARD SOURCE / CARD TITLE / CARD BODY / CARD DATE]` | one info-card per line — up to 3 (cols-3) | Yes — one line per item |
+
 ```html
 <span class="slide-label">Section 02 &mdash; Capability</span>
 <h2 class="slide-h2">What others are doing</h2>
@@ -239,7 +326,15 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 10 — Role cards
 **Section tag:** `<section class="slide type-role-cards" id="[semantic-id]">`
-*Field guide: card-src = role · card-title = person or group · card-body = remit · card-meta = department*
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[TITLE]` | slide-h2 text | No — once |
+| `[CARD ROLE / CARD NAME / CARD REMIT / CARD DEPT]` | one info-card per line — up to 3 (cols-3) | Yes — one line per item |
+
 ```html
 <span class="slide-label">Section 03 &mdash; People</span>
 <h2 class="slide-h2">Who does what</h2>
@@ -250,6 +345,15 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 11 — Standard bullets  ·  **DEFAULT — use this unless another block fits**
 **Section tag:** `<section class="slide type-bullets" id="[semantic-id]">`
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[TITLE]` | slide-h2 text | No — once |
+| `[BULLET]` | one slide-list <li> per line — up to ~5 | Yes — one line per item |
+
 ```html
 <span class="slide-label">Section 03 &mdash; People</span>
 <h2 class="slide-h2">Principles we agreed</h2>
@@ -265,7 +369,15 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 12 — Project cards
 **Section tag:** `<section class="slide type-project-cards" id="[semantic-id]">`
-*Field guide: project-badge = stage (Alpha / Beta / Live) · card-title = project · card-body = description*
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[TITLE]` | slide-h2 text | No — once |
+| `[CARD STAGE / CARD TITLE / CARD BODY]` | one info-card per line — up to 4 (cols-4), STAGE fills project-badge | Yes — one line per item |
+
 ```html
 <span class="slide-label">Section 04 &mdash; Projects</span>
 <h2 class="slide-h2">Live and proposed work</h2>
@@ -276,6 +388,17 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 13 — Lesson + takeaway
 **Section tag:** `<section class="slide type-lesson-takeaway" id="[semantic-id]">`
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[LESSON NUMBER]` | lesson-num text | No — once |
+| `[TITLE]` | slide-h2 text | No — once |
+| `[PARAGRAPH]` | lesson-body text | No — once |
+| `[TAKEAWAY]` | takeaway-text (inside the Key Takeaway callout) | No — once |
+
 ```html
 <span class="slide-label">Section 04 &mdash; Projects</span>
 <div class="lesson-num">02</div>
@@ -290,6 +413,15 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 14 — Discussion cards
 **Section tag:** `<section class="slide type-discussion-cards" id="[semantic-id]">`
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[TITLE]` | slide-h2 text | No — once |
+| `[Q NUMBER / QUESTION / HINT]` | one discuss-card per line — usually 4 (cols-2) | Yes — one line per item |
+
 ```html
 <span class="slide-label">Section 05 &mdash; Discussion</span>
 <h2 class="slide-h2">Questions for the group</h2>
@@ -300,6 +432,16 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 15 — Opportunities & blockers
 **Section tag:** `<section class="slide type-opp-blockers" id="[semantic-id]">`
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[TITLE]` | slide-h2 text | No — once |
+| `[OPPORTUNITY]` | one bullet in the Opportunities column per line | Yes — one line per item |
+| `[BLOCKER]` | one bullet in the Blockers column per line | Yes — one line per item |
+
 ```html
 <span class="slide-label">Section 05 &mdash; Position</span>
 <h2 class="slide-h2">Opportunities and blockers</h2>
@@ -328,6 +470,18 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 16 — Two-column bullets
 **Section tag:** `<section class="slide type-two-column" id="[semantic-id]">`
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[TITLE]` | slide-h2 text | No — once |
+| `[COLUMN LEFT HEADING]` | col-head text, left column | No — once |
+| `[LEFT BULLET]` | one bullet in the left column per line | Yes — one line per item |
+| `[COLUMN RIGHT HEADING]` | col-head text, right column | No — once |
+| `[RIGHT BULLET]` | one bullet in the right column per line | Yes — one line per item |
+
 ```html
 <span class="slide-label">Section 05 &mdash; Position</span>
 <h2 class="slide-h2">Now versus next year</h2>
@@ -356,6 +510,15 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 17 — Flowchart
 **Section tag:** `<section class="slide type-flowchart" id="[semantic-id]">`
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[TITLE]` | slide-h2 text | No — once |
+| `[STEP / STEP NOTE]` | one flow-box per line, in order; add {highlight} after STEP text to emphasise that box | Yes — one line per item |
+
 ```html
 <span class="slide-label">Section 04 &mdash; Projects</span>
 <h2 class="slide-h2">Web copy proposed automation</h2>
@@ -366,6 +529,18 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 18 — Feature card
 **Section tag:** `<section class="slide type-feature-card" id="[semantic-id]">`
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[TITLE]` | slide-h2 text | No — once |
+| `[ICON]` | one id from ICON VOCABULARY, e.g. lightbulb | No — once |
+| `[FEATURE TITLE]` | feature-title text | No — once |
+| `[PARAGRAPH]` | feature-body text | No — once |
+| `[POINT]` | optional extra bullet under the feature — one per line | Yes — one line per item |
+
 ```html
 <span class="slide-label">Section 06 &mdash; Development</span>
 <h2 class="slide-h2">Upskilling route</h2>
@@ -385,6 +560,16 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 19 — End / closing
 **Section tag:** `<section class="slide end-slide" id="[semantic-id]">`
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[TITLE]` | slide-h1 text | No — once |
+| `[PARAGRAPH]` | slide-sub text | No — once |
+| `[CONTACT LINE]` | one end-contact line per line — up to 3 | Yes — one line per item |
+
 ```html
 <span class="slide-label">Thank you</span>
 <h1 class="slide-h1">Questions?</h1>
@@ -399,6 +584,15 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 20 — Action points
 **Section tag:** `<section class="slide type-action-points" id="[semantic-id]">`
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[TITLE]` | slide-h2 text | No — once |
+| `[ACTION NUMBER / ACTION / OWNER]` | one action-item per line | Yes — one line per item |
+
 ```html
 <span class="slide-label">Section 05 &mdash; Discussion</span>
 <h2 class="slide-h2">Agreed actions</h2>
@@ -413,6 +607,16 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 21 — Pull quote
 **Section tag:** `<section class="slide quote-slide" id="[semantic-id]">`
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[QUOTE]` | quote-text (the quotation itself, no quote marks needed) | No — once |
+| `[QUOTE NAME]` | quote-name text | No — once |
+| `[QUOTE ROLE]` | quote-role text | No — once |
+
 ```html
 <span class="slide-label">Section 06 &mdash; Voices</span>
 <div class="quote-mark">&ldquo;</div>
@@ -425,6 +629,17 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 22 — Comparison table
 **Section tag:** `<section class="slide type-comparison-table" id="[semantic-id]">`
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[TITLE]` | slide-h2 text | No — once |
+| `[COLUMNS]` | header row — pipe-separated, first cell is the row-label column header | No — once |
+| `[ROW]` | one table row per line, pipe-separated; wrap a cell in {yes} or {no} for green/red styling | Yes — one line per item |
+| `[SOURCE]` | src-note text (optional) | No — once |
+
 ```html
 <span class="slide-label">Section 03 &mdash; Tooling</span>
 <h2 class="slide-h2">Tooling comparison</h2>
@@ -448,6 +663,15 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 23 — Bar chart
 **Section tag:** `<section class="slide type-bar-chart" id="[semantic-id]">`
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[TITLE]` | slide-h2 text | No — once |
+| `[BAR]` | one bar per line: Label, NN% — up to 5; Claude computes bar height/position from the percentage | Yes — one line per item |
+
 ```html
 <span class="slide-label">Section 01 &mdash; The Landscape</span>
 <h2 class="slide-h2">Weekly AI use by team</h2>
@@ -489,6 +713,17 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 24 — Roadmap
 **Section tag:** `<section class="slide type-roadmap" id="[semantic-id]">`
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[TITLE]` | slide-h2 text | No — once |
+| `[NOW WHEN / NOW ITEM]` | Now column: one WHEN, then one ITEM per line | Yes — one line per item |
+| `[NEXT WHEN / NEXT ITEM]` | Next column: one WHEN, then one ITEM per line | Yes — one line per item |
+| `[LATER WHEN / LATER ITEM]` | Later column: one WHEN, then one ITEM per line | Yes — one line per item |
+
 ```html
 <span class="slide-label">Section 06 &mdash; Direction</span>
 <h2 class="slide-h2">Roadmap</h2>
@@ -526,6 +761,19 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 25 — 2x2 matrix
 **Section tag:** `<section class="slide type-matrix" id="[semantic-id]">`
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[TITLE]` | slide-h2 text | No — once |
+| `[Y AXIS]` | matrix-y text | No — once |
+| `[X AXIS]` | matrix-x text | No — once |
+| `[QUADRANT]` | one per line: position — top-left / top-right / bottom-left / bottom-right; add {priority} to mark the emphasised quadrant | Yes — one line per item |
+| `[LABEL]` | matrix-cell-label text for that quadrant | Yes — one line per item |
+| `[ITEMS]` | matrix-cell-items text for that quadrant | Yes — one line per item |
+
 ```html
 <span class="slide-label">Section 06 &mdash; Direction</span>
 <h2 class="slide-h2">Effort versus impact</h2>
@@ -539,6 +787,18 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 26 — Image / media
 **Section tag:** `<section class="slide type-image" id="[semantic-id]">`
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[TITLE]` | slide-h2 text | No — once |
+| `[IMAGE URL]` | media-img src — must be a hosted URL | No — once |
+| `[ALT TEXT]` | media-img alt — required, describes the image | No — once |
+| `[CAPTION]` | media-caption text | No — once |
+| `[CREDIT]` | media-credit text (optional) | No — once |
+
 ```html
 <span class="slide-label">Section 06 &mdash; Campus</span>
 <h2 class="slide-h2">Digital Life Building</h2>
@@ -552,6 +812,15 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Block 27 — Big statement
 **Section tag:** `<section class="slide statement-slide" id="[semantic-id]">`
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[STATEMENT]` | the statement text; wrap key words in {em}...{/em} for gold emphasis | No — once |
+| `[PARAGRAPH]` | statement-sub text (optional) | No — once |
+
 ```html
 <span class="slide-label">Section 06 &mdash; Direction</span>
 <div class="statement">The gap is not <em>capability</em>. It is <em>permission</em>.</div>
@@ -566,6 +835,15 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 
 ### Modifier — Attribution overlay
 Add this `<div>` inside any content slide, **just before** its `<div class="digiful-footer">`. Credits a speaker, project owner or source; sits bottom-right on desktop.
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[MODIFIER]` | ATTRIBUTION on SLIDE [n] — which existing slide this overlay attaches to | No — once |
+| `[CREDIT TITLE]` | attr-title text | No — once |
+| `[CREDIT META]` | attr-meta text | No — once |
+
 ```html
 <div class="attr-block">
   <div class="attr-title">Web Copy Workflow Automation</div>
@@ -573,6 +851,7 @@ Add this `<div>` inside any content slide, **just before** its `<div class="digi
   <hr class="attr-divider">
 </div>
 ```
+
 ---
 
 ## 🎨 ICON SPRITE — paste verbatim at the top of `<body>`

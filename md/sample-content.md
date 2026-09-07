@@ -1,6 +1,9 @@
-# SAMPLE CONTENT — test payload for tu-deck-template.md
+# SAMPLE CONTENT — bracket-format test payload for tu-deck-template.md
+# Version: 1.1  |  Updated: September 2026
 # Paste the master template first, then this whole block beneath it, then send the build instruction.
-# This is throwaway test content covering all 28 block types. Colleagues do NOT use this file — they write their own content.
+# Every [BRACKET: value] maps to that block's "Content fields" table in the template.
+# This is throwaway test/reference content. Colleagues copy this LAYOUT, not this wording — replace
+# every value after the colon with your own content. Do not remove or rename the brackets.
 
 VARIABLES:
   DECK_TITLE:     AI Working Group
@@ -9,152 +12,339 @@ VARIABLES:
   AUTHOR_NAME:    Matt Hudson
   DECK_VERSION:   v1 · Sept 2026
 
-SLIDES (one per block, in this order):
+-------------------------------------------------
+[SLIDE: 01]
+[TYPE: TITLE]
 
-01 — TITLE
-  Uses DECK_EYEBROW / DECK_TITLE / DECK_SUBTITLE above.
+[ABOVE TITLE: SRM AI Working Group]
+[TITLE: AI Working Group]
+[PARAGRAPH: Teesside University — Student Recruitment & Marketing · 2026]
 
-02 — AGENDA · "What we'll cover"
-  01 · Where we stand · 10 min
-  02 · Sector context and capability · 10 min
-  03 · Opportunities and blockers · 15 min
-  04 · Proposed projects · 15 min
-  05 · Discussion and actions · 10 min
+-------------------------------------------------
+[SLIDE: 02]
+[TYPE: AGENDA]
 
-03 — SECTION COVER · number 01 · "The Landscape"
-  Sub: Where the sector has moved, and what that means for us.
+[ABOVE TITLE: Agenda]
+[TITLE: What we'll cover]
 
-04 — DONUT CHART · "Staff AI usage" · Section 01 — The Landscape
-  68% weekly users. On: Use an AI tool at least weekly. Off: Occasional or non-users.
-  Source: Illustrative figures — replace with your own source.
-  (68% → stroke-dasharray "341.8 160.9")
+[ITEM NUMBER: 01][ITEM TITLE: Where we stand][ITEM TIME: 10 min]
+[ITEM NUMBER: 02][ITEM TITLE: Sector context and capability][ITEM TIME: 10 min]
+[ITEM NUMBER: 03][ITEM TITLE: Opportunities and blockers][ITEM TIME: 15 min]
+[ITEM NUMBER: 04][ITEM TITLE: Proposed projects][ITEM TIME: 15 min]
+[ITEM NUMBER: 05][ITEM TITLE: Discussion and actions][ITEM TIME: 10 min]
 
-05 — STAT CARDS · "Where we stand" · Section 01 — The Landscape
-  92% · of UK undergraduates use generative AI · HEPI, 2025
-  3 · competitor universities with institution-wide AI tools · Oxford, Liverpool, South Wales
-  1 · approved tool for University data · Copilot, basic licence
-  2,000+ · staff covered by any policy decision
+-------------------------------------------------
+[SLIDE: 03]
+[TYPE: SECTION COVER]
 
-06 — BODY + STAT CARDS · "The gap in context" · Section 01 — The Landscape
-  Para 1: Adoption among students has outpaced institutional policy by a wide margin. That gap is not unique to us — it is a sector-wide pattern that policy has not yet resolved.
-  Para 2: The practical question is not whether staff use these tools, but whether they do so with support and guardrails.
-  Stat: 4× · growth in staff AI queries year on year
-  Stat: 18mo · typical lag between tool release and approval
+[ABOVE TITLE: Section 01]
+[TITLE: The Landscape]
+[PARAGRAPH: Where the sector has moved, and what that means for us.]
+[SECTION NUMBER: 01]
 
-07 — TIMELINE · "How fast this is moving" · Section 02 — Capability
-  2023 · Generative AI goes mainstream · Public tools reach classrooms and workplaces faster than policy can respond.
-  2024 · Agents and automation mature · Workflow tools move from novelty to genuine time savings.
-  2025 · Institution-wide adoption · Competitor universities deploy AI tools and qualifications at scale.
-  2026 · North East AI Growth Zone · Regional designation raises the stakes for local institutions.
+-------------------------------------------------
+[SLIDE: 04]
+[TYPE: DONUT CHART]
 
-08 — LESSON + MISTAKE · number 01 · "Start with the workflow" · Section 02 — Capability
-  Body: The tools that stick are the ones that remove a step someone already resents. Begin with a task the team already does every week, not with the technology.
-  Mistake: Choosing a tool first and then hunting for a problem it might solve. This produces impressive demos and very little adoption.
+[ABOVE TITLE: Section 01 — The Landscape]
+[TITLE: Staff AI usage]
+[PERCENT: 68]
+[PERCENT LABEL: weekly users]
+[LEGEND ON: Use an AI tool at least weekly]
+[LEGEND OFF: Occasional or non-users]
+[SOURCE: Illustrative figures — replace with your own source.]
 
-09 — NEWS / COMPETITOR CARDS (cols-3) · "What others are doing" · Section 02 — Capability
-  Oxford · Institution-wide assistant rollout · Deployed to all staff and students with a supporting training programme. · Reported 2025
-  Liverpool · Credit-bearing AI qualification · Embedded AI literacy into the curriculum rather than treating it as an add-on. · Reported 2025
-  South Wales · Staff AI skills framework · Defined competency levels so training can be targeted by role. · Reported 2025
-  Source note: Illustrative summaries — verify before external use.
+-------------------------------------------------
+[SLIDE: 05]
+[TYPE: STAT CARDS]
 
-10 — ROLE CARDS (cols-3) · "Who does what" · Section 03 — People
-  Chair · University AI Working Group · Sets direction across the institution and owns escalation to director level. · Cross-department
-  Facilitators · SRM representation · Run departmental sessions, gather use cases and feed them upward. · Marketing / SRM
-  Contributors · Professional services staff · Bring real workflows and test proposals against day-to-day practice. · All grades
+[ABOVE TITLE: Section 01 — The Landscape]
+[TITLE: Where we stand]
 
-11 — STANDARD BULLETS · "Principles we agreed" · Section 03 — People
-  - Approved tools first — University data stays within policy.
-  - Start with workflows that already cause friction.
-  - Document use cases properly so investment requests have evidence.
-  - Share what works across departments rather than rebuilding it.
-  - Keep a human check on anything that reaches a student or applicant.
+[STAT NUMBER: 92%][STAT LABEL: of UK undergraduates use generative AI][STAT SOURCE: HEPI, 2025]
+[STAT NUMBER: 3][STAT LABEL: competitor universities with institution-wide AI tools][STAT SOURCE: Oxford, Liverpool, South Wales]
+[STAT NUMBER: 1][STAT LABEL: approved tool for University data][STAT SOURCE: Copilot, basic licence]
+[STAT NUMBER: 2,000+][STAT LABEL: staff covered by any policy decision][STAT SOURCE: ]
 
-12 — PROJECT CARDS (cols-4) · "Live and proposed work" · Section 04 — Projects
-  Alpha · Course search chatbot · Sandboxed prototype answering course queries.
-  Beta · Improved course search · Rebuilt search with better matching and fallbacks.
-  Beta · Events filter · Restructured data and rebuilt filtering.
-  Proposed · Web copy proofing · Automated first-pass check before human review.
+-------------------------------------------------
+[SLIDE: 06]
+[TYPE: BODY + STAT CARDS]
 
-13 — LESSON + TAKEAWAY · number 02 · "Prove it small" · Section 04 — Projects
-  Body: Every project above began as a contained test with a defined success measure. None required new budget to reach a demonstrable stage — which is precisely what makes the case for the next stage credible.
-  Takeaway: A working prototype is a stronger business case than a proposal document.
+[ABOVE TITLE: Section 01 — The Landscape]
+[TITLE: The gap in context]
 
-14 — DISCUSSION CARDS (2×2) · "Questions for the group" · Section 05 — Discussion
-  Q1 · Which weekly task would you most like to hand over? · Think about repetition, not complexity.
-  Q2 · Where does the current toolset genuinely block you? · Specific examples help build the case.
-  Q3 · What would make you confident using an AI tool at work? · Training, guardrails, or clearer policy?
-  Q4 · What should we bring to the next session? · One concrete item each.
+[PARAGRAPH: Adoption among students has outpaced institutional policy by a wide margin. That gap is not unique to us — it is a sector-wide pattern that policy has not yet resolved.]
+[PARAGRAPH: The practical question is not whether staff use these tools, but whether they do so with support and guardrails.]
 
-15 — OPPORTUNITIES & BLOCKERS · "Opportunities and blockers" · Section 05 — Position
-  Opportunities (icon i-bolt): Upgrade Copilot licences for defined roles; Build documented use cases for investment requests; Adopt low-risk complementary tools; Automate departmental workflows with Power Automate.
-  Blockers (icon i-warning): ICT cannot assess alternative tools at present; Director-level sign-off needed for new tooling; Personal data processing requires extra scrutiny; Budget cycles slow adoption regardless of merit.
+[STAT NUMBER: 4×][STAT LABEL: growth in staff AI queries year on year]
+[STAT NUMBER: 18mo][STAT LABEL: typical lag between tool release and approval]
 
-16 — TWO-COLUMN BULLETS · "Now versus next year" · Section 05 — Position
-  Left "Where we are": Basic Copilot licences only; No version control across the team; Use cases held informally; Training arranged case by case.
-  Right "Where we want to be": Licences matched to actual need; GitHub in place with team conventions; A documented, reusable use-case library; A defined route to funded training.
+-------------------------------------------------
+[SLIDE: 07]
+[TYPE: TIMELINE]
 
-17 — FLOWCHART · "Web copy proposed automation" · Section 04 — Projects
-  Step: EMS submission received with accessible linked document
-  Step: Document passed to Power Automate · note: Trigger on submission
-  Step (HIGHLIGHT): Trained AI agent runs spelling, grammar and style check · note: Copilot agent — within policy
-  Step: Corrected version returned with tracked changes listed · note: Human reviews output
+[ABOVE TITLE: Section 02 — Capability]
+[TITLE: How fast this is moving]
 
-18 — FEATURE CARD (icon i-lightbulb) · "Upskilling route" · Section 06 — Development
-  Title: Funded AI training
-  Body: A monthly external programme, University funded, feeding material directly back into this group. The first example of sanctioned, budgeted AI training — and a useful precedent for future proposals.
-  Points: Material brought back to each working group session; Directly transferable to departmental projects.
+[YEAR: 2023][STEP TITLE: Generative AI goes mainstream][STEP BODY: Public tools reach classrooms and workplaces faster than policy can respond.]
+[YEAR: 2024][STEP TITLE: Agents and automation mature][STEP BODY: Workflow tools move from novelty to genuine time savings.]
+[YEAR: 2025][STEP TITLE: Institution-wide adoption][STEP BODY: Competitor universities deploy AI tools and qualifications at scale.]
+[YEAR: 2026][STEP TITLE: North East AI Growth Zone][STEP BODY: Regional designation raises the stakes for local institutions.]
 
-19 — END / CLOSING · "Questions?"
-  Label: Thank you
-  Sub: Next session dates and materials will follow in the Teams channel.
-  Contact: SRM AI Working Group / Student Recruitment & Marketing / Teesside University
+-------------------------------------------------
+[SLIDE: 08]
+[TYPE: LESSON + MISTAKE]
 
-20 — ACTION POINTS · "Agreed actions" · Section 05 — Discussion
-  1 · Collect one candidate workflow from each attendee · All · 2 weeks
-  2 · Draft the licence upgrade use case for director review · Facilitators
-  3 · Demo the web copy automation prototype · Next session
-  4 · Share the working group notes in the Teams channel · This week
+[ABOVE TITLE: Section 02 — Capability]
+[LESSON NUMBER: 01]
+[TITLE: Start with the workflow]
+[PARAGRAPH: The tools that stick are the ones that remove a step someone already resents. Begin with a task the team already does every week, not with the technology.]
+[MISTAKE: Choosing a tool first and then hunting for a problem it might solve. This produces impressive demos and very little adoption.]
 
-MODIFIER — ATTRIBUTION OVERLAY (add the .attr-block div to the flowchart slide, Block 17)
-  Title: Web Copy Workflow Automation
-  Meta: Matt Hudson | SRM AI Working Group · 2026
+-------------------------------------------------
+[SLIDE: 09]
+[TYPE: NEWS CARDS]
 
-21 — PULL QUOTE · Section 06 — Voices
-  Quote: The tools were never the hard part. Agreeing what good looks like was.
-  Name: Working group participant
-  Role: Professional services · Teesside University
+[ABOVE TITLE: Section 02 — Capability]
+[TITLE: What others are doing]
 
-22 — COMPARISON TABLE · "Tooling comparison" · Section 03 — Tooling
-  Columns: Criterion | Copilot (basic) | Copilot (upgraded) | Unapproved tools
-  University data | Approved (yes) | Approved (yes) | Not permitted (no)
-  Cost | Included | Per-seat uplift | Varies
-  Agent building | Limited (no) | Available (yes) | Varies
-  Support route | ICT | ICT | None (no)
-  Sign-off needed | None | Director level | Not available (no)
-  Note: Illustrative — confirm current licensing before circulating.
+[CARD SOURCE: Oxford][CARD TITLE: Institution-wide assistant rollout][CARD BODY: Deployed to all staff and students with a supporting training programme.][CARD DATE: Reported 2025]
+[CARD SOURCE: Liverpool][CARD TITLE: Credit-bearing AI qualification][CARD BODY: Embedded AI literacy into the curriculum rather than treating it as an add-on.][CARD DATE: Reported 2025]
+[CARD SOURCE: South Wales][CARD TITLE: Staff AI skills framework][CARD BODY: Defined competency levels so training can be targeted by role.][CARD DATE: Reported 2025]
 
-23 — BAR CHART · "Weekly AI use by team" · Section 01 — The Landscape
-  Digital 81% · Content 64% · Recruitment 54% · Events 36% (alt) · Admissions 34% (alt)
-  Note: Hand-built SVG — no chart library, prints as vector.
+-------------------------------------------------
+[SLIDE: 10]
+[TYPE: ROLE CARDS]
 
-24 — ROADMAP · "Roadmap" · Section 06 — Direction
-  Now (This term): Collect departmental use cases; Run the web copy prototype; Establish the working group rhythm.
-  Next (Next two terms): Submit the licence upgrade case; Adopt GitHub with team conventions; Publish a shared use-case library.
-  Later (Beyond 2026): Departmental workflow automation at scale; Role-based AI skills framework; Cross-department shared tooling.
+[ABOVE TITLE: Section 03 — People]
+[TITLE: Who does what]
 
-25 — 2×2 MATRIX · "Effort versus impact" · Section 06 — Direction
-  Y axis: Impact. X axis: Effort.
-  Top-left (priority) "High impact · Low effort": Web copy proofing · Shared prompt library · Events filter
-  Top-right "High impact · High effort": Institution-wide assistant · Skills framework
-  Bottom-left "Low impact · Low effort": Meeting summaries · Template tidying
-  Bottom-right "Low impact · High effort": Bespoke internal tooling with narrow use
+[CARD ROLE: Chair][CARD NAME: University AI Working Group][CARD REMIT: Sets direction across the institution and owns escalation to director level.][CARD DEPT: Cross-department]
+[CARD ROLE: Facilitators][CARD NAME: SRM representation][CARD REMIT: Run departmental sessions, gather use cases and feed them upward.][CARD DEPT: Marketing / SRM]
+[CARD ROLE: Contributors][CARD NAME: Professional services staff][CARD REMIT: Bring real workflows and test proposals against day-to-day practice.][CARD DEPT: All grades]
 
-26 — IMAGE · "Digital Life Building" · Section 06 — Campus
-  Image: https://www.tees.ac.uk/images/commonimages/campus/digital_life_night.jpg
-  Alt: The Digital Life Building on the Teesside University campus, illuminated at night
-  Caption: The Digital Life Building — home to digital and computing teaching on campus.
-  Credit: Image hosted on the University CDN. Requires a network connection; offline decks will show a gap.
+-------------------------------------------------
+[SLIDE: 11]
+[TYPE: STANDARD BULLETS]
 
-27 — BIG STATEMENT · Section 06 — Direction
-  Statement: The gap is not *capability*. It is *permission*.
-  Sub: Staff are already doing the work. Our job is to make the supported route the easy one.
+[ABOVE TITLE: Section 03 — People]
+[TITLE: Principles we agreed]
+
+[BULLET: Approved tools first — University data stays within policy.]
+[BULLET: Start with workflows that already cause friction.]
+[BULLET: Document use cases properly so investment requests have evidence.]
+[BULLET: Share what works across departments rather than rebuilding it.]
+[BULLET: Keep a human check on anything that reaches a student or applicant.]
+
+-------------------------------------------------
+[SLIDE: 12]
+[TYPE: PROJECT CARDS]
+
+[ABOVE TITLE: Section 04 — Projects]
+[TITLE: Live and proposed work]
+
+[CARD STAGE: Alpha][CARD TITLE: Course search chatbot][CARD BODY: Sandboxed prototype answering course queries.]
+[CARD STAGE: Beta][CARD TITLE: Improved course search][CARD BODY: Rebuilt search with better matching and fallbacks.]
+[CARD STAGE: Beta][CARD TITLE: Events filter][CARD BODY: Restructured data and rebuilt filtering.]
+[CARD STAGE: Proposed][CARD TITLE: Web copy proofing][CARD BODY: Automated first-pass check before human review.]
+
+-------------------------------------------------
+[SLIDE: 13]
+[TYPE: LESSON + TAKEAWAY]
+
+[ABOVE TITLE: Section 04 — Projects]
+[LESSON NUMBER: 02]
+[TITLE: Prove it small]
+[PARAGRAPH: Every project above began as a contained test with a defined success measure. None required new budget to reach a demonstrable stage — which is precisely what makes the case for the next stage credible.]
+[TAKEAWAY: A working prototype is a stronger business case than a proposal document.]
+
+-------------------------------------------------
+[SLIDE: 14]
+[TYPE: DISCUSSION CARDS]
+
+[ABOVE TITLE: Section 05 — Discussion]
+[TITLE: Questions for the group]
+
+[Q NUMBER: Q1][QUESTION: Which weekly task would you most like to hand over?][HINT: Think about repetition, not complexity.]
+[Q NUMBER: Q2][QUESTION: Where does the current toolset genuinely block you?][HINT: Specific examples help build the case.]
+[Q NUMBER: Q3][QUESTION: What would make you confident using an AI tool at work?][HINT: Training, guardrails, or clearer policy?]
+[Q NUMBER: Q4][QUESTION: What should we bring to the next session?][HINT: One concrete item each.]
+
+-------------------------------------------------
+[SLIDE: 15]
+[TYPE: OPPORTUNITIES & BLOCKERS]
+
+[ABOVE TITLE: Section 05 — Position]
+[TITLE: Opportunities and blockers]
+
+[OPPORTUNITY: Upgrade Copilot licences for defined roles]
+[OPPORTUNITY: Build documented use cases for investment requests]
+[OPPORTUNITY: Adopt low-risk complementary tools]
+[OPPORTUNITY: Automate departmental workflows with Power Automate]
+
+[BLOCKER: ICT cannot assess alternative tools at present]
+[BLOCKER: Director-level sign-off needed for new tooling]
+[BLOCKER: Personal data processing requires extra scrutiny]
+[BLOCKER: Budget cycles slow adoption regardless of merit]
+
+-------------------------------------------------
+[SLIDE: 16]
+[TYPE: TWO COLUMN]
+
+[ABOVE TITLE: Section 05 — Position]
+[TITLE: Now versus next year]
+
+[COLUMN LEFT HEADING: Where we are]
+[LEFT BULLET: Basic Copilot licences only]
+[LEFT BULLET: No version control across the team]
+[LEFT BULLET: Use cases held informally]
+[LEFT BULLET: Training arranged case by case]
+
+[COLUMN RIGHT HEADING: Where we want to be]
+[RIGHT BULLET: Licences matched to actual need]
+[RIGHT BULLET: GitHub in place with team conventions]
+[RIGHT BULLET: A documented, reusable use-case library]
+[RIGHT BULLET: A defined route to funded training]
+
+-------------------------------------------------
+[SLIDE: 17]
+[TYPE: FLOWCHART]
+
+[ABOVE TITLE: Section 04 — Projects]
+[TITLE: Web copy proposed automation]
+
+[STEP: EMS submission received with accessible linked document][STEP NOTE: ]
+[STEP: Document passed to Power Automate][STEP NOTE: Trigger on submission]
+[STEP: Trained AI agent runs spelling, grammar and style check {highlight}][STEP NOTE: Copilot agent — within policy]
+[STEP: Corrected version returned with tracked changes listed][STEP NOTE: Human reviews output]
+
+[MODIFIER: ATTRIBUTION on SLIDE 17]
+[CREDIT TITLE: Web Copy Workflow Automation]
+[CREDIT META: Matt Hudson | SRM AI Working Group · 2026]
+
+-------------------------------------------------
+[SLIDE: 18]
+[TYPE: FEATURE CARD]
+
+[ABOVE TITLE: Section 06 — Development]
+[TITLE: Upskilling route]
+[ICON: lightbulb]
+[FEATURE TITLE: Funded AI training]
+[PARAGRAPH: A monthly external programme, University funded, feeding material directly back into this group. The first example of sanctioned, budgeted AI training — and a useful precedent for future proposals.]
+[POINT: Material brought back to each working group session]
+[POINT: Directly transferable to departmental projects]
+
+-------------------------------------------------
+[SLIDE: 19]
+[TYPE: END / CLOSING]
+
+[ABOVE TITLE: Thank you]
+[TITLE: Questions?]
+[PARAGRAPH: Next session dates and materials will follow in the Teams channel.]
+[CONTACT LINE: SRM AI Working Group]
+[CONTACT LINE: Student Recruitment & Marketing]
+[CONTACT LINE: Teesside University]
+
+-------------------------------------------------
+[SLIDE: 20]
+[TYPE: ACTION POINTS]
+
+[ABOVE TITLE: Section 05 — Discussion]
+[TITLE: Agreed actions]
+
+[ACTION NUMBER: 1][ACTION: Collect one candidate workflow from each attendee][OWNER: All · 2 weeks]
+[ACTION NUMBER: 2][ACTION: Draft the licence upgrade use case for director review][OWNER: Facilitators]
+[ACTION NUMBER: 3][ACTION: Demo the web copy automation prototype][OWNER: Next session]
+[ACTION NUMBER: 4][ACTION: Share the working group notes in the Teams channel][OWNER: This week]
+
+-------------------------------------------------
+[SLIDE: 21]
+[TYPE: PULL QUOTE]
+
+[ABOVE TITLE: Section 06 — Voices]
+[QUOTE: The tools were never the hard part. Agreeing what good looks like was.]
+[QUOTE NAME: Working group participant]
+[QUOTE ROLE: Professional services · Teesside University]
+
+-------------------------------------------------
+[SLIDE: 22]
+[TYPE: COMPARISON TABLE]
+
+[ABOVE TITLE: Section 03 — Tooling]
+[TITLE: Tooling comparison]
+
+[COLUMNS: Criterion | Copilot (basic) | Copilot (upgraded) | Unapproved tools]
+[ROW: University data | Approved {yes} | Approved {yes} | Not permitted {no}]
+[ROW: Cost | Included | Per-seat uplift | Varies]
+[ROW: Agent building | Limited {no} | Available {yes} | Varies]
+[ROW: Support route | ICT | ICT | None {no}]
+[ROW: Sign-off needed | None | Director level | Not available {no}]
+[SOURCE: Illustrative — confirm current licensing before circulating.]
+
+-------------------------------------------------
+[SLIDE: 23]
+[TYPE: BAR CHART]
+
+[ABOVE TITLE: Section 01 — The Landscape]
+[TITLE: Weekly AI use by team]
+
+[BAR: Digital, 81%]
+[BAR: Content, 64%]
+[BAR: Recruitment, 54%]
+[BAR: Events, 36%]
+[BAR: Admissions, 34%]
+
+-------------------------------------------------
+[SLIDE: 24]
+[TYPE: ROADMAP]
+
+[ABOVE TITLE: Section 06 — Direction]
+[TITLE: Roadmap]
+
+[NOW WHEN: This term]
+[NOW ITEM: Collect departmental use cases]
+[NOW ITEM: Run the web copy prototype]
+[NOW ITEM: Establish the working group rhythm]
+
+[NEXT WHEN: Next two terms]
+[NEXT ITEM: Submit the licence upgrade case]
+[NEXT ITEM: Adopt GitHub with team conventions]
+[NEXT ITEM: Publish a shared use-case library]
+
+[LATER WHEN: Beyond 2026]
+[LATER ITEM: Departmental workflow automation at scale]
+[LATER ITEM: Role-based AI skills framework]
+[LATER ITEM: Cross-department shared tooling]
+
+-------------------------------------------------
+[SLIDE: 25]
+[TYPE: MATRIX]
+
+[ABOVE TITLE: Section 06 — Direction]
+[TITLE: Effort versus impact]
+[Y AXIS: Impact]
+[X AXIS: Effort]
+
+[QUADRANT: top-left {priority}][LABEL: High impact · Low effort][ITEMS: Web copy proofing · Shared prompt library · Events filter]
+[QUADRANT: top-right][LABEL: High impact · High effort][ITEMS: Institution-wide assistant · Skills framework]
+[QUADRANT: bottom-left][LABEL: Low impact · Low effort][ITEMS: Meeting summaries · Template tidying]
+[QUADRANT: bottom-right][LABEL: Low impact · High effort][ITEMS: Bespoke internal tooling with narrow use]
+
+-------------------------------------------------
+[SLIDE: 26]
+[TYPE: IMAGE]
+
+[ABOVE TITLE: Section 06 — Campus]
+[TITLE: Digital Life Building]
+[IMAGE URL: https://www.tees.ac.uk/images/commonimages/campus/digital_life_night.jpg]
+[ALT TEXT: The Digital Life Building on the Teesside University campus, illuminated at night]
+[CAPTION: The Digital Life Building — home to digital and computing teaching on campus.]
+[CREDIT: Image hosted on the University CDN. Requires a network connection; offline decks will show a gap.]
+
+-------------------------------------------------
+[SLIDE: 27]
+[TYPE: BIG STATEMENT]
+
+[ABOVE TITLE: Section 06 — Direction]
+[STATEMENT: The gap is not {em}capability{/em}. It is {em}permission{/em}.]
+[PARAGRAPH: Staff are already doing the work. Our job is to make the supported route the easy one.]
