@@ -1,5 +1,5 @@
 # SAMPLE CONTENT — bracket-format test payload for tu-deck-template.md
-# Version: 1.2  |  Updated: September 2026
+# Version: 1.4  |  Updated: September 2026
 # Paste the master template first, then this whole block beneath it, then send the build instruction.
 # Every [BRACKET: value] maps to that block's "Content fields" table in the template.
 # This is throwaway test/reference content. Colleagues copy this LAYOUT, not this wording — replace
@@ -356,3 +356,40 @@ VARIABLES:
 [ABOVE TITLE: Section 06 — Direction]
 [STATEMENT: The gap is not {em}capability{/em}. It is {em}permission{/em}.]
 [PARAGRAPH: Staff are already doing the work. Our job is to make the supported route the easy one.]
+
+-------------------------------------------------
+[SLIDE: ADV-1]
+[TYPE: CUSTOM HTML]
+// Advanced block — embeds raw HTML/CSS/JS you supply, inserted exactly as written.
+// Not one of the 27 tested blocks. Not for general use — only reach for this if nothing
+// in the block library can do what you need. Custom class names MUST use a unique prefix
+// (e.g. cx-yourtopic) and must never reuse a class already in tu-styles.css or target
+// .slide / .slide-content / #deck / body directly — doing so can break the rest of the deck.
+// EDIT AND COPY THIS FILE IN A PLAIN TEXT EDITOR, not a markdown-rendering app — those turn
+// the fence below into a pretty "Code" card, and copying from that card usually drops the
+// [CODE BLOCK: / ``` / ``` / ] wrapper silently. Select all, don't copy from inside the card.
+
+[ABOVE TITLE: Section 06 — Direction]
+[TITLE: Custom visual example]
+[PARAGRAPH: A hand-built, self-contained progress indicator — proving the code below passes through unchanged.]
+
+[CODE BLOCK:
+```
+<div class="cx-example">
+  <style>
+    .cx-example { padding: 20px 0; }
+    .cx-example .cx-track { width: 100%; height: 10px; background: var(--surface2); border-radius: 6px; overflow: hidden; }
+    .cx-example .cx-fill { height: 100%; width: 0%; background: var(--gold); border-radius: 6px; transition: width 1.4s ease; }
+    .cx-example .cx-caption { margin-top: 10px; font-size: 13px; color: var(--muted); }
+  </style>
+  <div class="cx-track"><div class="cx-fill" id="cx-example-fill"></div></div>
+  <div class="cx-caption">72% — fills on load, proving custom JS runs</div>
+  <script>
+    (function(){
+      var el = document.getElementById('cx-example-fill');
+      setTimeout(function(){ if (el) el.style.width = '72%'; }, 150);
+    })();
+  </script>
+</div>
+```
+]

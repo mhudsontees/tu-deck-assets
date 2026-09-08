@@ -1,5 +1,5 @@
 # Teesside University — HTML Deck Authoring Template
-**Version:** 1.2  ·  **Updated:** September 2026  ·  **Mode:** Linked (hosted CSS/JS/font)
+**Version:** 1.4  ·  **Updated:** September 2026  ·  **Mode:** Linked (hosted CSS/JS/font)
 
 > **Always download a fresh copy of this template for each new deck** — don't reuse an old one, or you'll miss new blocks and fixes.
 > Keep this file's name (`tu-deck-template.md`). When you fill it in, **Save As** under your presentation's name (e.g. `open-day-review.md`).
@@ -45,6 +45,7 @@ DECK_VERSION:    [optional — footer version/date, e.g. v1 · Sept 2026. Leave 
 - Do not invent data. Where the author leaves a placeholder, keep it as written.
 - **Colleague content arrives as `[BRACKET: value]` fields**, one slide at a time, each headed `[SLIDE: N]` / `[TYPE: ...]`. Each block above lists its exact **Content fields** table — use that table to map every bracket to its HTML target. A repeatable field (marked "one line per item") appears once per line; create one card/bullet/row per line given. A `[MODIFIER: ...]` entry is not its own slide — insert it into the numbered `[SLIDE: N]` it names, following that modifier's Content fields table.
 - **Where content references another slide by number** (e.g. the Jump links modifier's `-> SLIDE NN`), resolve it to that slide's actual `id` — you assign every slide's id, so you already know the mapping. Never leave a `SLIDE NN` reference untranslated in the output HTML.
+- **`[TYPE: CUSTOM HTML]` (Advanced Block A) is the one exception to "do not add or change any CSS."** Insert its `[CODE BLOCK: ...]` fenced content verbatim, unmodified — do not compose it from field values like every other block. See its own section under ADVANCED BLOCKS for the full rule.
 
 ---
 
@@ -870,6 +871,72 @@ A row of small pill buttons that jump straight to another slide — useful on an
 <div class="jump-group">
   <a class="jump-link" href="#[id-of-target-slide]" onclick="jumpTo('[id-of-target-slide]');return false;">Label text</a>
   <!-- repeat one <a class="jump-link"> per [JUMP: ...] line -->
+</div>
+```
+
+---
+
+## 🔧 ADVANCED BLOCKS (optional — use with care)
+
+> These are **not** part of the tested 27-block library. They are an escape hatch for bespoke content the block library can't express — genuinely self-contained infographics, custom visualisations, anything that needs its own HTML/CSS/JS. Labelled `ADV-` rather than numbered, so adding more later never forces a renumber of the 1–27 sequence.
+>
+> **Before using one:** you are responsible for testing it yourself — mobile, desktop and PDF. Unlike the 27 core blocks, an advanced block's content is unique every time, so it can't be pre-verified once for everyone.
+
+### Advanced Block A — Custom HTML
+A single slide holding an optional heading, then a fenced block of your own HTML/CSS/JS, inserted **exactly as you wrote it**.
+
+**Section tag:** `<section class="slide" id="[semantic-id]">` — no modifier.
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text (optional — omit the line entirely to skip it) | No — once |
+| `[TITLE]` | slide-h2 text + a gold-rule beneath it (optional — omit to skip both) | No — once |
+| `[PARAGRAPH]` | slide-sub text (optional — omit to skip) | No — once |
+| `[CODE BLOCK: ` … fenced content … `]` | Your raw HTML/CSS/JS, inserted **verbatim, unchanged** | No — once, contains everything between the fences |
+
+**How to write the code block** — open with `[CODE BLOCK:` on its own line, then a triple-backtick fence, then your code, then a closing triple-backtick fence, then a `]` on its own line:
+
+```
+[CODE BLOCK:
+```
+<div class="cx-yourprefix">
+  ...your HTML, inline &lt;style&gt; and &lt;script&gt; here...
+</div>
+```
+]
+```
+
+**⚠️ Edit and copy this content in a plain text editor — not a markdown-rendering app.** Apps like iA Writer, Bear, Notion or Notes-in-rich-mode turn the triple-backtick fence into a pretty "Code" card and hide the literal `` ``` `` characters from view. Worse, tapping that card's own copy icon usually copies **only the code inside it** — silently dropping the `[CODE BLOCK:` line, the fences, and the closing `]`. If that gets pasted into Claude, the wrapper is gone and the block won't be recognised, with no error to warn you. Use a plain text editor (Notes app set to plain text, a code editor, even a basic text field) so nothing is ever hidden, reformatted, or partially copied — and when copying this whole file to paste into Claude, select all rather than copying from inside a rendered code card.
+
+**⚠️ Scoping rules — read before writing custom CSS/JS:**
+- **Every custom class must use a unique prefix** (e.g. `cx-yourtopic`) that appears **nowhere else** in `tu-styles.css`. Never target `body`, `html`, `:root`, `#deck`, `.slide`, `.slide-content`, `.slide-scroll`, or any class already used by the block library — doing so can silently break the rest of the deck, not just this slide.
+- **Wrap all custom JS in an IIFE** — `(function(){ ...your code... })();` — to avoid colliding with the shell's own globals (`slides`, `cur`, `go`, `render`, `jumpTo`, `downloadPDF`).
+- **No CDNs, no external scripts** — inline SVG/CSS/vanilla JS only. This block is an escape hatch for bespoke visuals, not a way to pull in a charting library.
+- **This is the one place in the whole system where the "do not add or change any CSS" rule does not apply.** Claude: for this block only, insert the fenced `[CODE BLOCK: ...]` content **byte-for-byte, with zero reformatting, re-indenting, escaping, or "fixing"** — copy it exactly as given between the fence markers. Every other block in this template is built from field values; this one is a verbatim passthrough.
+- **This block breaks one colleague safety check.** The standard advice ("search the finished file for `<style`, it should appear zero times") no longer holds when Advanced Block A is used — expect exactly one `<style>` (and possibly one `<script>`) per Custom HTML block. Note this if you use one, so it isn't mistaken for a sign of brand drift.
+
+```html
+<span class="slide-label">[ABOVE TITLE — optional]</span>
+<h2 class="slide-h2">[TITLE — optional]</h2>
+<div class="gold-rule"></div>
+<p class="slide-sub">[PARAGRAPH — optional]</p>
+
+<!-- Everything below is inserted verbatim from the [CODE BLOCK: ...] fence -->
+<div class="cx-example">
+  <style>
+    .cx-example { padding: 20px 0; }
+    .cx-example .cx-track { width: 100%; height: 10px; background: var(--surface2); border-radius: 6px; overflow: hidden; }
+    .cx-example .cx-fill { height: 100%; width: 0%; background: var(--gold); border-radius: 6px; transition: width 1.4s ease; }
+  </style>
+  <div class="cx-track"><div class="cx-fill" id="cx-example-fill"></div></div>
+  <script>
+    (function(){
+      var el = document.getElementById('cx-example-fill');
+      setTimeout(function(){ if (el) el.style.width = '72%'; }, 150);
+    })();
+  </script>
 </div>
 ```
 
