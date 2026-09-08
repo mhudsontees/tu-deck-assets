@@ -1,5 +1,5 @@
 # Teesside University — HTML Deck Authoring Template
-**Version:** 1.1  ·  **Updated:** September 2026  ·  **Mode:** Linked (hosted CSS/JS/font)
+**Version:** 1.2  ·  **Updated:** September 2026  ·  **Mode:** Linked (hosted CSS/JS/font)
 
 > **Always download a fresh copy of this template for each new deck** — don't reuse an old one, or you'll miss new blocks and fixes.
 > Keep this file's name (`tu-deck-template.md`). When you fill it in, **Save As** under your presentation's name (e.g. `open-day-review.md`).
@@ -44,6 +44,7 @@ DECK_VERSION:    [optional — footer version/date, e.g. v1 · Sept 2026. Leave 
 - Icons: use only the `<use href="#i-...">` ids listed in ICON VOCABULARY. The icon sprite is included in the shell — do not add icons from anywhere else.
 - Do not invent data. Where the author leaves a placeholder, keep it as written.
 - **Colleague content arrives as `[BRACKET: value]` fields**, one slide at a time, each headed `[SLIDE: N]` / `[TYPE: ...]`. Each block above lists its exact **Content fields** table — use that table to map every bracket to its HTML target. A repeatable field (marked "one line per item") appears once per line; create one card/bullet/row per line given. A `[MODIFIER: ...]` entry is not its own slide — insert it into the numbered `[SLIDE: N]` it names, following that modifier's Content fields table.
+- **Where content references another slide by number** (e.g. the Jump links modifier's `-> SLIDE NN`), resolve it to that slide's actual `id` — you assign every slide's id, so you already know the mapping. Never leave a `SLIDE NN` reference untranslated in the output HTML.
 
 ---
 
@@ -83,6 +84,7 @@ DECK_VERSION:    [optional — footer version/date, e.g. v1 · Sept 2026. Leave 
   document.addEventListener('touchend',e=>{ if(tsx===null)return; const dx=e.changedTouches[0].clientX-tsx; tsx=null; if(Math.abs(dx)>60){go(dx<0?cur+1:cur-1);} },{passive:true});
   const idx=slides.findIndex(s=>'#'+s.id===location.hash); if(idx>0) cur=idx;
   window.downloadPDF=function(){ setTimeout(()=>window.print(),200); };
+  window.jumpTo=function(id){ const i=slides.findIndex(s=>s.id===id); if(i>=0) go(i); };
   // footer self-heal: drop any optional field left empty so the grid recloses (counter always stays)
   document.querySelectorAll('.footer-author, .footer-version').forEach(el=>{ if(!el.textContent.trim()) el.remove(); });
   render();
@@ -849,6 +851,25 @@ Add this `<div>` inside any content slide, **just before** its `<div class="digi
   <div class="attr-title">Web Copy Workflow Automation</div>
   <div class="attr-meta">Matt Hudson | SRM AI Working Group &middot; 2026</div>
   <hr class="attr-divider">
+</div>
+```
+
+### Modifier — Jump links
+A row of small pill buttons that jump straight to another slide — useful on an agenda or overview slide so the audience (or presenter) can skip ahead. Uses the deck's built-in deep-linking; **automatically hidden in the PDF export** and reflows on mobile. Add this `<div>` inside any content slide, anywhere in `.slide-content`.
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[MODIFIER]` | JUMP LINKS on SLIDE [n] — which existing slide gets the jump-group | No — once |
+| `[JUMP]` | one button per line: `Label text -> SLIDE NN` — NN is the slide **number** to jump to; Claude resolves this to that slide's actual id when it builds the deck | Yes — one line per button |
+
+**How Claude should build this:** for each `[JUMP: Label -> SLIDE NN]` line, find the `id` you assigned to slide NN elsewhere in this same deck, and use it in both the `href` and the `onclick` below.
+
+```html
+<div class="jump-group">
+  <a class="jump-link" href="#[id-of-target-slide]" onclick="jumpTo('[id-of-target-slide]');return false;">Label text</a>
+  <!-- repeat one <a class="jump-link"> per [JUMP: ...] line -->
 </div>
 ```
 

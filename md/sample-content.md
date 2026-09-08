@@ -1,5 +1,5 @@
 # SAMPLE CONTENT — bracket-format test payload for tu-deck-template.md
-# Version: 1.1  |  Updated: September 2026
+# Version: 1.2  |  Updated: September 2026
 # Paste the master template first, then this whole block beneath it, then send the build instruction.
 # Every [BRACKET: value] maps to that block's "Content fields" table in the template.
 # This is throwaway test/reference content. Colleagues copy this LAYOUT, not this wording — replace
@@ -32,6 +32,14 @@ VARIABLES:
 [ITEM NUMBER: 03][ITEM TITLE: Opportunities and blockers][ITEM TIME: 15 min]
 [ITEM NUMBER: 04][ITEM TITLE: Proposed projects][ITEM TIME: 15 min]
 [ITEM NUMBER: 05][ITEM TITLE: Discussion and actions][ITEM TIME: 10 min]
+
+[MODIFIER: JUMP LINKS on SLIDE 02]
+// [JUMP: (Button Text) -> (Slide number #)]
+[JUMP: Where we stand -> SLIDE 03]
+[JUMP: Capability -> SLIDE 07]
+[JUMP: Blockers -> SLIDE 15]
+[JUMP: Projects -> SLIDE 12]
+[JUMP: Discussion -> SLIDE 20]
 
 -------------------------------------------------
 [SLIDE: 03]

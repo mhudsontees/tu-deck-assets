@@ -554,6 +554,27 @@ html, body {
 }
 
 /* ============================================================
+   MODIFIER — JUMP LINKS (quick nav to another slide, deep-link based)
+   ============================================================ */
+.jump-group { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.jump-link {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 12px; font-weight: 700; letter-spacing: .03em;
+  color: var(--gold-lt); text-decoration: none; cursor: pointer;
+  background: rgb(var(--gold-rgb) / .10);
+  border: 1px solid rgb(var(--gold-rgb) / .30);
+  border-radius: 20px; padding: 7px 14px 7px 16px;
+  transition: background .2s, border-color .2s;
+}
+.jump-link::after { content: '\2192'; font-weight: 400; opacity: .55; }  /* → */
+.jump-link:hover { background: rgb(var(--gold-rgb) / .18); border-color: rgb(var(--gold-lt-rgb) / .5); }
+
+@media (max-width: 768px) {
+  .jump-group { gap: 8px; margin-top: 16px; }
+  .jump-link { font-size: 11px; padding: 6px 12px 6px 13px; }
+}
+
+/* ============================================================
    PRINT / PDF
    ============================================================ */
 @media print {
@@ -607,6 +628,7 @@ html, body {
   .title-slide::before { display: none; }
 
   .nav-btn, #mobile-counter { display: none !important; }
+  .jump-group { display: none !important; }
   .cmp-scroll { overflow: visible; }
   .attr-block { position: static; text-align: left; max-width: none; margin-top: 16px; }
 }
