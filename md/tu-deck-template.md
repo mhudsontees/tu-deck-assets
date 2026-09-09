@@ -1,5 +1,5 @@
 # Teesside University — HTML Deck Authoring Template
-**Version:** 1.5  ·  **Updated:** September 2026  ·  **Mode:** Linked (hosted CSS/JS/font)
+**Version:** 1.7  ·  **Updated:** September 2026  ·  **Mode:** Linked (hosted CSS/JS/font)
 
 > **Always download a fresh copy of this template for each new deck** — don't reuse an old one, or you'll miss new blocks and fixes.
 > Keep this file's name (`tu-deck-template.md`). When you fill it in, **Save As** under your presentation's name (e.g. `open-day-review.md`).
@@ -305,7 +305,7 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 | `[LESSON NUMBER]` | lesson-num text, e.g. 01 | No — once |
 | `[TITLE]` | slide-h2 text | No — once |
 | `[PARAGRAPH]` | lesson-body text | No — once |
-| `[MISTAKE]` | mistake-text (inside the Common Mistake callout) | No — once |
+| `[MISTAKE]` | mistake-text (inside the Common Mistake callout) — optional; omit the line entirely to skip the whole callout, not just leave it empty | No — once |
 
 ```html
 <span class="slide-label">Section 02 &mdash; Capability</span>
@@ -423,7 +423,7 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 | `[LESSON NUMBER]` | lesson-num text | No — once |
 | `[TITLE]` | slide-h2 text | No — once |
 | `[PARAGRAPH]` | lesson-body text | No — once |
-| `[TAKEAWAY]` | takeaway-text (inside the Key Takeaway callout) | No — once |
+| `[TAKEAWAY]` | takeaway-text (inside the Key Takeaway callout) — optional; omit the line entirely to skip the whole callout, not just leave it empty | No — once |
 
 ```html
 <span class="slide-label">Section 04 &mdash; Projects</span>
@@ -707,7 +707,14 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 |---|---|---|
 | `[ABOVE TITLE]` | slide-label text | No — once |
 | `[TITLE]` | slide-h2 text | No — once |
-| `[BAR]` | one bar per line: Label, NN% — up to 5; Claude computes bar height/position from the percentage | Yes — one line per item |
+| `[BAR]` | one bar per line: Label, value% — up to 5, decimals allowed (e.g. 15.4%); Claude computes bar height/position — see scaling rule below | Yes — one line per item |
+
+**Scaling rule — the axis auto-fits the data, it is never fixed at 0–100:**
+1. Find the highest `[BAR]` value given.
+2. Round UP to a sensible ceiling: the next multiple of 10 above it (e.g. highest value 22.1% &rarr; ceiling 30; highest value 81% &rarr; ceiling 90). If the highest value is already a clean multiple of 10, use it as the ceiling directly.
+3. Set the four axis labels to 0, ceiling&times;0.25, ceiling&times;0.5, ceiling&times;0.75 (round these to whole numbers for the labels).
+4. For each bar: `height = (value / ceiling) &times; 240`, `y = 240 &minus; height`. Keep the decimal in this calculation even if the axis labels are rounded — do not round the bar's own value.
+5. `[chart-value]` text shows the value exactly as given, decimals included (e.g. `15.4%`).
 
 ```html
 <span class="slide-label">Section 01 &mdash; The Landscape</span>
