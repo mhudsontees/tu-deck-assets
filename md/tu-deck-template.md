@@ -1,5 +1,5 @@
 # Teesside University — HTML Deck Authoring Template
-**Version:** 1.7  ·  **Updated:** September 2026  ·  **Mode:** Linked (hosted CSS/JS/font)
+**Version:** 1.8  ·  **Updated:** September 2026  ·  **Mode:** Linked (hosted CSS/JS/font)
 
 > **Always download a fresh copy of this template for each new deck** — don't reuse an old one, or you'll miss new blocks and fixes.
 > Keep this file's name (`tu-deck-template.md`). When you fill it in, **Save As** under your presentation's name (e.g. `open-day-review.md`).
@@ -893,11 +893,14 @@ Add this `<div>` inside any content slide, **just before** its `<div class="digi
 | `[MODIFIER]` | ATTRIBUTION on SLIDE [n] — which existing slide this overlay attaches to | No — once |
 | `[CREDIT TITLE]` | attr-title text | No — once |
 | `[CREDIT META]` | attr-meta text | No — once |
+| `[CREDIT LINK]` | optional — adds a gold underlined &ldquo;Source &#8599;&rdquo; link beneath the credit, pointing to the URL given. Omit the line entirely for no link. | No — once |
 
 ```html
 <div class="attr-block">
   <div class="attr-title">Web Copy Workflow Automation</div>
   <div class="attr-meta">Matt Hudson | SRM AI Working Group &middot; 2026</div>
+  <a class="card-link" href="[CREDIT LINK URL]" target="_blank" rel="noopener">Source &#8599;</a>
+  <!-- omit the <a> line above entirely if no [CREDIT LINK] was given -->
   <hr class="attr-divider">
 </div>
 ```
