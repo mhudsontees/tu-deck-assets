@@ -390,6 +390,7 @@ html, body {
 .attr-title { font-family: var(--font-body); font-size: clamp(13px,1.4vw,15px); font-weight: 700; color: #fff; line-height: 1.35; }
 .attr-meta  { font-family: var(--font-body); font-size: clamp(13px,1.4vw,15px); font-weight: 400; color: var(--gold-lt); margin-top: 3px; }
 .attr-divider { display: none; }
+.attr-block .card-link { pointer-events: auto; }   /* attr-block disables clicks by default — re-enable for its own link */
 
 /* ============================================================
    MODIFIER — PULL QUOTE / TESTIMONIAL
