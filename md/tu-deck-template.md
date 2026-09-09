@@ -1,5 +1,5 @@
 # Teesside University — HTML Deck Authoring Template
-**Version:** 1.4  ·  **Updated:** September 2026  ·  **Mode:** Linked (hosted CSS/JS/font)
+**Version:** 1.5  ·  **Updated:** September 2026  ·  **Mode:** Linked (hosted CSS/JS/font)
 
 > **Always download a fresh copy of this template for each new deck** — don't reuse an old one, or you'll miss new blocks and fixes.
 > Keep this file's name (`tu-deck-template.md`). When you fill it in, **Save As** under your presentation's name (e.g. `open-day-review.md`).
@@ -236,7 +236,11 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 <h2 class="slide-h2">Where we stand</h2>
 <div class="gold-rule"></div>
 <div class="stat-grid">
-  <div class="stat-card"><div class="stat-number">92%</div><div class="stat-label">of UK undergraduates use generative AI</div><div class="stat-source">HEPI, 2025
+  <div class="stat-card"><div class="stat-number">92%</div><div class="stat-label">of UK undergraduates use generative AI</div><div class="stat-source">HEPI, 2025</div></div>
+  <div class="stat-card"><div class="stat-number">3</div><div class="stat-label">competitor universities with institution-wide AI tools</div><div class="stat-source">Oxford, Liverpool, South Wales</div></div>
+  <div class="stat-card"><div class="stat-number">1</div><div class="stat-label">approved tool for University data</div><div class="stat-source">Copilot, basic licence</div></div>
+  <div class="stat-card"><div class="stat-number">2,000+</div><div class="stat-label">staff covered by any policy decision</div></div>
+</div>
 ```
 
 ### Block 06 — Body text + stat cards
@@ -261,7 +265,10 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
     <p class="slide-sub" style="margin-top:16px;">The practical question is not whether staff use these tools, but whether they do so with support and guardrails.</p>
   </div>
   <div class="stat-grid">
-    <div class="stat-card"><div class="stat-number">4&times;</div><div class="stat-label">growth in staff AI queries year on year
+    <div class="stat-card"><div class="stat-number">4&times;</div><div class="stat-label">growth in staff AI queries year on year</div></div>
+    <div class="stat-card"><div class="stat-number">18mo</div><div class="stat-label">typical lag between tool release and approval</div></div>
+  </div>
+</div>
 ```
 
 ### Block 07 — Timeline
@@ -280,7 +287,11 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 <h2 class="slide-h2">How fast this is moving</h2>
 <div class="gold-rule"></div>
 <div class="timeline">
-  <div class="timeline-item"><div class="timeline-dot">1</div><div class="timeline-content"><div class="timeline-year">2023</div><div class="timeline-title">Generative AI goes mainstream</div><div class="timeline-desc">Public tools reach classrooms and workplaces faster than policy can respond.
+  <div class="timeline-item"><div class="timeline-dot">1</div><div class="timeline-content"><div class="timeline-year">2023</div><div class="timeline-title">Generative AI goes mainstream</div><div class="timeline-desc">Public tools reach classrooms and workplaces faster than policy can respond.</div></div></div>
+  <div class="timeline-item"><div class="timeline-dot">2</div><div class="timeline-content"><div class="timeline-year">2024</div><div class="timeline-title">Agents and automation mature</div><div class="timeline-desc">Workflow tools move from novelty to genuine time savings.</div></div></div>
+  <div class="timeline-item"><div class="timeline-dot">3</div><div class="timeline-content"><div class="timeline-year">2025</div><div class="timeline-title">Institution-wide adoption</div><div class="timeline-desc">Competitor universities deploy AI tools and qualifications at scale.</div></div></div>
+  <div class="timeline-item"><div class="timeline-dot">4</div><div class="timeline-content"><div class="timeline-year">2026</div><div class="timeline-title">North East AI Growth Zone</div><div class="timeline-desc">Regional designation raises the stakes for local institutions.</div></div></div>
+</div>
 ```
 
 ### Block 08 — Lesson + mistake callout
@@ -318,13 +329,18 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 | `[ABOVE TITLE]` | slide-label text | No — once |
 | `[TITLE]` | slide-h2 text | No — once |
 | `[CARD SOURCE / CARD TITLE / CARD BODY / CARD DATE]` | one info-card per line — up to 3 (cols-3) | Yes — one line per item |
+| `[CARD LINK]` | optional — adds a gold underlined "Source ↗" link at the foot of that card, pointing to the URL given. Omit for no link. | Yes — one line per item |
 
 ```html
 <span class="slide-label">Section 02 &mdash; Capability</span>
 <h2 class="slide-h2">What others are doing</h2>
 <div class="gold-rule"></div>
 <div class="card-grid cols-3">
-  <div class="info-card"><span class="card-src">Oxford</span><div class="card-title">Institution-wide assistant rollout</div><div class="card-body">Deployed to all staff and students with a supporting training programme.</div><div class="card-meta">Reported 2025
+  <div class="info-card"><span class="card-src">Oxford</span><div class="card-title">Institution-wide assistant rollout</div><div class="card-body">Deployed to all staff and students with a supporting training programme.</div><div class="card-meta">Reported 2025</div><a class="card-link" href="https://www.ox.ac.uk" target="_blank" rel="noopener">Source &#8599;</a></div>
+  <div class="info-card"><span class="card-src">Liverpool</span><div class="card-title">Credit-bearing AI qualification</div><div class="card-body">Embedded AI literacy into the curriculum rather than treating it as an add-on.</div><div class="card-meta">Reported 2025</div></div>
+  <div class="info-card"><span class="card-src">South Wales</span><div class="card-title">Staff AI skills framework</div><div class="card-body">Defined competency levels so training can be targeted by role.</div><div class="card-meta">Reported 2025</div></div>
+</div>
+<p class="src-note">Illustrative summaries &mdash; verify before external use.</p>
 ```
 
 ### Block 10 — Role cards
@@ -343,7 +359,10 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 <h2 class="slide-h2">Who does what</h2>
 <div class="gold-rule"></div>
 <div class="card-grid cols-3">
-  <div class="info-card"><span class="card-src">Chair</span><div class="card-title">University AI Working Group</div><div class="card-body">Sets direction across the institution and owns escalation to director level.</div><div class="card-meta">Cross-department
+  <div class="info-card"><span class="card-src">Chair</span><div class="card-title">University AI Working Group</div><div class="card-body">Sets direction across the institution and owns escalation to director level.</div><div class="card-meta">Cross-department</div></div>
+  <div class="info-card"><span class="card-src">Facilitators</span><div class="card-title">SRM representation</div><div class="card-body">Run departmental sessions, gather use cases and feed them upward.</div><div class="card-meta">Marketing / SRM</div></div>
+  <div class="info-card"><span class="card-src">Contributors</span><div class="card-title">Professional services staff</div><div class="card-body">Bring real workflows and test proposals against day-to-day practice.</div><div class="card-meta">All grades</div></div>
+</div>
 ```
 
 ### Block 11 — Standard bullets  ·  **DEFAULT — use this unless another block fits**
@@ -386,7 +405,11 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 <h2 class="slide-h2">Live and proposed work</h2>
 <div class="gold-rule"></div>
 <div class="card-grid cols-4">
-  <div class="info-card"><span class="project-badge">Alpha</span><div class="card-title">Course search chatbot</div><div class="card-body">Sandboxed prototype answering course queries.
+  <div class="info-card"><span class="project-badge">Alpha</span><div class="card-title">Course search chatbot</div><div class="card-body">Sandboxed prototype answering course queries.</div></div>
+  <div class="info-card"><span class="project-badge">Beta</span><div class="card-title">Improved course search</div><div class="card-body">Rebuilt search with better matching and fallbacks.</div></div>
+  <div class="info-card"><span class="project-badge">Beta</span><div class="card-title">Events filter</div><div class="card-body">Restructured data and rebuilt filtering.</div></div>
+  <div class="info-card"><span class="project-badge">Proposed</span><div class="card-title">Web copy proofing</div><div class="card-body">Automated first-pass check before human review.</div></div>
+</div>
 ```
 
 ### Block 13 — Lesson + takeaway
@@ -430,7 +453,11 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 <h2 class="slide-h2">Questions for the group</h2>
 <div class="gold-rule"></div>
 <div class="card-grid cols-2">
-  <div class="discuss-card"><span class="discuss-num">Q1</span><div class="discuss-q">Which weekly task would you most like to hand over?</div><div class="discuss-hint">Think about repetition, not complexity.
+  <div class="discuss-card"><span class="discuss-num">Q1</span><div class="discuss-q">Which weekly task would you most like to hand over?</div><div class="discuss-hint">Think about repetition, not complexity.</div></div>
+  <div class="discuss-card"><span class="discuss-num">Q2</span><div class="discuss-q">Where does the current toolset genuinely block you?</div><div class="discuss-hint">Specific examples help build the case.</div></div>
+  <div class="discuss-card"><span class="discuss-num">Q3</span><div class="discuss-q">What would make you confident using an AI tool at work?</div><div class="discuss-hint">Training, guardrails, or clearer policy?</div></div>
+  <div class="discuss-card"><span class="discuss-num">Q4</span><div class="discuss-q">What should we bring to the next session?</div><div class="discuss-hint">One concrete item each.</div></div>
+</div>
 ```
 
 ### Block 15 — Opportunities & blockers
@@ -527,7 +554,14 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 <h2 class="slide-h2">Web copy proposed automation</h2>
 <div class="gold-rule"></div>
 <div class="flow-chart">
-  <div class="flow-step"><div class="flow-box">EMS submission received with accessible linked document
+  <div class="flow-step"><div class="flow-box">EMS submission received with accessible linked document</div></div>
+  <div class="flow-arrow">&#8595;</div>
+  <div class="flow-step"><div class="flow-box">Document passed to Power Automate</div><div class="flow-note">Trigger on submission</div></div>
+  <div class="flow-arrow">&#8595;</div>
+  <div class="flow-step"><div class="flow-box highlight">Trained AI agent runs spelling, grammar and style check</div><div class="flow-note">Copilot agent &mdash; within policy</div></div>
+  <div class="flow-arrow">&#8595;</div>
+  <div class="flow-step"><div class="flow-box">Corrected version returned with tracked changes listed</div><div class="flow-note">Human reviews output</div></div>
+</div>
 ```
 
 ### Block 18 — Feature card
@@ -785,7 +819,14 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
   <div class="matrix-y">Impact &rarr;</div>
   <div>
     <div class="matrix">
-      <div class="matrix-cell priority"><div class="matrix-cell-label">High impact &middot; Low effort</div><div class="matrix-cell-items">Web copy proofing &middot; Shared prompt library &middot; Events filter
+      <div class="matrix-cell priority"><div class="matrix-cell-label">High impact &middot; Low effort</div><div class="matrix-cell-items">Web copy proofing &middot; Shared prompt library &middot; Events filter</div></div>
+      <div class="matrix-cell"><div class="matrix-cell-label">High impact &middot; High effort</div><div class="matrix-cell-items">Institution-wide assistant &middot; Skills framework</div></div>
+      <div class="matrix-cell"><div class="matrix-cell-label">Low impact &middot; Low effort</div><div class="matrix-cell-items">Meeting summaries &middot; Template tidying</div></div>
+      <div class="matrix-cell"><div class="matrix-cell-label">Low impact &middot; High effort</div><div class="matrix-cell-items">Bespoke internal tooling with narrow use</div></div>
+    </div>
+    <div class="matrix-x">Effort &rarr;</div>
+  </div>
+</div>
 ```
 
 ### Block 26 — Image / media
@@ -829,7 +870,6 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 <div class="statement">The gap is not <em>capability</em>. It is <em>permission</em>.</div>
 <p class="statement-sub">Staff are already doing the work. Our job is to make the supported route the easy one.</p>
 ```
-
 ---
 
 ## 🧩 MODIFIERS

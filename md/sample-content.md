@@ -1,12 +1,15 @@
 # SAMPLE CONTENT — bracket-format test payload for tu-deck-template.md
-# Version: 1.4  |  Updated: September 2026
+# Version: 1.5  |  Updated: September 2026
 # Paste the master template first, then this whole block beneath it, then send the build instruction.
 # Every [BRACKET: value] maps to that block's "Content fields" table in the template.
-# This is throwaway test/reference content. Colleagues copy this LAYOUT, not this wording — replace
-# every value after the colon with your own content. Do not remove or rename the brackets.
+#
+# NOTE: slides 01–12 below (up to and including "Summer Ai Lessons") are Matt's REAL content
+# for the AI Working Group Meeting 2 deck. Everything from the Section Cover "The Landscape"
+# onward is unedited placeholder/reference content, carried over from the master sample file —
+# replace it with real content, or delete it, before this becomes the final deck.
 
 VARIABLES:
-  DECK_TITLE:     AI Working Group
+  DECK_TITLE:     Prompt Harder - AI Working Group Meeting #2
   DECK_SUBTITLE:  Teesside University — Student Recruitment & Marketing · 2026
   DECK_EYEBROW:   SRM AI Working Group
   AUTHOR_NAME:    Matt Hudson
@@ -17,7 +20,7 @@ VARIABLES:
 [TYPE: TITLE]
 
 [ABOVE TITLE: SRM AI Working Group]
-[TITLE: AI Working Group]
+[TITLE: Prompt Harder]
 [PARAGRAPH: Teesside University — Student Recruitment & Marketing · 2026]
 
 -------------------------------------------------
@@ -27,19 +30,261 @@ VARIABLES:
 [ABOVE TITLE: Agenda]
 [TITLE: What we'll cover]
 
-[ITEM NUMBER: 01][ITEM TITLE: Where we stand][ITEM TIME: 10 min]
-[ITEM NUMBER: 02][ITEM TITLE: Sector context and capability][ITEM TIME: 10 min]
-[ITEM NUMBER: 03][ITEM TITLE: Opportunities and blockers][ITEM TIME: 15 min]
-[ITEM NUMBER: 04][ITEM TITLE: Proposed projects][ITEM TIME: 15 min]
-[ITEM NUMBER: 05][ITEM TITLE: Discussion and actions][ITEM TIME: 10 min]
+[ITEM NUMBER: 01][ITEM TITLE: Snakes & Ladders][ITEM TIME: 5 min]
+[ITEM NUMBER: 02][ITEM TITLE: Headlines][ITEM TIME: 5 min]
+[ITEM NUMBER: 03][ITEM TITLE: Game Zero][ITEM TIME: 5 min]
+[ITEM NUMBER: 04][ITEM TITLE: Current flex][ITEM TIME: 5 min]
+[ITEM NUMBER: 05][ITEM TITLE: Next steps][ITEM TIME: 1 min]
 
-[MODIFIER: JUMP LINKS on SLIDE 02]
-// [JUMP: (Button Text) -> (Slide number #)]
-[JUMP: Where we stand -> SLIDE 03]
-[JUMP: Capability -> SLIDE 07]
-[JUMP: Blockers -> SLIDE 15]
-[JUMP: Projects -> SLIDE 12]
-[JUMP: Discussion -> SLIDE 20]
+
+-------------------------------------------------
+[SLIDE: ADV-1]
+[TYPE: CUSTOM HTML]
+// Advanced block — embeds raw HTML/CSS/JS you supply, inserted exactly as written.
+// Not one of the 27 tested blocks. Not for general use — only reach for this if nothing
+// in the block library can do what you need. Custom class names MUST use a unique prefix
+// (e.g. cx-yourtopic) and must never reuse a class already in tu-styles.css or target
+// .slide / .slide-content / #deck / body directly — doing so can break the rest of the deck.
+// EDIT AND COPY THIS FILE IN A PLAIN TEXT EDITOR, not a markdown-rendering app — those turn
+// the fence below into a pretty "Code" card, and copying from that card usually drops the
+// [CODE BLOCK: / ``` / ``` / ] wrapper silently. Select all, don't copy from inside the card.
+
+[ABOVE TITLE: Section 01 - Snakes & Ladders]
+[TITLE: Ai Adoptation Ladder]
+[PARAGRAPH: Approximate levels of Ai adoptation]
+
+[CODE BLOCK:
+```
+<style>
+  /* ============================================================
+     BLOCK 21 — AI ADOPTION LADDER (independent block)
+     Prefix: .adoption-*  — never .slide-*
+     No images. Uses existing tokens only — no new colours.
+     Desktop: 5-step staircase (CSS grid offset).
+     Mobile (≤768px): collapses to a single-column stack.
+     ============================================================ */
+  .adoption-ladder { display: flex; align-items: stretch; gap: 14px; max-width: 900px; margin-top: 8px; }
+
+  .adoption-axis {
+    flex: 0 0 auto; width: 28px; position: relative;
+    display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 2px 0;
+  }
+  .adoption-axis::before {
+    content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 2px;
+    background: linear-gradient(to top, rgb(var(--gold-rgb) / .12), var(--gold));
+    transform: translateX(-50%);
+  }
+  .adoption-axis-arrow { position: relative; z-index: 1; color: var(--gold-lt); font-size: 13px; line-height: 1; background: var(--bg); padding-bottom: 4px; }
+  .adoption-axis-label {
+    position: relative; z-index: 1; writing-mode: vertical-rl; transform: rotate(180deg);
+    font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--gold-lt); background: var(--bg); padding: 6px 0;
+  }
+
+  .adoption-rungs { flex: 1 1 auto; display: grid; grid-template-columns: repeat(10,1fr); gap: 10px; }
+  .adoption-rung {
+    grid-column: 1 / span 6; display: flex; align-items: flex-start; gap: 14px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+  }
+  .adoption-rung.adoption-tier-2 { grid-column: 2 / span 6; background: rgb(var(--gold-rgb) / .05); border-color: rgb(var(--gold-rgb) / .18); }
+  .adoption-rung.adoption-tier-3 { grid-column: 3 / span 6; background: rgb(var(--gold-rgb) / .07); border-color: rgb(var(--gold-rgb) / .28); }
+  .adoption-rung.adoption-tier-4 { grid-column: 4 / span 6; background: rgb(var(--gold-rgb) / .09); border-color: rgb(var(--gold-rgb) / .40); }
+  .adoption-rung.adoption-tier-5 { grid-column: 5 / span 6; background: rgb(var(--gold-rgb) / .12); }
+
+  /* optional flourish — add to ANY rung to spotlight it; leave it off a rung with no CSS edit needed */
+  .adoption-emphasis { border-color: var(--gold-lt); }
+  .adoption-emphasis .adoption-rung-num { background: var(--gold); color: var(--bg); border-color: var(--gold-lt); }
+
+  .adoption-rung-num {
+    flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
+    background: var(--surface2); border: 2px solid var(--gold); color: var(--gold-lt);
+    font-family: var(--font-title); font-weight: var(--weight-heading); font-size: 13px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .adoption-rung-title { font-family: var(--font-title); font-size: clamp(14px,1.5vw,17px); font-weight: 700; color: #fff; margin-bottom: 3px; line-height: 1.25; }
+  .adoption-rung-desc { font-size: clamp(12px,1.3vw,14px); color: var(--muted); line-height: 1.45; }
+
+  .adoption-rung.adoption-current { border-color: var(--gold-lt); box-shadow: 0 0 0 1px rgb(var(--gold-lt-rgb) / .5); }
+
+  @media (max-width: 768px) {
+    .adoption-ladder { flex-direction: column; gap: 10px; }
+    .adoption-axis { display: none; }
+    .adoption-rungs { grid-template-columns: 1fr; gap: 10px; }
+    .adoption-rung,
+    .adoption-rung.adoption-tier-2,
+    .adoption-rung.adoption-tier-3,
+    .adoption-rung.adoption-tier-4,
+    .adoption-rung.adoption-tier-5 { grid-column: 1 / -1; }
+  }
+</style>
+<div class="adoption-ladder">
+    <div class="adoption-axis" aria-hidden="true">
+      <span class="adoption-axis-arrow">&#9650;</span>
+      <span class="adoption-axis-label">More capability</span>
+    </div>
+    <div class="adoption-rungs">
+      <div class="adoption-rung adoption-tier-5">
+        <span class="adoption-rung-num">5</span>
+        <div>
+          <div class="adoption-rung-title">Autonomous agents</div>
+          <div class="adoption-rung-desc">Plans and runs multi-step tasks with minimal supervision, retaining context over time.</div>
+        </div>
+      </div>
+      <div class="adoption-rung adoption-tier-4">
+        <span class="adoption-rung-num">4</span>
+        <div>
+          <div class="adoption-rung-title">Connected workflows</div>
+          <div class="adoption-rung-desc">AI plugged into real systems and data — multi-step pipelines, minimal manual handling.</div>
+        </div>
+      </div>
+      <div class="adoption-rung adoption-tier-3">
+        <span class="adoption-rung-num">3</span>
+        <div>
+          <div class="adoption-rung-title">Structured &amp; repeatable</div>
+          <div class="adoption-rung-desc">Saved prompts, templates and reference files — consistent quality, less reinventing the wheel.</div>
+        </div>
+      </div>
+      <div class="adoption-rung adoption-tier-2">
+        <span class="adoption-rung-num">2</span>
+        <div>
+          <div class="adoption-rung-title">Ad-hoc prompting</div>
+          <div class="adoption-rung-desc">One-off prompts for isolated tasks — no reuse, output copied and pasted by hand.</div>
+        </div>
+      </div>
+      <div class="adoption-rung">
+        <span class="adoption-rung-num">1</span>
+        <div>
+          <div class="adoption-rung-title">Not using AI yet</div>
+          <div class="adoption-rung-desc">Research, writing and admin done fully manually, without AI assistance.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+```
+]
+-------------------------------------------------
+-------------------------------------------------
+[SLIDE: ADV-1]
+[TYPE: CUSTOM HTML]
+// Advanced block — embeds raw HTML/CSS/JS you supply, inserted exactly as written.
+// Not one of the 27 tested blocks. Not for general use — only reach for this if nothing
+// in the block library can do what you need. Custom class names MUST use a unique prefix
+// (e.g. cx-yourtopic) and must never reuse a class already in tu-styles.css or target
+// .slide / .slide-content / #deck / body directly — doing so can break the rest of the deck.
+// EDIT AND COPY THIS FILE IN A PLAIN TEXT EDITOR, not a markdown-rendering app — those turn
+// the fence below into a pretty "Code" card, and copying from that card usually drops the
+// [CODE BLOCK: / ``` / ``` / ] wrapper silently. Select all, don't copy from inside the card.
+
+[ABOVE TITLE: Section 01 - Snakes & Ladders]
+[TITLE: Snakes & Ladders]
+[PARAGRAPH: Breakthroughs and errors in ai adoptation]
+
+[CODE BLOCK:
+```
+<style>
+  /* ============================================================
+     BLOCK 22 — LADDER / SNAKE STORY MOMENT
+     Prefix: .adoption-*  — extends the same family as the ladder diagram
+     Inline SVG only — tokens drive colour, no external file references.
+     ============================================================ */
+  .adoption-story { display: flex; gap: 48px; margin-top: 12px; }
+  .adoption-moment { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+  .adoption-moment-icon { width: 76px; height: auto; }
+  .adoption-moment-tag { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .adoption-moment.is-ladder .adoption-moment-tag { color: var(--pos); }
+  .adoption-moment.is-snake  .adoption-moment-tag { color: var(--neg); }
+  .adoption-moment-label { font-family: var(--font-title); font-size: clamp(15px,1.6vw,19px); font-weight: 700; color: #fff; }
+
+  @media (max-width: 768px) {
+    .adoption-story { gap: 28px; }
+    .adoption-moment-icon { width: 60px; }
+  }
+</style>
+<div class="adoption-story">
+    <div class="adoption-moment is-ladder">
+      <svg class="adoption-moment-icon" viewBox="0 0 60 100" fill="none">
+        <line x1="14" y1="6" x2="14" y2="94" stroke="var(--pos)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="46" y1="6" x2="46" y2="94" stroke="var(--pos)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="14" y1="22" x2="46" y2="22" stroke="var(--pos)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="14" y1="42" x2="46" y2="42" stroke="var(--pos)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="14" y1="62" x2="46" y2="62" stroke="var(--pos)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="14" y1="82" x2="46" y2="82" stroke="var(--pos)" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <span class="adoption-moment-tag">Ladder</span>
+      <span class="adoption-moment-label">Switched to Opus</span>
+    </div>
+    <div class="adoption-moment is-snake">
+      <svg class="adoption-moment-icon" viewBox="0 0 100 60" fill="none">
+        <path d="M6,30 C20,10 32,50 46,30 C60,10 72,50 84,30" stroke="var(--neg)" stroke-width="3" stroke-linecap="round"/>
+        <polygon points="84,30 92,25 92,35" fill="var(--neg)"/>
+      </svg>
+      <span class="adoption-moment-tag">Snake</span>
+      <span class="adoption-moment-label">Stuck on it too long</span>
+    </div>
+  </div>
+```
+]
+-------------------------------------------------
+[SLIDE: 13]
+[TYPE: LESSON + TAKEAWAY]
+
+[ABOVE TITLE: Section 01 - Snakes & Ladders]
+[LESSON NUMBER: 01]
+[TITLE: Watch your model 1/2]
+[PARAGRAPH: Higher models and higher 'effort' give superior reasoning and outputs but will burn your token limits.  Learn the models main use/recommended effort level, then you can switch intelligently.  Note: Claude/Chat GPT models can be used within paid Co-Pilot licenses]
+[TAKEAWAY: Switch-a-roo for maximum token efficeny.]
+
+-------------------------------------------------
+[SLIDE: 12]
+[TYPE: PROJECT CARDS]
+
+[ABOVE TITLE: Section 01 - Snakes & Ladders]
+[TITLE: Watch your model 2/2]
+
+[CARD STAGE: SONNET 5][CARD TITLE: Everyday workhorse][CARD BODY: Cost-efficient default for day-to-day coding, writing, analysis and multi-step agentic work.  Default Level: 'Medium'.  Use 'High' for deeper analysis.]
+[CARD STAGE: OPUS 5][CARD TITLE: Deep reasoning/analysis][CARD BODY: High stakes complex problems.  Default Level: 'High'.  Use 'xHigh/Max' for the hardest, most consquential task]
+[CARD STAGE: FABLE 5.1][CARD TITLE: Frontier model][CARD BODY: Model reserved for long horizon complex tasks where Opus struggles.  Requires credits to use.  Default Level: 'Medium'.]
+-------------------------------------------------
+[SLIDE: 13]
+[TYPE: LESSON + TAKEAWAY]
+
+[ABOVE TITLE: Section 01 - Snakes & Ladders]
+[LESSON NUMBER: 02]
+[TITLE: Future focus]
+[PARAGRAPH: An authoriative handoff is critical to finish a chat, but it pays to prepare your next session.  Optimise the next chat adding the handoff/all assets to the project files and preparing a referencing focus new chat intro.  This will eliminate needless back and forth in your new session.]
+[TAKEAWAY: Post handoff, prep your first chat message for referenced focus.]
+-------------------------------------------------
+[SLIDE: 13]
+[TYPE: LESSON + TAKEAWAY]
+
+[ABOVE TITLE: Section 01 - Snakes & Ladders]
+[LESSON NUMBER: 03]
+[TITLE: The collab Ai toolkit]
+[PARAGRAPH: Beyond handoffs there is value in sharing account/project instructions, 'mastermind/library' files and document compilers.  Having an updated single source of truth for these toolkit items can supercharge ai sessions.]
+[TAKEAWAY: Ai is only as good it's instructions.  A team is only as efficient as it's prep.]
+
+-------------------------------------------------
+[SLIDE: 20]
+[TYPE: ACTION POINTS]
+
+[ABOVE TITLE: Section 01 - Snakes & Ladders]
+[TITLE: Be C.L.E.A.R]
+
+[ACTION NUMBER: C][ACTION: Context: why you need it, who it's for][OWNER: ]
+[ACTION NUMBER: L][ACTION: Length & detail: enough to work with, not just a one-liner][OWNER: ]
+[ACTION NUMBER: E][ACTION: Examples: show it what "good" looks like, don't just describe it][OWNER: ]
+[ACTION NUMBER: A][ACTION: Ask precisely: concrete numbers/names/format, plus what to avoid][OWNER: ]
+[ACTION NUMBER: R][ACTION: Role: tell it who to be][OWNER: ]
+-------------------------------------------------
+[SLIDE: 12]
+[TYPE: PROJECT CARDS]
+
+[ABOVE TITLE: Section 01 - Snakes & Ladders]
+[TITLE: Summer Ai Lessons]
+
+[CARD STAGE: Watch your model][CARD TITLE: Switch-a-roo][CARD BODY: High end models often superior reasonings and outputs but will burn your token limits.  Learn to ]
+[CARD STAGE: Power focus][CARD TITLE: Focus handoff][CARD BODY: Post handoff, prep your first chat message for referened focus.]
+[CARD STAGE: Project bible][CARD TITLE: Collab toolkit][CARD BODY: Shared account/project instructions, compilers and masterminds expand Ai's team impact.]
 
 -------------------------------------------------
 [SLIDE: 03]
@@ -117,8 +362,11 @@ VARIABLES:
 [TITLE: What others are doing]
 
 [CARD SOURCE: Oxford][CARD TITLE: Institution-wide assistant rollout][CARD BODY: Deployed to all staff and students with a supporting training programme.][CARD DATE: Reported 2025]
+[CARD LINK: https://www.ox.ac.uk]
 [CARD SOURCE: Liverpool][CARD TITLE: Credit-bearing AI qualification][CARD BODY: Embedded AI literacy into the curriculum rather than treating it as an add-on.][CARD DATE: Reported 2025]
+[CARD LINK: https://www.liverpool.ac.uk]
 [CARD SOURCE: South Wales][CARD TITLE: Staff AI skills framework][CARD BODY: Defined competency levels so training can be targeted by role.][CARD DATE: Reported 2025]
+[CARD LINK: https://www.southwales.ac.uk]
 
 -------------------------------------------------
 [SLIDE: 10]
