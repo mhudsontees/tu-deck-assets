@@ -1,15 +1,21 @@
 # Teesside University — HTML Deck Authoring Template
-**Version:** 1.8  ·  **Updated:** September 2026  ·  **Mode:** Linked (hosted CSS/JS/font)
+**Version:** 2.0  ·  **Updated:** October 2026  ·  **Mode:** Linked (hosted CSS/JS/font)
 
 > **Always download a fresh copy of this template for each new deck** — don't reuse an old one, or you'll miss new blocks and fixes.
 > Keep this file's name (`tu-deck-template.md`). When you fill it in, **Save As** under your presentation's name (e.g. `open-day-review.md`).
+>
+> **v2.0 (Oct 2026) — what changed for authors:** every slide now has a `[POSITION: N]` header line (see **SLIDE HEADER FIELDS**), and Jump links / Attribution point at slides with `POSITION N` instead of `SLIDE NN`. This fixes the old problem where `SLIDE 16` could mean either of two slides. **Content files written for earlier versions still compile** — old `SLIDE NN` references are accepted (rules in SLIDE HEADER FIELDS) — but add `[POSITION:]` tags before you next edit one.
+>
+> **v1.9:** formalised the `//` comment rule, slide-order-is-file-order, and blank-but-present brackets being treated as omitted.
+>
+> ⚠️ **Version history note:** this header read v1.6 until 28 Oct 2026, while the project handoff had already recorded the file as v1.8. Worth a manual check that nothing from a "v1.7/v1.8" exists elsewhere and was never merged here.
 
 ---
 
 ## HOW TO USE THIS FILE
 
 1. Open a **new** Claude chat.
-2. Paste in **this whole file**, then paste **your content** beneath it (fill in the VARIABLES and write your slides using the BLOCK PATTERNS below).
+2. Paste in **this whole file**, then paste **your content** beneath it (fill in the VARIABLES and write your slides using the BLOCK PATTERNS below — start each slide with its header fields, see **SLIDE HEADER FIELDS**).
 3. Send this instruction:
    > *"Using the attached template, build a linked HTML deck. Fill the variables with my content below and create one slide per item using the block types specified. Output the complete HTML file. Do not add or change any CSS."*
 4. Save the HTML file Claude returns under your presentation's name (e.g. `open-day-review.html`).
@@ -43,8 +49,11 @@ DECK_VERSION:    [optional — footer version/date, e.g. v1 · Sept 2026. Leave 
 - British English throughout. Use `&mdash;`, `&amp;`, `&middot;` entities.
 - Icons: use only the `<use href="#i-...">` ids listed in ICON VOCABULARY. The icon sprite is included in the shell — do not add icons from anywhere else.
 - Do not invent data. Where the author leaves a placeholder, keep it as written.
-- **Colleague content arrives as `[BRACKET: value]` fields**, one slide at a time, each headed `[SLIDE: N]` / `[TYPE: ...]`. Each block above lists its exact **Content fields** table — use that table to map every bracket to its HTML target. A repeatable field (marked "one line per item") appears once per line; create one card/bullet/row per line given. A `[MODIFIER: ...]` entry is not its own slide — insert it into the numbered `[SLIDE: N]` it names, following that modifier's Content fields table.
-- **Where content references another slide by number** (e.g. the Jump links modifier's `-> SLIDE NN`), resolve it to that slide's actual `id` — you assign every slide's id, so you already know the mapping. Never leave a `SLIDE NN` reference untranslated in the output HTML.
+- **Colleague content arrives as `[BRACKET: value]` fields**, one slide at a time, each headed by its slide header fields — `[POSITION: N]`, `[SLIDE: NN]`, `[TYPE: ...]` (see **SLIDE HEADER FIELDS** below). Each block below lists its exact **Content fields** table — use that table to map every bracket to its HTML target. A repeatable field (marked "one line per item") appears once per line; create one card/bullet/row per line given. A `[MODIFIER: ...]` entry is not its own slide and takes no `[POSITION:]` — insert it into the slide whose `[POSITION: N]` it names, following that modifier's Content fields table.
+- **Lines beginning with `//` are human-readable comments, not content.** Colleagues use them as position markers (`// S1`), reminders, or notes on why a block was chosen — purely for the person editing the file. They are not a `[BRACKET: value]` field: never render their text anywhere in the output HTML, and never mistake one for content to map onto a slide.
+- **Slide order is file order — the number in `[SLIDE: NN]` is not a position.** `NN` names which block *pattern* to use (Block 11, Block 20, etc.); it says nothing about where that slide lands in the deck, and the same number is expected to repeat many times across one deck. Build slides in the exact top-to-bottom order they appear in the colleague's file, regardless of which block numbers they use. To reorder a slide, the colleague moves it in the file — not by changing its `[SLIDE: NN]` number. (This is also why cross-slide references — Jump links, Attribution — use `[POSITION: N]` tags and never a bare `SLIDE NN`, which is ambiguous whenever that number repeats. See **SLIDE HEADER FIELDS**.)
+- **A bracket that's present but empty is treated exactly like an omitted bracket.** `[OWNER: ]` (the colon followed by nothing) means the same as leaving the whole `[OWNER: ...]` line out — render as if the field were never given at all (e.g. no `action-owner` span, not an empty one), never as a visible blank. This holds for every optional field in every block, not only the `[MISTAKE]`/`[TAKEAWAY]` fields that already state their own omission rule explicitly.
+- **Where content references another slide** (the Jump links modifier's `-> POSITION NN`, an Attribution's `on POSITION N`), find the slide carrying that `[POSITION: N]` tag and resolve the reference to that slide's actual `id` — you assign every slide's id, so you already know the mapping. Never leave a `POSITION N` or `SLIDE NN` reference untranslated in the output HTML. The matching rules, and what to do when a reference can't be resolved cleanly, are in **SLIDE HEADER FIELDS** — if a reference is ambiguous or points at nothing, **do not guess**: reply with a short plain-text list of the problem instead of the HTML.
 - **`[TYPE: CUSTOM HTML]` (Advanced Block A) is the one exception to "do not add or change any CSS."** Insert its `[CODE BLOCK: ...]` fenced content verbatim, unmodified — do not compose it from field values like every other block. See its own section under ADVANCED BLOCKS for the full rule.
 
 ---
@@ -119,6 +128,36 @@ DECK_VERSION:    [optional — footer version/date, e.g. v1 · Sept 2026. Leave 
 Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"/></svg>`. Add `class="icon icon-gold"` to tint gold.
 
 `i-circle-check` · `i-warning` · `i-bolt` · `i-lightbulb` · `i-arrow-right` · `i-chart` · `i-target` · `i-users` · `i-calendar` · `i-folder` · `i-pen` · `i-robot` · `i-gear`
+
+---
+
+## 🏷️ SLIDE HEADER FIELDS
+
+Every slide in the content file starts with these header lines, in this order:
+
+```
+[POSITION: 7]
+[SLIDE: 11]
+[TYPE: Heading and points]
+```
+
+| Bracket | Meaning | Required? |
+|---|---|---|
+| `[POSITION: N]` | **This slide's place in the deck, as a human-readable tag.** A whole number, 1 = first slide. It is a *label for people and for cross-references* — it does not change the build order (file order does, see Instructions). Each value must appear **once** in the file. | Yes (see legacy rule below) |
+| `[SLIDE: NN]` | Which **block pattern** (01–27, or `ADV-1`) to build. Repeats freely — five Heading-and-points slides are five `[SLIDE: 11]` lines. | Yes |
+| `[TYPE: ...]` | The block's plain-English name. For human readers only; if it ever disagrees with `[SLIDE: NN]`, trust the number. | Yes |
+
+**Modifiers** (`[MODIFIER: ...]`) are not slides, so they take **no** `[POSITION:]` line. They name the slide they attach to by its position tag, e.g. `[MODIFIER: JUMP LINKS on POSITION 3]`.
+
+**Cross-references** — Jump links and Attribution refer to a slide as `POSITION N` (e.g. `[JUMP: Risks -> POSITION 12]`). To resolve one:
+
+1. Find the slide whose `[POSITION: N]` equals N. That slide's `id` is what the link or overlay uses.
+2. If a `[POSITION: N]` tag is **missing** (nothing carries that value) or **duplicated** (two slides carry it), or a reference points at a position that doesn't exist: **do not guess and do not build.** Reply with a short plain-text list of each problem (e.g. "POSITION 7 appears on two slides: 'Risks' and 'Next steps'") so the author can fix the file.
+3. If tags are present but **out of sequence with file order** (e.g. the file order reads 1, 2, 4, 3): still build in file order and resolve references by tag value, then add one line after the HTML saying the tags don't match the actual order and that the author may want to renumber. The footer `N / TOTAL` always reflects real file order.
+
+**Legacy content (written before v2.0):** if a file has **no** `[POSITION:]` tags at all, the old `SLIDE NN` references are still accepted — but only where `NN` is **unique** across the file's `[SLIDE:]` headers. If the `NN` a reference names appears on more than one slide, that reference is ambiguous: stop and report it as in rule 2, and ask the author to add `[POSITION:]` tags. Never silently pick the nearest or first match.
+
+**Never output** the `[POSITION:]` value as slide text. It is authoring metadata. (The slide's footer number is generated from its real place in the deck.)
 
 ---
 
@@ -707,14 +746,7 @@ Use only these ids, as `<svg class="icon" aria-hidden="true"><use href="#i-NAME"
 |---|---|---|
 | `[ABOVE TITLE]` | slide-label text | No — once |
 | `[TITLE]` | slide-h2 text | No — once |
-| `[BAR]` | one bar per line: Label, value% — up to 5, decimals allowed (e.g. 15.4%); Claude computes bar height/position — see scaling rule below | Yes — one line per item |
-
-**Scaling rule — the axis auto-fits the data, it is never fixed at 0–100:**
-1. Find the highest `[BAR]` value given.
-2. Round UP to a sensible ceiling: the next multiple of 10 above it (e.g. highest value 22.1% &rarr; ceiling 30; highest value 81% &rarr; ceiling 90). If the highest value is already a clean multiple of 10, use it as the ceiling directly.
-3. Set the four axis labels to 0, ceiling&times;0.25, ceiling&times;0.5, ceiling&times;0.75 (round these to whole numbers for the labels).
-4. For each bar: `height = (value / ceiling) &times; 240`, `y = 240 &minus; height`. Keep the decimal in this calculation even if the axis labels are rounded — do not round the bar's own value.
-5. `[chart-value]` text shows the value exactly as given, decimals included (e.g. `15.4%`).
+| `[BAR]` | one bar per line: Label, NN% — up to 5; Claude computes bar height/position from the percentage | Yes — one line per item |
 
 ```html
 <span class="slide-label">Section 01 &mdash; The Landscape</span>
@@ -890,17 +922,14 @@ Add this `<div>` inside any content slide, **just before** its `<div class="digi
 
 | Bracket | Maps to | Repeats? |
 |---|---|---|
-| `[MODIFIER]` | ATTRIBUTION on SLIDE [n] — which existing slide this overlay attaches to | No — once |
+| `[MODIFIER]` | ATTRIBUTION on POSITION [n] — the slide (by its `[POSITION: n]` tag) this overlay attaches to. Legacy `ATTRIBUTION on SLIDE [n]` is accepted only if that number is unique — see SLIDE HEADER FIELDS | No — once |
 | `[CREDIT TITLE]` | attr-title text | No — once |
 | `[CREDIT META]` | attr-meta text | No — once |
-| `[CREDIT LINK]` | optional — adds a gold underlined &ldquo;Source &#8599;&rdquo; link beneath the credit, pointing to the URL given. Omit the line entirely for no link. | No — once |
 
 ```html
 <div class="attr-block">
   <div class="attr-title">Web Copy Workflow Automation</div>
   <div class="attr-meta">Matt Hudson | SRM AI Working Group &middot; 2026</div>
-  <a class="card-link" href="[CREDIT LINK URL]" target="_blank" rel="noopener">Source &#8599;</a>
-  <!-- omit the <a> line above entirely if no [CREDIT LINK] was given -->
   <hr class="attr-divider">
 </div>
 ```
@@ -912,10 +941,10 @@ A row of small pill buttons that jump straight to another slide — useful on an
 
 | Bracket | Maps to | Repeats? |
 |---|---|---|
-| `[MODIFIER]` | JUMP LINKS on SLIDE [n] — which existing slide gets the jump-group | No — once |
-| `[JUMP]` | one button per line: `Label text -> SLIDE NN` — NN is the slide **number** to jump to; Claude resolves this to that slide's actual id when it builds the deck | Yes — one line per button |
+| `[MODIFIER]` | JUMP LINKS on POSITION [n] — the slide (by its `[POSITION: n]` tag) that gets the jump-group. Legacy `JUMP LINKS on SLIDE [n]` accepted only if unique — see SLIDE HEADER FIELDS | No — once |
+| `[JUMP]` | one button per line: `Label text -> POSITION NN` — NN is the **position tag** of the slide to jump to; Claude resolves it to that slide's actual id when it builds the deck. Legacy `-> SLIDE NN` accepted only if unique | Yes — one line per button |
 
-**How Claude should build this:** for each `[JUMP: Label -> SLIDE NN]` line, find the `id` you assigned to slide NN elsewhere in this same deck, and use it in both the `href` and the `onclick` below.
+**How Claude should build this:** for each `[JUMP: Label -> POSITION NN]` line, find the slide whose `[POSITION: NN]` tag matches, take the `id` you assigned to it, and use that id in both the `href` and the `onclick` below. If the target is missing or duplicated, stop and report it (SLIDE HEADER FIELDS, rule 2) — never guess.
 
 ```html
 <div class="jump-group">

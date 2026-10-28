@@ -1,23 +1,31 @@
 # SAMPLE CONTENT — bracket-format test payload for tu-deck-template.md
-# Version: 1.8  |  Updated: September 2026
+# Version: 2.0  |  Updated: October 2026  |  Pairs with: tu-deck-template.md v2.0
 # Paste the master template first, then this whole block beneath it, then send the build instruction.
 # Every [BRACKET: value] maps to that block's "Content fields" table in the template.
 # This is throwaway test/reference content. Colleagues copy this LAYOUT, not this wording — replace
 # every value after the colon with your own content. Do not remove or rename the brackets.
 #
-# // S1, // S2 etc. above each slide are just human-readable position markers for scanning this
-# file — they are comments, ignored when the deck is built. File order is what determines the
-# actual slide order; the SLIDE number only identifies which block pattern to use.
+# SLIDE HEADER — every slide starts with three lines:
+#   [POSITION: N]  = this slide's place in the deck (1 = first). Must be UNIQUE. Used by Jump links
+#                    and Attribution to point at a slide. Does not change the build order.
+#   [SLIDE: NN]    = which block pattern to use (01–27, or ADV-1). May repeat as often as you like.
+#   [TYPE: ...]    = the block's name, for human readers.
+# If you add, remove or move a slide, renumber the [POSITION:] tags (and any "POSITION N" references
+# in Jump links) so each value is used once. Modifiers (Jump links, Attribution) have no [POSITION:].
+#
+# Lines starting with // are human-readable comments — they are ignored when the deck is built.
+# File order is what determines the actual slide order.
 
 VARIABLES:
   DECK_TITLE:     AI Working Group
   DECK_SUBTITLE:  Teesside University — Student Recruitment & Marketing · 2026
   DECK_EYEBROW:   SRM AI Working Group
   AUTHOR_NAME:    [Your name]
-  DECK_VERSION:   v1 · Sept 2026
+  DECK_VERSION:   v1 · Oct 2026
 
 -------------------------------------------------
 // S1
+[POSITION: 1]
 [SLIDE: 01]
 [TYPE: TITLE]
 
@@ -27,6 +35,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S2
+[POSITION: 2]
 [SLIDE: 02]
 [TYPE: AGENDA]
 
@@ -39,16 +48,17 @@ VARIABLES:
 [ITEM NUMBER: 04][ITEM TITLE: Proposed projects][ITEM TIME: 15 min]
 [ITEM NUMBER: 05][ITEM TITLE: Discussion and actions][ITEM TIME: 10 min]
 
-[MODIFIER: JUMP LINKS on SLIDE 02]
-// [JUMP: (Button Text) -> (Slide number #)]
-[JUMP: Where we stand -> SLIDE 03]
-[JUMP: Capability -> SLIDE 07]
-[JUMP: Blockers -> SLIDE 15]
-[JUMP: Projects -> SLIDE 12]
-[JUMP: Discussion -> SLIDE 20]
+[MODIFIER: JUMP LINKS on POSITION 2]
+// [JUMP: (Button Text) -> POSITION (the target slide's [POSITION:] number)]
+[JUMP: Where we stand -> POSITION 3]
+[JUMP: Capability -> POSITION 7]
+[JUMP: Blockers -> POSITION 15]
+[JUMP: Projects -> POSITION 12]
+[JUMP: Discussion -> POSITION 20]
 
 -------------------------------------------------
 // S3
+[POSITION: 3]
 [SLIDE: 03]
 [TYPE: SECTION COVER]
 
@@ -59,6 +69,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S4
+[POSITION: 4]
 [SLIDE: 04]
 [TYPE: DONUT CHART]
 
@@ -72,6 +83,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S5
+[POSITION: 5]
 [SLIDE: 05]
 [TYPE: STAT CARDS]
 
@@ -85,6 +97,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S6
+[POSITION: 6]
 [SLIDE: 06]
 [TYPE: BODY + STAT CARDS]
 
@@ -99,6 +112,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S7
+[POSITION: 7]
 [SLIDE: 07]
 [TYPE: TIMELINE]
 
@@ -112,6 +126,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S8
+[POSITION: 8]
 [SLIDE: 08]
 [TYPE: LESSON + MISTAKE]
 
@@ -123,6 +138,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S9
+[POSITION: 9]
 [SLIDE: 09]
 [TYPE: NEWS CARDS]
 
@@ -138,6 +154,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S10
+[POSITION: 10]
 [SLIDE: 10]
 [TYPE: ROLE CARDS]
 
@@ -150,6 +167,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S11
+[POSITION: 11]
 [SLIDE: 11]
 [TYPE: STANDARD BULLETS]
 
@@ -164,6 +182,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S12
+[POSITION: 12]
 [SLIDE: 12]
 [TYPE: PROJECT CARDS]
 
@@ -177,6 +196,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S13
+[POSITION: 13]
 [SLIDE: 13]
 [TYPE: LESSON + TAKEAWAY]
 
@@ -188,6 +208,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S14
+[POSITION: 14]
 [SLIDE: 14]
 [TYPE: DISCUSSION CARDS]
 
@@ -201,6 +222,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S15
+[POSITION: 15]
 [SLIDE: 15]
 [TYPE: OPPORTUNITIES & BLOCKERS]
 
@@ -219,6 +241,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S16
+[POSITION: 16]
 [SLIDE: 16]
 [TYPE: TWO COLUMN]
 
@@ -239,6 +262,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S17
+[POSITION: 17]
 [SLIDE: 17]
 [TYPE: FLOWCHART]
 
@@ -250,13 +274,14 @@ VARIABLES:
 [STEP: Trained AI agent runs spelling, grammar and style check {highlight}][STEP NOTE: Copilot agent — within policy]
 [STEP: Corrected version returned with tracked changes listed][STEP NOTE: Human reviews output]
 
-[MODIFIER: ATTRIBUTION on SLIDE 17]
+[MODIFIER: ATTRIBUTION on POSITION 17]
 [CREDIT TITLE: Web Copy Workflow Automation]
 [CREDIT META: Matt Hudson | SRM AI Working Group · 2026]
 [CREDIT LINK: https://www.tees.ac.uk]
 
 -------------------------------------------------
 // S18
+[POSITION: 18]
 [SLIDE: 18]
 [TYPE: FEATURE CARD]
 
@@ -270,6 +295,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S19
+[POSITION: 19]
 [SLIDE: 19]
 [TYPE: END / CLOSING]
 
@@ -282,6 +308,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S20
+[POSITION: 20]
 [SLIDE: 20]
 [TYPE: ACTION POINTS]
 
@@ -295,6 +322,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S21
+[POSITION: 21]
 [SLIDE: 21]
 [TYPE: PULL QUOTE]
 
@@ -305,6 +333,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S22
+[POSITION: 22]
 [SLIDE: 22]
 [TYPE: COMPARISON TABLE]
 
@@ -321,6 +350,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S23
+[POSITION: 23]
 [SLIDE: 23]
 [TYPE: BAR CHART]
 
@@ -335,6 +365,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S24
+[POSITION: 24]
 [SLIDE: 24]
 [TYPE: ROADMAP]
 
@@ -358,6 +389,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S25
+[POSITION: 25]
 [SLIDE: 25]
 [TYPE: MATRIX]
 
@@ -373,6 +405,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S26
+[POSITION: 26]
 [SLIDE: 26]
 [TYPE: IMAGE]
 
@@ -385,6 +418,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S27
+[POSITION: 27]
 [SLIDE: 27]
 [TYPE: BIG STATEMENT]
 
@@ -394,6 +428,7 @@ VARIABLES:
 
 -------------------------------------------------
 // S28
+[POSITION: 28]
 [SLIDE: ADV-1]
 [TYPE: CUSTOM HTML]
 // Advanced block — embeds raw HTML/CSS/JS you supply, inserted exactly as written.
