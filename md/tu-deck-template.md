@@ -1,10 +1,12 @@
 # Teesside University — HTML Deck Authoring Template
-**Version:** 2.0  ·  **Updated:** October 2026  ·  **Mode:** Linked (hosted CSS/JS/font)
+**Version:** 2.0.1  ·  **Updated:** October 2026  ·  **Mode:** Linked (hosted CSS/JS/font)
 
 > **Always download a fresh copy of this template for each new deck** — don't reuse an old one, or you'll miss new blocks and fixes.
 > Keep this file's name (`tu-deck-template.md`). When you fill it in, **Save As** under your presentation's name (e.g. `open-day-review.md`).
 >
 > **v2.0 (Oct 2026) — what changed for authors:** every slide now has a `[POSITION: N]` header line (see **SLIDE HEADER FIELDS**), and Jump links / Attribution point at slides with `POSITION N` instead of `SLIDE NN`. This fixes the old problem where `SLIDE 16` could mean either of two slides. **Content files written for earlier versions still compile** — old `SLIDE NN` references are accepted (rules in SLIDE HEADER FIELDS) — but add `[POSITION:]` tags before you next edit one.
+>
+> **v2.0.1:** documented the optional `[CREDIT LINK]` field on the Attribution modifier (it was already supported by the CSS and used in the sample, but missing from this file's field table).
 >
 > **v1.9:** formalised the `//` comment rule, slide-order-is-file-order, and blank-but-present brackets being treated as omitted.
 >
@@ -925,14 +927,18 @@ Add this `<div>` inside any content slide, **just before** its `<div class="digi
 | `[MODIFIER]` | ATTRIBUTION on POSITION [n] — the slide (by its `[POSITION: n]` tag) this overlay attaches to. Legacy `ATTRIBUTION on SLIDE [n]` is accepted only if that number is unique — see SLIDE HEADER FIELDS | No — once |
 | `[CREDIT TITLE]` | attr-title text | No — once |
 | `[CREDIT META]` | attr-meta text | No — once |
+| `[CREDIT LINK]` | optional — adds a gold underlined "Source ↗" link beneath the credit, pointing to the URL given (same `card-link` style as Block 09). Omit the line, or leave it empty, for no link. | No — once |
 
 ```html
 <div class="attr-block">
   <div class="attr-title">Web Copy Workflow Automation</div>
   <div class="attr-meta">Matt Hudson | SRM AI Working Group &middot; 2026</div>
+  <a class="card-link" href="https://www.tees.ac.uk" target="_blank" rel="noopener">Source &#8599;</a>
   <hr class="attr-divider">
 </div>
 ```
+
+The `<a class="card-link">` line is only present when `[CREDIT LINK]` is given. It sits between `attr-meta` and the `attr-divider`.
 
 ### Modifier — Jump links
 A row of small pill buttons that jump straight to another slide — useful on an agenda or overview slide so the audience (or presenter) can skip ahead. Uses the deck's built-in deep-linking; **automatically hidden in the PDF export** and reflows on mobile. Add this `<div>` inside any content slide, anywhere in `.slide-content`.
