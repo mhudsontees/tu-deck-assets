@@ -1,5 +1,5 @@
 # SAMPLE CONTENT — bracket-format test payload for tu-deck-template.md
-# Version: 2.2  |  Updated: 29 October 2026  |  Pairs with: tu-deck-template.md v2.2 and tu-styles.css v1.3
+# Version: 2.3  |  Updated: 29 October 2026  |  Pairs with: tu-deck-template.md v2.3 and tu-styles.css v1.4
 # Paste the master template first, then this whole block beneath it, then send the build instruction.
 # Every [BRACKET: value] maps to that block's "Content fields" table in the template.
 # This is throwaway test/reference content. Colleagues copy this LAYOUT, not this wording — replace
@@ -432,7 +432,7 @@ VARIABLES:
 [SLIDE: 28]
 [TYPE: SCORE CARD]
 // Score card: give [SCORE] for the circle, [BAR LABEL]/[BAR VALUE]/[BAR MAX] lines for the bars, or both.
-// Leave out the fields for any part you do not want. [SCORE COLOUR: gold] overrides the green/gold/red banding.
+// Leave out the fields for any part you do not want. [SCORE COLOUR: strict] makes bars green only at full marks; [SCORE COLOUR: gold] makes everything gold.
 
 [ABOVE TITLE: Section 07 — Review]
 [TITLE: Prompt quality score]

@@ -1,10 +1,12 @@
 # Teesside University — HTML Deck Authoring Template
-**Version:** 2.2  ·  **Updated:** 29 October 2026  ·  **Mode:** Linked (hosted CSS/JS/font)
+**Version:** 2.3  ·  **Updated:** 29 October 2026  ·  **Mode:** Linked (hosted CSS/JS/font)
 
 > **Always download a fresh copy of this template for each new deck** — don't reuse an old one, or you'll miss new blocks and fixes.
 > Keep this file's name (`tu-deck-template.md`). When you fill it in, **Save As** under your presentation's name (e.g. `open-day-review.md`).
 >
 > **v2.0 (Oct 2026) — what changed for authors:** every slide now has a `[POSITION: N]` header line (see **SLIDE HEADER FIELDS**), and Jump links / Attribution point at slides with `POSITION N` instead of `SLIDE NN`. This fixes the old problem where `SLIDE 16` could mean either of two slides. **Content files written for earlier versions still compile** — old `SLIDE NN` references are accepted (rules in SLIDE HEADER FIELDS) — but add `[POSITION:]` tags before you next edit one.
+>
+> **v2.3 (29 Oct 2026):** Score card gains `[SCORE COLOUR: strict]` (bars green only at full marks). Needs `tu-styles.css` v1.4 or later.
 >
 > **v2.2 (29 Oct 2026):** new **inline formatting** for body text — `{b}…{/b}` bold, `{i}…{/i}` italic, `{link: Label | https://…}` external link with a ↗ arrow (see **INLINE FORMATTING**). Needs `tu-styles.css` v1.3 or later.
 >
@@ -955,10 +957,14 @@ A score card shows **a circular score, horizontal bars, or both.** Both parts ar
 | `[BAR LABEL]` | the name of one bar. **Bars are drawn only if at least one is given.** | Yes — one bar per line |
 | `[BAR VALUE]` | that bar's value, e.g. 15 (the `[BAR VALUE]` always follows its `[BAR LABEL]` on the same line) | Yes — one per bar |
 | `[BAR MAX]` | that bar's maximum, e.g. 20 — optional per bar. Shown as `15/20`. If omitted the bar is out of 100 and shown as `15%` | Yes — one per bar |
-| `[SCORE COLOUR]` | optional: `auto` (default) or `gold`. See colours below | No — once |
+| `[SCORE COLOUR]` | optional: `auto` (default), `strict` or `gold`. See colours below | No — once |
 | `[SOURCE]` | src-note text — optional | No — once |
 
-**Colours (`auto`):** each circle and bar is coloured by how full it is — **80% or more green** (`score-good`), **50–79% gold** (`score-mid`), **under 50% muted red** (`score-low`). Percentages are computed from value ÷ max, rounded to one decimal place in the SVG. `[SCORE COLOUR: gold]` makes everything brand gold (`score-gold`) instead — use it when red/green would send the wrong message. Never colour by hand.
+**Colours:** every circle and bar is coloured by how full it is. `[SCORE COLOUR]` picks the scheme:
+- `auto` (default) — **80% or more green** (`score-good`), **50–79% gold** (`score-mid`), **under 50% muted red** (`score-low`), for both the circle and the bars.
+- `strict` — bars are **green only at full marks**, otherwise gold (and muted red at 0); the circle still uses the `auto` bands. Use this to mirror tools that only show green for a maxed-out category.
+- `gold` — everything brand gold (`score-gold`). Use when red/green would send the wrong message.
+Percentages are value ÷ max. Never colour by hand.
 
 **Build rules:** the circle is an SVG using `pathLength="100"`, so the filled arc is `stroke-dasharray="P (100-P)"` where P is the percentage; omit the filled circle entirely when P is 0. Bars are `<progress>` elements (no inline styles). Clamp every percentage to 0–100. Never output `[SCORE COLOUR]` as text.
 
