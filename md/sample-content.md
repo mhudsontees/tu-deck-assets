@@ -1,5 +1,5 @@
 # SAMPLE CONTENT — bracket-format test payload for tu-deck-template.md
-# Version: 2.0  |  Updated: October 2026  |  Pairs with: tu-deck-template.md v2.0
+# Version: 2.2  |  Updated: 29 October 2026  |  Pairs with: tu-deck-template.md v2.2 and tu-styles.css v1.3
 # Paste the master template first, then this whole block beneath it, then send the build instruction.
 # Every [BRACKET: value] maps to that block's "Content fields" table in the template.
 # This is throwaway test/reference content. Colleagues copy this LAYOUT, not this wording — replace
@@ -8,7 +8,7 @@
 # SLIDE HEADER — every slide starts with three lines:
 #   [POSITION: N]  = this slide's place in the deck (1 = first). Must be UNIQUE. Used by Jump links
 #                    and Attribution to point at a slide. Does not change the build order.
-#   [SLIDE: NN]    = which block pattern to use (01–27, or ADV-1). May repeat as often as you like.
+#   [SLIDE: NN]    = which block pattern to use (01–28, or ADV-1). May repeat as often as you like.
 #   [TYPE: ...]    = the block's name, for human readers.
 # If you add, remove or move a slide, renumber the [POSITION:] tags (and any "POSITION N" references
 # in Jump links) so each value is used once. Modifiers (Jump links, Attribution) have no [POSITION:].
@@ -174,11 +174,11 @@ VARIABLES:
 [ABOVE TITLE: Section 03 — People]
 [TITLE: Principles we agreed]
 
-[BULLET: Approved tools first — University data stays within policy.]
+[BULLET: Approved tools first — {b}University data stays within policy{/b}.]
 [BULLET: Start with workflows that already cause friction.]
 [BULLET: Document use cases properly so investment requests have evidence.]
-[BULLET: Share what works across departments rather than rebuilding it.]
-[BULLET: Keep a human check on anything that reaches a student or applicant.]
+[BULLET: Share what works across departments rather than {i}rebuilding it{/i}.]
+[BULLET: Keep a human check on anything that reaches a student or applicant. {link: Example link | https://www.tees.ac.uk}]
 
 -------------------------------------------------
 // S12
@@ -429,10 +429,31 @@ VARIABLES:
 -------------------------------------------------
 // S28
 [POSITION: 28]
+[SLIDE: 28]
+[TYPE: SCORE CARD]
+// Score card: give [SCORE] for the circle, [BAR LABEL]/[BAR VALUE]/[BAR MAX] lines for the bars, or both.
+// Leave out the fields for any part you do not want. [SCORE COLOUR: gold] overrides the green/gold/red banding.
+
+[ABOVE TITLE: Section 07 — Review]
+[TITLE: Prompt quality score]
+[SCORE: 81]
+[SCORE MAX: 100]
+[SCORE LABEL: Excellent]
+[BARS HEADING: 5-category breakdown]
+[BAR LABEL: Role / persona][BAR VALUE: 15][BAR MAX: 15]
+[BAR LABEL: Specificity][BAR VALUE: 14][BAR MAX: 15]
+[BAR LABEL: Context][BAR VALUE: 10][BAR MAX: 10]
+[BAR LABEL: Structure][BAR VALUE: 6][BAR MAX: 15]
+[BAR LABEL: Examples][BAR VALUE: 0][BAR MAX: 5]
+[SOURCE: Illustrative scores — replace with your own.]
+
+-------------------------------------------------
+// S29
+[POSITION: 29]
 [SLIDE: ADV-1]
 [TYPE: CUSTOM HTML]
 // Advanced block — embeds raw HTML/CSS/JS you supply, inserted exactly as written.
-// Not one of the 27 tested blocks. Not for general use — only reach for this if nothing
+// Not one of the 28 tested blocks. Not for general use — only reach for this if nothing
 // in the block library can do what you need. Custom class names MUST use a unique prefix
 // (e.g. cx-yourtopic) and must never reuse a class already in tu-styles.css or target
 // .slide / .slide-content / #deck / body directly — doing so can break the rest of the deck.

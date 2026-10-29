@@ -1,10 +1,14 @@
 # Teesside University — HTML Deck Authoring Template
-**Version:** 2.0.1  ·  **Updated:** October 2026  ·  **Mode:** Linked (hosted CSS/JS/font)
+**Version:** 2.2  ·  **Updated:** 29 October 2026  ·  **Mode:** Linked (hosted CSS/JS/font)
 
 > **Always download a fresh copy of this template for each new deck** — don't reuse an old one, or you'll miss new blocks and fixes.
 > Keep this file's name (`tu-deck-template.md`). When you fill it in, **Save As** under your presentation's name (e.g. `open-day-review.md`).
 >
 > **v2.0 (Oct 2026) — what changed for authors:** every slide now has a `[POSITION: N]` header line (see **SLIDE HEADER FIELDS**), and Jump links / Attribution point at slides with `POSITION N` instead of `SLIDE NN`. This fixes the old problem where `SLIDE 16` could mean either of two slides. **Content files written for earlier versions still compile** — old `SLIDE NN` references are accepted (rules in SLIDE HEADER FIELDS) — but add `[POSITION:]` tags before you next edit one.
+>
+> **v2.2 (29 Oct 2026):** new **inline formatting** for body text — `{b}…{/b}` bold, `{i}…{/i}` italic, `{link: Label | https://…}` external link with a ↗ arrow (see **INLINE FORMATTING**). Needs `tu-styles.css` v1.3 or later.
+>
+> **v2.1 (29 Oct 2026):** new **Block 28 — Score card** (circular score and/or horizontal bars, either optional). Needs `tu-styles.css` v1.2 or later (decks built with this block will look unstyled against an older CSS).
 >
 > **v2.0.1:** documented the optional `[CREDIT LINK]` field on the Attribution modifier (it was already supported by the CSS and used in the sample, but missing from this file's field table).
 >
@@ -56,6 +60,7 @@ DECK_VERSION:    [optional — footer version/date, e.g. v1 · Sept 2026. Leave 
 - **Slide order is file order — the number in `[SLIDE: NN]` is not a position.** `NN` names which block *pattern* to use (Block 11, Block 20, etc.); it says nothing about where that slide lands in the deck, and the same number is expected to repeat many times across one deck. Build slides in the exact top-to-bottom order they appear in the colleague's file, regardless of which block numbers they use. To reorder a slide, the colleague moves it in the file — not by changing its `[SLIDE: NN]` number. (This is also why cross-slide references — Jump links, Attribution — use `[POSITION: N]` tags and never a bare `SLIDE NN`, which is ambiguous whenever that number repeats. See **SLIDE HEADER FIELDS**.)
 - **A bracket that's present but empty is treated exactly like an omitted bracket.** `[OWNER: ]` (the colon followed by nothing) means the same as leaving the whole `[OWNER: ...]` line out — render as if the field were never given at all (e.g. no `action-owner` span, not an empty one), never as a visible blank. This holds for every optional field in every block, not only the `[MISTAKE]`/`[TAKEAWAY]` fields that already state their own omission rule explicitly.
 - **Where content references another slide** (the Jump links modifier's `-> POSITION NN`, an Attribution's `on POSITION N`), find the slide carrying that `[POSITION: N]` tag and resolve the reference to that slide's actual `id` — you assign every slide's id, so you already know the mapping. Never leave a `POSITION N` or `SLIDE NN` reference untranslated in the output HTML. The matching rules, and what to do when a reference can't be resolved cleanly, are in **SLIDE HEADER FIELDS** — if a reference is ambiguous or points at nothing, **do not guess**: reply with a short plain-text list of the problem instead of the HTML.
+- **Inline formatting:** body-text fields may contain `{b}…{/b}`, `{i}…{/i}` and `{link: Label | https://…}` — see **INLINE FORMATTING**. Convert them as specified there; never output the braces.
 - **`[TYPE: CUSTOM HTML]` (Advanced Block A) is the one exception to "do not add or change any CSS."** Insert its `[CODE BLOCK: ...]` fenced content verbatim, unmodified — do not compose it from field values like every other block. See its own section under ADVANCED BLOCKS for the full rule.
 
 ---
@@ -146,7 +151,7 @@ Every slide in the content file starts with these header lines, in this order:
 | Bracket | Meaning | Required? |
 |---|---|---|
 | `[POSITION: N]` | **This slide's place in the deck, as a human-readable tag.** A whole number, 1 = first slide. It is a *label for people and for cross-references* — it does not change the build order (file order does, see Instructions). Each value must appear **once** in the file. | Yes (see legacy rule below) |
-| `[SLIDE: NN]` | Which **block pattern** (01–27, or `ADV-1`) to build. Repeats freely — five Heading-and-points slides are five `[SLIDE: 11]` lines. | Yes |
+| `[SLIDE: NN]` | Which **block pattern** (01–28, or `ADV-1`) to build. Repeats freely — five Heading-and-points slides are five `[SLIDE: 11]` lines. | Yes |
 | `[TYPE: ...]` | The block's plain-English name. For human readers only; if it ever disagrees with `[SLIDE: NN]`, trust the number. | Yes |
 
 **Modifiers** (`[MODIFIER: ...]`) are not slides, so they take **no** `[POSITION:]` line. They name the slide they attach to by its position tag, e.g. `[MODIFIER: JUMP LINKS on POSITION 3]`.
@@ -160,6 +165,23 @@ Every slide in the content file starts with these header lines, in this order:
 **Legacy content (written before v2.0):** if a file has **no** `[POSITION:]` tags at all, the old `SLIDE NN` references are still accepted — but only where `NN` is **unique** across the file's `[SLIDE:]` headers. If the `NN` a reference names appears on more than one slide, that reference is ambiguous: stop and report it as in rule 2, and ask the author to add `[POSITION:]` tags. Never silently pick the nearest or first match.
 
 **Never output** the `[POSITION:]` value as slide text. It is authoring metadata. (The slide's footer number is generated from its real place in the deck.)
+
+---
+
+## ✍️ INLINE FORMATTING
+
+Three optional markers can be used **inside body-text fields** — `[PARAGRAPH]`, `[BULLET]`, `[LEFT BULLET]`/`[RIGHT BULLET]`, `[CARD BODY]`, `[ITEMS]`, comparison-table cells, `[MISTAKE]`, `[TAKEAWAY]`, `[STATEMENT]` and similar free-text fields. They follow the same `{curly}` convention as `{em}`, `{yes}` and `{priority}`.
+
+| Marker | Renders as | Notes |
+|---|---|---|
+| `{b}text{/b}` | `<strong>text</strong>` — bold, white | Use sparingly — one key phrase per bullet at most |
+| `{i}text{/i}` | `<em>text</em>` — italic | In Block 27 (Big statement) `{em}` is still the gold emphasis; `{i}` there also renders gold, not italic |
+| `{link: Label \| https://example.com}` | `<a class="inline-link" href="https://example.com" target="_blank" rel="noopener">Label</a>` — gold, underlined, ↗ arrow added by CSS | The URL **must** start with `https://` or `http://`. Do not add an arrow or icon yourself. |
+
+Rules:
+- **Never** use these in `[TITLE]`, `[ABOVE TITLE]`, `[SCORE LABEL]`, `[BAR LABEL]` or any other label/heading field — render those as plain text.
+- Markers must be properly paired and must not overlap or nest inside each other (a `{link}` label may not contain `{b}`). An unpaired `{b}` or `{i}`, or a `{link}` whose URL isn't http(s), is an authoring error: **do not guess** — stop and list the problem.
+- Never output the curly-brace text itself. Do not add `<style>` or inline styles for any of these.
 
 ---
 
@@ -415,18 +437,18 @@ Every slide in the content file starts with these header lines, in this order:
 |---|---|---|
 | `[ABOVE TITLE]` | slide-label text | No — once |
 | `[TITLE]` | slide-h2 text | No — once |
-| `[BULLET]` | one slide-list <li> per line — up to ~5 | Yes — one line per item |
+| `[BULLET]` | one slide-list <li> per line — up to ~5. May use `{b}` `{i}` `{link}` (see INLINE FORMATTING) | Yes — one line per item |
 
 ```html
 <span class="slide-label">Section 03 &mdash; People</span>
 <h2 class="slide-h2">Principles we agreed</h2>
 <div class="gold-rule"></div>
 <ul class="slide-list">
-  <li>Approved tools first &mdash; University data stays within policy.</li>
+  <li>Approved tools first &mdash; <strong>University data stays within policy</strong>.</li>
   <li>Start with workflows that already cause friction.</li>
   <li>Document use cases properly so investment requests have evidence.</li>
-  <li>Share what works across departments rather than rebuilding it.</li>
-  <li>Keep a human check on anything that reaches a student or applicant.</li>
+  <li>Share what works across departments rather than <em>rebuilding it</em>.</li>
+  <li>Keep a human check on anything that reaches a student or applicant. <a class="inline-link" href="https://www.tees.ac.uk" target="_blank" rel="noopener">Example link</a></li>
 </ul>
 ```
 
@@ -911,6 +933,62 @@ Every slide in the content file starts with these header lines, in this order:
 <div class="statement">The gap is not <em>capability</em>. It is <em>permission</em>.</div>
 <p class="statement-sub">Staff are already doing the work. Our job is to make the supported route the easy one.</p>
 ```
+### Block 28 — Score card  ·  **NEW in v2.1**
+**Section tag:** `<section class="slide type-score" id="[semantic-id]">`
+
+A score card shows **a circular score, horizontal bars, or both.** Both parts are optional — include only the fields for the part(s) you want:
+- **Circle only** → give `[SCORE]` (and optionally `[SCORE MAX]`, `[SCORE LABEL]`); give no `[BAR LABEL]` lines.
+- **Bars only** → give `[BAR LABEL]`/`[BAR VALUE]` lines; give no `[SCORE]`.
+- **Both** → give `[SCORE]` *and* bars. The circle sits on the left, the bars on the right (stacked on mobile).
+- If neither is given, stop and tell the author the slide has nothing to show.
+
+**Content fields:**
+
+| Bracket | Maps to | Repeats? |
+|---|---|---|
+| `[ABOVE TITLE]` | slide-label text | No — once |
+| `[TITLE]` | slide-h2 text | No — once |
+| `[SCORE]` | the number in the middle of the circle, e.g. 81. **Circle is drawn only if this is given.** | No — once |
+| `[SCORE MAX]` | what the score is out of — optional, default 100. Drives how much of the circle is filled | No — once |
+| `[SCORE LABEL]` | short verdict under the number, e.g. Excellent — optional | No — once |
+| `[BARS HEADING]` | small caps heading above the bars — optional | No — once |
+| `[BAR LABEL]` | the name of one bar. **Bars are drawn only if at least one is given.** | Yes — one bar per line |
+| `[BAR VALUE]` | that bar's value, e.g. 15 (the `[BAR VALUE]` always follows its `[BAR LABEL]` on the same line) | Yes — one per bar |
+| `[BAR MAX]` | that bar's maximum, e.g. 20 — optional per bar. Shown as `15/20`. If omitted the bar is out of 100 and shown as `15%` | Yes — one per bar |
+| `[SCORE COLOUR]` | optional: `auto` (default) or `gold`. See colours below | No — once |
+| `[SOURCE]` | src-note text — optional | No — once |
+
+**Colours (`auto`):** each circle and bar is coloured by how full it is — **80% or more green** (`score-good`), **50–79% gold** (`score-mid`), **under 50% muted red** (`score-low`). Percentages are computed from value ÷ max, rounded to one decimal place in the SVG. `[SCORE COLOUR: gold]` makes everything brand gold (`score-gold`) instead — use it when red/green would send the wrong message. Never colour by hand.
+
+**Build rules:** the circle is an SVG using `pathLength="100"`, so the filled arc is `stroke-dasharray="P (100-P)"` where P is the percentage; omit the filled circle entirely when P is 0. Bars are `<progress>` elements (no inline styles). Clamp every percentage to 0–100. Never output `[SCORE COLOUR]` as text.
+
+```html
+<span class="slide-label">Section 02 &mdash; Prompt review</span>
+<h2 class="slide-h2">Your prompt score</h2>
+<div class="gold-rule"></div>
+<div class="score-wrap">
+  <svg class="score-ring score-good" viewBox="0 0 220 220" role="img" aria-label="Score 81 out of 100, Excellent">
+    <circle class="score-ring-track" cx="110" cy="110" r="94" pathLength="100"></circle>
+    <circle class="score-ring-value" cx="110" cy="110" r="94" pathLength="100" stroke-dasharray="81.0 19.0"></circle>
+    <text class="score-ring-num" x="110" y="104" text-anchor="middle" dominant-baseline="middle">81</text>
+    <text class="score-ring-max" x="110" y="138" text-anchor="middle">/ 100</text>
+    <text class="score-ring-label" x="110" y="168" text-anchor="middle">Excellent</text>
+  </svg>
+  <div class="score-bars">
+    <div class="score-bars-head">8-category breakdown</div>
+    <div class="score-bar-row score-mid"><div class="score-bar-top"><span>Length &amp; Detail</span><span class="score-bar-num">15/20</span></div><progress class="score-bar" value="15" max="20" aria-label="Length &amp; Detail: 15/20"></progress></div>
+    <div class="score-bar-row score-good"><div class="score-bar-top"><span>Role/Persona</span><span class="score-bar-num">15/15</span></div><progress class="score-bar" value="15" max="15" aria-label="Role/Persona: 15/15"></progress></div>
+    <div class="score-bar-row score-good"><div class="score-bar-top"><span>Specificity</span><span class="score-bar-num">15/15</span></div><progress class="score-bar" value="15" max="15" aria-label="Specificity: 15/15"></progress></div>
+    <div class="score-bar-row score-low"><div class="score-bar-top"><span>Structure</span><span class="score-bar-num">6/15</span></div><progress class="score-bar" value="6" max="15" aria-label="Structure: 6/15"></progress></div>
+    <div class="score-bar-row score-good"><div class="score-bar-top"><span>Output Format</span><span class="score-bar-num">10/10</span></div><progress class="score-bar" value="10" max="10" aria-label="Output Format: 10/10"></progress></div>
+    <div class="score-bar-row score-good"><div class="score-bar-top"><span>Constraints</span><span class="score-bar-num">10/10</span></div><progress class="score-bar" value="10" max="10" aria-label="Constraints: 10/10"></progress></div>
+    <div class="score-bar-row score-good"><div class="score-bar-top"><span>Context</span><span class="score-bar-num">10/10</span></div><progress class="score-bar" value="10" max="10" aria-label="Context: 10/10"></progress></div>
+    <div class="score-bar-row score-low"><div class="score-bar-top"><span>Examples</span><span class="score-bar-num">0/5</span></div><progress class="score-bar" value="0" max="5" aria-label="Examples: 0/5"></progress></div>
+  </div>
+</div>
+<p class="src-note">Illustrative scores &mdash; replace with your own.</p>
+```
+
 ---
 
 ## 🧩 MODIFIERS
@@ -963,9 +1041,9 @@ A row of small pill buttons that jump straight to another slide — useful on an
 
 ## 🔧 ADVANCED BLOCKS (optional — use with care)
 
-> These are **not** part of the tested 27-block library. They are an escape hatch for bespoke content the block library can't express — genuinely self-contained infographics, custom visualisations, anything that needs its own HTML/CSS/JS. Labelled `ADV-` rather than numbered, so adding more later never forces a renumber of the 1–27 sequence.
+> These are **not** part of the tested 28-block library. They are an escape hatch for bespoke content the block library can't express — genuinely self-contained infographics, custom visualisations, anything that needs its own HTML/CSS/JS. Labelled `ADV-` rather than numbered, so adding more later never forces a renumber of the 1–28 sequence.
 >
-> **Before using one:** you are responsible for testing it yourself — mobile, desktop and PDF. Unlike the 27 core blocks, an advanced block's content is unique every time, so it can't be pre-verified once for everyone.
+> **Before using one:** you are responsible for testing it yourself — mobile, desktop and PDF. Unlike the 28 core blocks, an advanced block's content is unique every time, so it can't be pre-verified once for everyone.
 
 ### Advanced Block A — Custom HTML
 A single slide holding an optional heading, then a fenced block of your own HTML/CSS/JS, inserted **exactly as you wrote it**.
