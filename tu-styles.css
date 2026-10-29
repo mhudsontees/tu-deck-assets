@@ -1,6 +1,10 @@
 /* ============================================================
    tu-styles.css — Teesside University deck design system
-   Version 1.1  ·  29 Oct 2026
+   Version 1.3  ·  29 Oct 2026
+   v1.3: list items (.slide-list/.ob-list/.roadmap-list li) changed from flex to block so inline markup flows
+         correctly (bullet positions unchanged); inline formatting — {b}/{i} render as <strong>/<em> (bold = white, italic); {link: Label | url} renders
+         as .inline-link (gold, underlined, with a ↗ arrow added by CSS).
+   v1.2: NEW Block 28 — Score card (circular score and/or horizontal bars, either optional).
    v1.1: all text sizes +2px (except 'above title' labels and the footer);
          matrix block enlarged to fill the slide; body paragraph colour lifted
          from --muted to the new --text-soft token for contrast.
@@ -290,6 +294,13 @@ html, body {
   transition: opacity .2s;
 }
 .card-link:hover { opacity: .75; }
+
+/* v1.3 — inline formatting inside body text ({b} {i} {link}) */
+.slide strong, .slide b { color: #fff; font-weight: 700; }
+.slide em, .slide i { font-style: italic; }
+.inline-link { color: var(--gold-lt); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.inline-link::after { content: "\00a0\2197"; display: inline-block; text-decoration: none; }
+.inline-link:hover { opacity: .75; }
 .project-badge {
   display: inline-block; align-self: flex-start;
   font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
@@ -303,13 +314,13 @@ html, body {
    ============================================================ */
 .slide-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
 .slide-list li {
-  display: flex; align-items: flex-start; gap: 14px;
+  display: block; position: relative; padding-left: 20px;   /* v1.3: block (was flex) so inline {b}/{i}/{link} flow as normal text */
   font-size: clamp(19px,calc(1.9vw + 2px),24px); line-height: 1.55; color: rgba(255,255,255,.88);
 }
-.slide-list li::before { content: ''; flex-shrink: 0; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); margin-top: 10px; }
+.slide-list li::before { content: ''; position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
 .col-head { font-size: 14px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: 16px; }
-.two-col .slide-list li { font-size: clamp(17px,calc(1.6vw + 2px),21px); gap: 12px; }
+.two-col .slide-list li { font-size: clamp(17px,calc(1.6vw + 2px),21px); padding-left: 18px; }
 
 /* ============================================================
    BLOCK 14 — DISCUSSION CARDS (2×2)
@@ -333,8 +344,8 @@ html, body {
 .opp-col .ob-label     { color: var(--pos); }
 .blocker-col .ob-label { color: var(--neg); }
 .ob-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-.ob-list li { display: flex; gap: 12px; font-size: clamp(16px,calc(1.5vw + 2px),19px); line-height: 1.5; color: rgba(255,255,255,.88); }
-.ob-list li::before { content: ''; flex-shrink: 0; width: 5px; height: 5px; border-radius: 50%; margin-top: 9px; background: currentColor; opacity: .5; }
+.ob-list li { display: block; position: relative; padding-left: 17px; font-size: clamp(16px,calc(1.5vw + 2px),19px); line-height: 1.5; color: rgba(255,255,255,.88); }
+.ob-list li::before { content: ''; position: absolute; left: 0; top: 9px; width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: .5; }
 
 /* ============================================================
    BLOCK 17 — FLOWCHART
@@ -453,8 +464,8 @@ html, body {
 .roadmap-phase { font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: 4px; }
 .roadmap-when { font-size: 13px; color: var(--muted2); margin-bottom: 16px; }
 .roadmap-list { list-style: none; display: flex; flex-direction: column; gap: 11px; }
-.roadmap-list li { display: flex; gap: 10px; font-size: clamp(15px,calc(1.4vw + 2px),18px); line-height: 1.45; color: rgba(255,255,255,.88); }
-.roadmap-list li::before { content: ''; flex-shrink: 0; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); margin-top: 8px; }
+.roadmap-list li { display: block; position: relative; padding-left: 15px; font-size: clamp(15px,calc(1.4vw + 2px),18px); line-height: 1.45; color: rgba(255,255,255,.88); }
+.roadmap-list li::before { content: ''; position: absolute; left: 0; top: 8px; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
 
 /* ============================================================
    MODIFIER — 2×2 MATRIX / QUADRANT
@@ -472,6 +483,31 @@ html, body {
 .matrix-cell-label { font-size: clamp(13px,1.1vw,16px); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-lt); }
 .matrix-cell-items { font-size: clamp(19px,2.1vw,30px); color: var(--text-soft); line-height: 1.35; font-weight: 500; }
 .matrix-x { text-align: center; font-size: clamp(14px,calc(1.15vw + 2px),20px); font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-lt); margin-top: 14px; }
+
+/* ============================================================
+   BLOCK 28 — SCORE CARD  (v1.2)  circular score and/or horizontal bars
+   Colour is set per element by a class: score-good / score-mid / score-low / score-gold
+   ============================================================ */
+.score-good { --sc: var(--pos); }
+.score-mid  { --sc: var(--gold-lt); }
+.score-low  { --sc: var(--neg); }
+.score-gold { --sc: var(--gold-lt); }
+.score-wrap { display: flex; align-items: center; gap: clamp(32px,5vw,88px); flex-wrap: wrap; margin-top: 8px; }
+.score-ring { width: min(clamp(190px,22vw,300px),36vh); height: auto; flex-shrink: 0; }
+.score-ring-track { fill: none; stroke: var(--surface2); stroke-width: 14; }
+.score-ring-value { fill: none; stroke: var(--sc); stroke-width: 14; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; }
+.score-ring-num   { font-family: var(--font-title); font-size: 66px; font-weight: 800; fill: #fff; }
+.score-ring-max   { font-size: 17px; fill: var(--muted); }
+.score-ring-label { font-size: 19px; font-weight: 700; fill: var(--sc); }
+.score-bars { flex: 1 1 360px; min-width: 0; max-width: 940px; display: flex; flex-direction: column; gap: clamp(7px,1.3vh,18px); }
+.score-bars-head { font-size: clamp(14px,min(2.2vh,calc(1.1vw + 2px)),18px); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #fff; margin-bottom: 2px; }
+.score-bar-row { display: flex; flex-direction: column; gap: 5px; }
+.score-bar-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; font-size: clamp(15px,min(2.4vh,calc(1.3vw + 2px)),21px); color: var(--text-soft); }
+.score-bar-num { color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.score-bar { -webkit-appearance: none; appearance: none; display: block; width: 100%; height: clamp(7px,1vh,10px); border: 0; border-radius: 5px; background: var(--surface2); overflow: hidden; color: var(--sc); }
+.score-bar::-webkit-progress-bar { background: var(--surface2); border-radius: 5px; }
+.score-bar::-webkit-progress-value { background: var(--sc); border-radius: 5px; }
+.score-bar::-moz-progress-bar { background: var(--sc); border-radius: 5px; }
 
 /* ============================================================
    MODIFIER — IMAGE / MEDIA (CDN-hosted)
@@ -554,6 +590,9 @@ html, body {
   .matrix { grid-template-columns: 1fr; grid-template-rows: auto; }
   .matrix-cell { min-height: 0; }
   .matrix-cell-items { font-size: 18px; }
+  .score-wrap { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .score-ring { width: min(220px,60vw); }
+  .score-bars { flex-basis: auto; width: 100%; }
   .action-item { flex-wrap: wrap; }
   .action-owner { margin-left: 46px; padding-top: 0; }
   .media-img { max-height: 34vh; }
